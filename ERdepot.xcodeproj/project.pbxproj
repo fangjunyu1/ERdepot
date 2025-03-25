@@ -141,19 +141,33 @@
 			isa = PBXGroup;
 			children = (
 				1D1BABE92CBF4FE700FDA031 /* privacyPolicyPage.swift */,
-				1D1BABEB2CBF5EB000FDA031 /* Color.swift */,
 				1D0DEC2E2CBF7ABA00FB926C /* HomeView.swift */,
 				1D0DEC302CBF7AE100FB926C /* WarehouseView.swift */,
 				1D151F4D2CC2339500ACFA8D /* Settings.swift */,
-				1D807D5A2CC349690078DD91 /* MailComposeViewController.swift */,
-				1DC0E9DB2CC3EA4200C1A9BA /* IAPManager.swift */,
-				1DD84DD42CC74DD300C55178 /* LottieView.swift */,
 				1D363DE52CCDDFF000874409 /* CurrencySwitcherView.swift */,
 				1DC6DD542CCE42C100869DCE /* SwitchCurrentCurrency.swift */,
 				1DC6DD562CCE544800869DCE /* SwitchLanague.swift */,
-				1DC6DD582CCE554800869DCE /* LanguageManager.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1D2F73582D92F57000FC73BA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1DC0E9DB2CC3EA4200C1A9BA /* IAPManager.swift */,
+				1D807D5A2CC349690078DD91 /* MailComposeViewController.swift */,
+				1D1BABEB2CBF5EB000FDA031 /* Color.swift */,
+				1DC6DD582CCE554800869DCE /* LanguageManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1D2F73592D92F57600FC73BA /* ModelView */ = {
+			isa = PBXGroup;
+			children = (
+				1DD84DD42CC74DD300C55178 /* LottieView.swift */,
+			);
+			path = ModelView;
 			sourceTree = "<group>";
 		};
 		1D807D572CC3495B0078DD91 /* Frameworks */ = {
@@ -189,6 +203,8 @@
 		1D93E9CB2CBE57A6006E077C /* ERdepot */ = {
 			isa = PBXGroup;
 			children = (
+				1D2F73592D92F57600FC73BA /* ModelView */,
+				1D2F73582D92F57000FC73BA /* Model */,
 				1D0FA6D82D22510700ABF5F6 /* Strings */,
 				1DA81BDD2CCA3C1100C142E4 /* Exchange rate */,
 				1DFDDCAD2CBF90EE0023184A /* JSON */,
