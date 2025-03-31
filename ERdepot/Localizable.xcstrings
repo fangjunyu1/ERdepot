@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@" : {
+
+    },
     "AED" : {
       "comment" : "阿联酋迪拉姆",
       "extractionState" : "manual",
@@ -20460,6 +20463,9 @@
           }
         }
       }
+    },
+    "这里是空的" : {
+
     }
   },
   "version" : "1.0"
