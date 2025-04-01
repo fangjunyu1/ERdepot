@@ -10,6 +10,8 @@ import CoreData
 @main
 struct ERdepotApp: App {
     
+    @StateObject var appStorage = AppStorageManager.shared  // 共享实例
+    
     // 创建 NSPersistentContainer
     let container: NSPersistentContainer
     init() {
@@ -28,7 +30,8 @@ struct ERdepotApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, container.viewContext)
-                .environment(\.backgroundContext, container.newBackgroundContext()) 
+                .environment(\.backgroundContext, container.newBackgroundContext())
+                .environmentObject(appStorage)
         }
     }
 }

@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
     "AED" : {
       "comment" : "阿联酋迪拉姆",
       "extractionState" : "manual",
@@ -903,6 +900,9 @@
           }
         }
       }
+    },
+    "Back" : {
+
     },
     "CAD" : {
       "comment" : "加元",
@@ -2472,6 +2472,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "人民幣"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "comment" : "1.0.4:Continue",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
           }
         }
       }
@@ -18226,6 +18238,18 @@
         }
       }
     },
+    "Track historical foreign exchange rate trends." : {
+      "comment" : "1.0.4:追踪历史外币汇率变化趋势。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追踪历史外币汇率变化趋势。"
+          }
+        }
+      }
+    },
     "TRY" : {
       "comment" : "土耳其里拉",
       "extractionState" : "manual",
@@ -20236,6 +20260,30 @@
         }
       }
     },
+    "We provide free exchange rate data." : {
+      "comment" : "1.0.4:我们免费提供汇率数据。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我们免费提供汇率数据。"
+          }
+        }
+      }
+    },
+    "Welcome" : {
+      "comment" : "1.0.4:欢迎使用",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎使用"
+          }
+        }
+      }
+    },
     "ZAR" : {
       "comment" : "南非兰特",
       "extractionState" : "manual",
@@ -20463,9 +20511,6 @@
           }
         }
       }
-    },
-    "这里是空的" : {
-
     }
   },
   "version" : "1.0"

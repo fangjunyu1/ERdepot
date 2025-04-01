@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A0522D9A2F5B00A7E6A0 /* BackgroundContext.swift */; };
 		1D06A0562D9A3D2A00A7E6A0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D06A0552D9A3D2A00A7E6A0 /* Launch Screen.storyboard */; };
+		1D06A0582D9A472C00A7E6A0 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A0572D9A472C00A7E6A0 /* WelcomeView.swift */; };
+		1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */; };
+		1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */; };
+		1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */; };
 		1D0FA6DB2D22513A00ABF5F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D0FA6D92D22513A00ABF5F6 /* InfoPlist.strings */; };
 		1D1BABA72CBF45C500FDA031 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1D1BABA62CBF45C500FDA031 /* Localizable.xcstrings */; };
 		1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1BABEB2CBF5EB000FDA031 /* Color.swift */; };
@@ -48,6 +52,11 @@
 /* Begin PBXFileReference section */
 		1D06A0522D9A2F5B00A7E6A0 /* BackgroundContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundContext.swift; sourceTree = "<group>"; };
 		1D06A0552D9A3D2A00A7E6A0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1D06A0572D9A472C00A7E6A0 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		1D06A0592D9A477000A7E6A0 /* ERdepot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ERdepot.entitlements; sourceTree = "<group>"; };
+		1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
+		1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1D0FA6DA2D22513A00ABF5F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DC2D22517500ABF5F6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DD2D22517600ABF5F6 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -156,6 +165,9 @@
 		1D1BABE82CBF4FDD00FDA031 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D06A0572D9A472C00A7E6A0 /* WelcomeView.swift */,
+				1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */,
+				1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -166,6 +178,7 @@
 				1D1BABEB2CBF5EB000FDA031 /* Color.swift */,
 				1D5AA1632D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld */,
 				1D06A0522D9A2F5B00A7E6A0 /* BackgroundContext.swift */,
+				1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +226,7 @@
 		1D93E9CB2CBE57A6006E077C /* ERdepot */ = {
 			isa = PBXGroup;
 			children = (
+				1D06A0592D9A477000A7E6A0 /* ERdepot.entitlements */,
 				1D06A0542D9A3D0D00A7E6A0 /* StartPage */,
 				1D2F73592D92F57600FC73BA /* ModelView */,
 				1D2F73582D92F57000FC73BA /* Model */,
@@ -435,10 +449,14 @@
 				1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
 				1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */,
 				1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */,
+				1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */,
+				1D06A0582D9A472C00A7E6A0 /* WelcomeView.swift in Sources */,
 				1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */,
 				1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */,
 				1D5AA1652D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld in Sources */,
+				1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */,
 				1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */,
+				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +675,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ERdepot/ERdepot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"ERdepot/Preview Content\"";
@@ -696,6 +715,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ERdepot/ERdepot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"ERdepot/Preview Content\"";
