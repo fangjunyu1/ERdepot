@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var offsets: [CGFloat] = [-1550, -1800]
-    let animationDuration: Double = 60
+    @State private var offsets: [CGFloat] = [-3100, -3600]
+    let animationDuration: Double = 120
     @Binding var ViewSteps: Int
     @Environment(\.colorScheme) var color
     let countrys = [
