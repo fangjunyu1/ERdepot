@@ -71,6 +71,7 @@ struct WelcomeView: View {
                                     .frame(width: 100)
                                 Text(LocalizedStringKey(country))
                                     .font(.footnote)
+                                    .foregroundColor(Color(hex: "666666"))
                                     .fixedSize()
                             }
                         }

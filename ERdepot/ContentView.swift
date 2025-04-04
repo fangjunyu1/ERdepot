@@ -30,4 +30,5 @@ struct ContentView: View {
     }
     return ContentView()
         .environmentObject(AppStorageManager.shared)
+        .environment(\.locale, .init(identifier: "ja")) // 设置为阿拉伯语
 }

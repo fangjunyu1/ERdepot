@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@" : {
+
+    },
+    "¥ 888,888.00" : {
+
+    },
     "AED" : {
       "comment" : "阿联酋迪拉姆",
       "extractionState" : "manual",
@@ -901,9 +907,6 @@
         }
       }
     },
-    "Back" : {
-
-    },
     "CAD" : {
       "comment" : "加元",
       "extractionState" : "manual",
@@ -1128,6 +1131,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "加拿大元"
+          }
+        }
+      }
+    },
+    "Calculate exchange rates between currencies." : {
+      "comment" : "1.0.4:计算币种间的汇率。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计算币种间的汇率。"
           }
         }
       }
@@ -1572,6 +1587,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加泰羅尼亞語"
+          }
+        }
+      }
+    },
+    "Change Currency" : {
+      "comment" : "1.0.4:更换币种",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更换币种"
+          }
+        }
+      }
+    },
+    "Change the current currency." : {
+      "comment" : "1.0.4:更换当前币种。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更换当前币种。"
           }
         }
       }
@@ -2477,13 +2516,25 @@
       }
     },
     "Continue" : {
-      "comment" : "1.0.4:Continue",
+      "comment" : "1.0.4:继续",
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "继续"
+          }
+        }
+      }
+    },
+    "Conversion" : {
+      "comment" : "1.0.4:折算",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "折算"
           }
         }
       }
@@ -2711,7 +2762,7 @@
       }
     },
     "Current currency" : {
-      "comment" : "当前货币",
+      "comment" : "当前币种",
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -2915,7 +2966,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "当前货币"
+            "value" : "当前币种"
           }
         },
         "zh-Hant" : {
@@ -4048,6 +4099,18 @@
         }
       }
     },
+    "Email" : {
+      "comment" : "1.0.4:邮件",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "邮件"
+          }
+        }
+      }
+    },
     "English" : {
       "comment" : "英语",
       "extractionState" : "manual",
@@ -4572,6 +4635,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "歐元"
+          }
+        }
+      }
+    },
+    "European Central Bank" : {
+      "comment" : "1.0.4:欧洲央行",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欧洲央行"
           }
         }
       }
@@ -5928,6 +6003,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "芬蘭語"
+          }
+        }
+      }
+    },
+    "Foreign currency" : {
+      "comment" : "1.0.4:外币",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外币"
           }
         }
       }
@@ -8392,6 +8479,18 @@
         }
       }
     },
+    "Income" : {
+      "comment" : "1.0.4:收益",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收益"
+          }
+        }
+      }
+    },
     "Indonesian" : {
       "comment" : "印度尼西亚语",
       "extractionState" : "manual",
@@ -9508,6 +9607,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "Korean" : {
       "comment" : "韩语",
       "extractionState" : "manual",
@@ -10620,6 +10722,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "馬來語"
+          }
+        }
+      }
+    },
+    "Manage" : {
+      "comment" : "1.0.4:管理",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理"
+          }
+        }
+      }
+    },
+    "Manage various configurations" : {
+      "comment" : "1.0.4:管理各项配置",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理各项配置"
+          }
+        }
+      }
+    },
+    "Manage your foreign currency savings." : {
+      "comment" : "1.0.4:管理你的外币储蓄。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理你的外币储蓄。"
           }
         }
       }
@@ -12204,6 +12342,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "確定"
+          }
+        }
+      }
+    },
+    "Others" : {
+      "comment" : "1.0.4:其他",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他"
+          }
+        }
+      }
+    },
+    "Please enter the currency name" : {
+      "comment" : "1.0.4:请输入币种名称",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请输入币种名称"
           }
         }
       }
@@ -16012,6 +16174,30 @@
         }
       }
     },
+    "Statistics" : {
+      "comment" : "1.0.4:统计",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "统计"
+          }
+        }
+      }
+    },
+    "Statistics of foreign currency data." : {
+      "comment" : "1.0.4:统计外币数据。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "统计外币数据。"
+          }
+        }
+      }
+    },
     "Swedish" : {
       "comment" : "瑞典语",
       "extractionState" : "manual",
@@ -16230,228 +16416,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "瑞典語"
-          }
-        }
-      }
-    },
-    "Switch current currency" : {
-      "comment" : "切换当前货币",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تبديل العملة الحالية"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Canviar la divisa actual"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přepnout aktuální měnu"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skift nuværende valuta"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktuelle Währung wechseln"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Αλλαγή τρέχοντος νομίσματος"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cambiar la moneda actual"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cambiar la moneda actual"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vaihda nykyinen valuutta"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Changer de devise actuelle"
-          }
-        },
-        "fr-CA" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Changer de devise actuelle"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "החלף מטבע נוכחי"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "वर्तमान मुद्रा स्विच करें"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promjena trenutne valute"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktuális pénznem váltása"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ganti mata uang saat ini"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cambia valuta corrente"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "現在の通貨を切り替える"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "현재 통화 전환"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tukar mata wang semasa"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bytt nåværende valuta"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Huidige valuta wisselen"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zmień bieżącą walutę"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trocar moeda atual"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trocar moeda atual"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schimbă moneda curentă"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сменить текущую валюту"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zmeniť aktuálnu menu"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Byt aktuell valuta"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "เปลี่ยนสกุลเงินปัจจุบัน"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mevcut para birimini değiştir"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Змінити поточну валюту"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Đổi tiền tệ hiện tại"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "切换当前货币"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "切換當前貨幣"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "切換當前貨幣"
           }
         }
       }
@@ -19144,6 +19108,18 @@
         }
       }
     },
+    "Update time" : {
+      "comment" : "1.0.4:更新时间",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新时间"
+          }
+        }
+      }
+    },
     "USD" : {
       "comment" : "美元",
       "extractionState" : "manual",
@@ -20038,6 +20014,18 @@
         }
       }
     },
+    "Warehouse amount" : {
+      "comment" : "1.0.4:仓库金额",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仓库金额"
+          }
+        }
+      }
+    },
     "We do not store any of your data." : {
       "comment" : "我们不存储您的任何数据。",
       "extractionState" : "manual",
@@ -20268,6 +20256,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "我们免费提供汇率数据。"
+          }
+        }
+      }
+    },
+    "Webpage" : {
+      "comment" : "1.0.4:网页",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网页"
           }
         }
       }
