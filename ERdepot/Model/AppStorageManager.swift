@@ -50,7 +50,7 @@ class AppStorageManager:ObservableObject {
         if let tmpListOfSupportedCurrencies = UserDefaults.standard.array(forKey: "listOfSupportedCurrencies") as? [String] {
             listOfSupportedCurrencies = tmpListOfSupportedCurrencies
         } else {
-            print("警告: listOfSupportedCurrencies 的数据类型不符合预期！")
+            print("未从UserDefaults获取listOfSupportedCurrencies货币数组")
             listOfSupportedCurrencies = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"]
         }
     }
@@ -70,7 +70,7 @@ class AppStorageManager:ObservableObject {
         if let tmpListOfSupportedCurrencies = store.object(forKey: "listOfSupportedCurrencies") as? [String] {
             listOfSupportedCurrencies = tmpListOfSupportedCurrencies
         } else {
-            print("警告: listOfSupportedCurrencies 的数据类型不符合预期！")
+            print("未从 iCloud 获取listOfSupportedCurrencies货币数组")
             store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
         }
 

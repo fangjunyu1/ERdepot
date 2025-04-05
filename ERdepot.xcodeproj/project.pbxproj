@@ -20,6 +20,10 @@
 		1D2AAF6B2D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AAF692D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift */; };
 		1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AAF6A2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift */; };
 		1D5AA1652D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AA1632D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld */; };
+		1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */; };
+		1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */; };
+		1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */; };
+		1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828E2DA1F2970041AAF9 /* SetView.swift */; };
 		1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D807D582CC3495B0078DD91 /* MessageUI.framework */; };
 		1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CC2CBE57A6006E077C /* ERdepotApp.swift */; };
 		1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CE2CBE57A6006E077C /* ContentView.swift */; };
@@ -70,6 +74,10 @@
 		1D2AAF692D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1D2AAF6A2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1D5AA1642D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExchangeRateDataModel.xcdatamodel; sourceTree = "<group>"; };
+		1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionView.swift; sourceTree = "<group>"; };
+		1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCurrencyView.swift; sourceTree = "<group>"; };
+		1D78828E2DA1F2970041AAF9 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		1D807D582CC3495B0078DD91 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1D92F7502D05B5A7001E24F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D93E9C92CBE57A6006E077C /* ERdepot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ERdepot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +179,10 @@
 				1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */,
 				1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */,
 				1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */,
+				1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */,
+				1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */,
+				1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */,
+				1D78828E2DA1F2970041AAF9 /* SetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,7 +461,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2AAF6B2D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
 				1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */,
 				1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */,
 				1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */,
 				1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */,
@@ -460,7 +474,9 @@
 				1D5AA1652D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld in Sources */,
 				1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */,
 				1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */,
+				1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */,
 				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
+				1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

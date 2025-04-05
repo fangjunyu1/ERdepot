@@ -12,6 +12,10 @@ struct HomeView: View {
     @EnvironmentObject var appStorage: AppStorageManager
     @State private var selectedTime: Int = 0
     @State private var isShowForeignCurrency = false
+    @State private var isShowConversion = false
+    @State private var isShowStatistics = false
+    @State private var isShowChangeCurrency = false
+    @State private var isShowSet = false
     let timeRange: [String] = ["1 Day","1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     
     var body: some View {
@@ -163,9 +167,6 @@ struct HomeView: View {
                                     }
                                 }
                             })
-                            .sheet(isPresented: $isShowForeignCurrency) {
-                                ForeignCurrencyView(isShowForeignCurrency: $isShowForeignCurrency)
-                            }
                             Spacer().frame(width: 16)
                             // 更新时间，折算，统计
                             VStack {
@@ -184,8 +185,7 @@ struct HomeView: View {
                                 // 折算，统计
                                 VStack(spacing: 0) {
                                     Button(action: {
-                                        
-                                        print("折算")
+                                        isShowConversion = true
                                     }, label: {
                                         HStack {
                                             Image(systemName: "repeat.circle.fill")
@@ -214,7 +214,7 @@ struct HomeView: View {
                                         .foregroundColor(.gray)
                                     
                                     Button(action: {
-                                        print("统计")
+                                        isShowStatistics = true
                                     }, label: {
                                         HStack {
                                             Image(systemName:"chart.bar.xaxis")
@@ -243,7 +243,7 @@ struct HomeView: View {
                         HStack {
                             // 当前货币
                             Button(action: {
-                                
+                                isShowChangeCurrency = true
                             }, label: {
                                 HStack {
                                     
@@ -346,7 +346,7 @@ struct HomeView: View {
                         }
                         ToolbarItem(placement: .topBarTrailing) {
                             Button(action: {
-                                
+                                isShowSet = true
                             }, label: {
                                 Image(systemName:"gearshape.fill")
                                     .resizable()
@@ -354,6 +354,21 @@ struct HomeView: View {
                                     .foregroundColor(color == .light ? .black : .white)
                             })
                         }
+                    }
+                    .sheet(isPresented: $isShowForeignCurrency) {
+                        ForeignCurrencyView(isShowForeignCurrency: $isShowForeignCurrency)
+                    }
+                    .sheet(isPresented: $isShowConversion) {
+                        ConversionView(isShowConversion: $isShowConversion)
+                    }
+                    .sheet(isPresented: $isShowStatistics) {
+                        StatisticsView(isShowStatistics: $isShowStatistics)
+                    }
+                    .sheet(isPresented: $isShowChangeCurrency) {
+                        ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrency)
+                    }
+                    .sheet(isPresented: $isShowSet) {
+                        SetView(isShowSet: $isShowSet)
                     }
                 }
                 .refreshable {
