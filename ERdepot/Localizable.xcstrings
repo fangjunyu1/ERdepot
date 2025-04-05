@@ -13,6 +13,9 @@
     "¥  " : {
 
     },
+    "0.0" : {
+
+    },
     "1:7" : {
 
     },
@@ -918,6 +921,30 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "澳大利亞元"
+          }
+        }
+      }
+    },
+    "BGN" : {
+      "comment" : "1.0.4:保加利亚列弗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保加利亚列弗"
+          }
+        }
+      }
+    },
+    "BRL" : {
+      "comment" : "1.0.4:巴西雷亚尔",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "巴西雷亚尔 "
           }
         }
       }
@@ -2998,6 +3025,18 @@
         }
       }
     },
+    "CYP" : {
+      "comment" : "1.0.4:塞浦路斯镑",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "塞浦路斯镑"
+          }
+        }
+      }
+    },
     "Czech" : {
       "comment" : "捷克语",
       "extractionState" : "manual",
@@ -3216,6 +3255,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "捷克語"
+          }
+        }
+      }
+    },
+    "CZK" : {
+      "comment" : "1.0.4:捷克克朗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "捷克克朗"
           }
         }
       }
@@ -4110,6 +4161,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "荷蘭語"
+          }
+        }
+      }
+    },
+    "EEK" : {
+      "comment" : "1.0.4:爱沙尼亚克朗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "爱沙尼亚克朗"
           }
         }
       }
@@ -8044,6 +8107,18 @@
         }
       }
     },
+    "HRK" : {
+      "comment" : "1.0.4:克罗地亚库纳",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "克罗地亚库纳"
+          }
+        }
+      }
+    },
     "HUF" : {
       "comment" : "匈牙利福林",
       "extractionState" : "manual",
@@ -8494,6 +8569,30 @@
         }
       }
     },
+    "IDR" : {
+      "comment" : "1.0.4:印尼盾",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "印尼盾"
+          }
+        }
+      }
+    },
+    "ILS" : {
+      "comment" : "1.0.4:以色列新谢克尔",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以色列新谢克尔"
+          }
+        }
+      }
+    },
     "Income" : {
       "comment" : "1.0.4:收益",
       "extractionState" : "manual",
@@ -8724,6 +8823,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "印尼語"
+          }
+        }
+      }
+    },
+    "INR" : {
+      "comment" : "1.0.4:印度卢比",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "印度卢比"
+          }
+        }
+      }
+    },
+    "ISK" : {
+      "comment" : "1.0.4:冰岛克朗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冰岛克朗"
           }
         }
       }
@@ -10519,6 +10642,30 @@
         }
       }
     },
+    "LTL" : {
+      "comment" : "1.0.4:立陶宛立特",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立陶宛立特"
+          }
+        }
+      }
+    },
+    "LVL" : {
+      "comment" : "1.0.4:拉脱维亚拉特",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "拉脱维亚拉特"
+          }
+        }
+      }
+    },
     "Malay" : {
       "comment" : "马来语",
       "extractionState" : "manual",
@@ -11001,6 +11148,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "澳門元"
+          }
+        }
+      }
+    },
+    "MTL" : {
+      "comment" : "1.0.4:马耳他里拉",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "马耳他里拉"
           }
         }
       }
@@ -12373,6 +12532,18 @@
         }
       }
     },
+    "PHP" : {
+      "comment" : "1.0.4:菲律宾比索",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "菲律宾比索"
+          }
+        }
+      }
+    },
     "Please enter the currency name" : {
       "comment" : "1.0.4:请输入币种名称",
       "extractionState" : "manual",
@@ -13723,6 +13894,18 @@
         }
       }
     },
+    "ROL" : {
+      "comment" : "1.0.4:老罗马尼亚列伊",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "老罗马尼亚列伊"
+          }
+        }
+      }
+    },
     "Romanian" : {
       "comment" : "罗马尼亚语",
       "extractionState" : "manual",
@@ -13941,6 +14124,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "羅馬尼亞語"
+          }
+        }
+      }
+    },
+    "RON" : {
+      "comment" : "1.0.4:罗马尼亚列伊",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "罗马尼亚列伊"
           }
         }
       }
@@ -15297,6 +15492,30 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新加坡元"
+          }
+        }
+      }
+    },
+    "SIT" : {
+      "comment" : "1.0.4:斯洛文尼亚托拉尔",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "斯洛文尼亚托拉尔"
+          }
+        }
+      }
+    },
+    "SKK" : {
+      "comment" : "1.0.4:斯洛伐克克朗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "斯洛伐克克朗"
           }
         }
       }
@@ -18229,8 +18448,20 @@
         }
       }
     },
+    "TRL" : {
+      "comment" : "1.0.4:土耳其里拉",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "土耳其里拉"
+          }
+        }
+      }
+    },
     "TRY" : {
-      "comment" : "土耳其里拉",
+      "comment" : "1.0.4:新土耳其里拉",
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -18439,8 +18670,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "土耳其里拉"
+            "state" : "translated",
+            "value" : "新土耳其里拉"
           }
         },
         "zh-Hant" : {

@@ -33,10 +33,26 @@ class AppStorageManager:ObservableObject {
             }
         }
     }
+    
+    @Published var listOfSupportedCurrencies:[String] = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"] {
+        didSet {
+            if listOfSupportedCurrencies != oldValue {
+                UserDefaults.standard.set(listOfSupportedCurrencies, forKey: "isInit")
+                syncToiCloud()
+            }
+        }
+    }
+    
 
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
+        if let tmpListOfSupportedCurrencies = UserDefaults.standard.array(forKey: "listOfSupportedCurrencies") as? [String] {
+            listOfSupportedCurrencies = tmpListOfSupportedCurrencies
+        } else {
+            print("警告: listOfSupportedCurrencies 的数据类型不符合预期！")
+            listOfSupportedCurrencies = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"]
+        }
     }
     
     /// 从 iCloud 读取数据
@@ -50,6 +66,13 @@ class AppStorageManager:ObservableObject {
         } else {
             store.set(isInit, forKey: "isInit")
         }
+        
+        if let tmpListOfSupportedCurrencies = store.object(forKey: "listOfSupportedCurrencies") as? [String] {
+            listOfSupportedCurrencies = tmpListOfSupportedCurrencies
+        } else {
+            print("警告: listOfSupportedCurrencies 的数据类型不符合预期！")
+            store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
+        }
 
         print("完成 loadFromiCloud 方法的读取")
         print("isInit: \(isInit)")
@@ -60,6 +83,7 @@ class AppStorageManager:ObservableObject {
     private func syncToiCloud() {
         let store = NSUbiquitousKeyValueStore.default
         store.set(isInit, forKey: "isInit")
+        store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
         store.synchronize() // 强制触发数据同步
     }
     
