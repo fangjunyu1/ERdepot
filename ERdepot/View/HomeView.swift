@@ -16,6 +16,7 @@ struct HomeView: View {
     @State private var isShowStatistics = false
     @State private var isShowChangeCurrency = false
     @State private var isShowSet = false
+    @State private var isShowProfit = false
     let timeRange: [String] = ["1 Day","1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     
     var body: some View {
@@ -278,7 +279,7 @@ struct HomeView: View {
                             // 收益
                             
                             Button(action: {
-                                
+                                isShowProfit = true
                             }, label: {
                                 
                                 HStack {
@@ -369,6 +370,9 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $isShowSet) {
                         SetView(isShowSet: $isShowSet)
+                    }
+                    .sheet(isPresented: $isShowProfit) {
+                        ProfitView(isShowProfit: $isShowProfit)
                     }
                 }
                 .refreshable {

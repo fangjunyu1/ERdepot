@@ -925,6 +925,18 @@
         }
       }
     },
+    "Below is the cost of purchasing foreign currency. You need to enter the cost to calculate the profit." : {
+      "comment" : "1.0.4:下方为购入外币的成本，需输入成本，才能计算收益。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下方为购入外币的成本，需输入成本，才能计算收益。"
+          }
+        }
+      }
+    },
     "BGN" : {
       "comment" : "1.0.4:保加利亚列弗",
       "extractionState" : "manual",
@@ -1173,6 +1185,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "加拿大元"
+          }
+        }
+      }
+    },
+    "Calculate all foreign currency gains." : {
+      "comment" : "1.0.4:计算所有外币收益。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计算所有外币收益。"
           }
         }
       }
@@ -13668,6 +13692,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "隱私聲明"
+          }
+        }
+      }
+    },
+    "Profit" : {
+      "comment" : "1.0.4:收益",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收益"
           }
         }
       }

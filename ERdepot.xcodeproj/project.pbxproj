@@ -24,6 +24,7 @@
 		1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */; };
 		1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */; };
 		1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828E2DA1F2970041AAF9 /* SetView.swift */; };
+		1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */; };
 		1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D807D582CC3495B0078DD91 /* MessageUI.framework */; };
 		1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CC2CBE57A6006E077C /* ERdepotApp.swift */; };
 		1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CE2CBE57A6006E077C /* ContentView.swift */; };
@@ -78,6 +79,7 @@
 		1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCurrencyView.swift; sourceTree = "<group>"; };
 		1D78828E2DA1F2970041AAF9 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitView.swift; sourceTree = "<group>"; };
 		1D807D582CC3495B0078DD91 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1D92F7502D05B5A7001E24F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D93E9C92CBE57A6006E077C /* ERdepot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ERdepot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 				1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */,
 				1D78828C2DA1F26A0041AAF9 /* ChangeCurrencyView.swift */,
 				1D78828E2DA1F2970041AAF9 /* SetView.swift */,
+				1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			files = (
 				1D2AAF6B2D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift in Sources */,
 				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
+				1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */,
 				1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
 				1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */,
 				1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */,
