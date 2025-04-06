@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct HomeView: View {
     @Environment(\.colorScheme) var color
@@ -381,6 +382,13 @@ struct HomeView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .onAppear {
+            // 首次打开应用，调用评分
+            if !appStorage.RequestRating {
+                appStorage.RequestRating = true
+                SKStoreReviewController.requestReview()
+            }
+        }
     }
 }
 

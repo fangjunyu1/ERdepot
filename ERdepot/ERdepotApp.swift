@@ -11,7 +11,7 @@ import CoreData
 struct ERdepotApp: App {
     
     @StateObject var appStorage = AppStorageManager.shared  // 共享实例
-    
+    @StateObject var iapManager = IAPManager.shared
     // 创建 NSPersistentContainer
     let container: NSPersistentContainer
     init() {
@@ -29,9 +29,15 @@ struct ERdepotApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(iapManager)
                 .environment(\.managedObjectContext, container.viewContext)
                 .environment(\.backgroundContext, container.newBackgroundContext())
                 .environmentObject(appStorage)
+                .task {
+                    await iapManager.loadProduct()   // 加载产品信息
+                    await iapManager.checkAllTransactions()  // 先检查历史交易
+                    await iapManager.handleTransactions()   // 加载内购交易更新
+                }
         }
     }
 }
