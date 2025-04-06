@@ -19,8 +19,92 @@
     "0.0" : {
 
     },
+    "1 Month" : {
+      "comment" : "1.0.4:1 个月",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 个月"
+          }
+        }
+      }
+    },
+    "1 Week" : {
+      "comment" : "1.0.4: 1 周",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 周"
+          }
+        }
+      }
+    },
+    "1 Year" : {
+      "comment" : "1.0.4: 1 年",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 年"
+          }
+        }
+      }
+    },
     "1:7" : {
 
+    },
+    "3 Months" : {
+      "comment" : "1.0.4: 3 个月",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 个月"
+          }
+        }
+      }
+    },
+    "5 Years" : {
+      "comment" : "1.0.4：5 年",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 年"
+          }
+        }
+      }
+    },
+    "6 Months" : {
+      "comment" : "1.0.4: 6 个月",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 个月"
+          }
+        }
+      }
+    },
+    "10 Years" : {
+      "comment" : "1.0.4: 10年",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 年"
+          }
+        }
+      }
     },
     "888,888.00" : {
 
@@ -486,6 +570,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重新啟動應用程式後"
+          }
+        }
+      }
+    },
+    "All" : {
+      "comment" : "1.0.4: 全部",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部"
           }
         }
       }

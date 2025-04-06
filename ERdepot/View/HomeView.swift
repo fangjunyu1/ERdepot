@@ -18,7 +18,7 @@ struct HomeView: View {
     @State private var isShowChangeCurrency = false
     @State private var isShowSet = false
     @State private var isShowProfit = false
-    let timeRange: [String] = ["1 Day","1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
+    let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     
     var body: some View {
         NavigationView {
@@ -77,7 +77,7 @@ struct HomeView: View {
                                         Button(action: {
                                             selectedTime = time
                                         }, label: {
-                                            Text("\(timeRange[time])")
+                                                Text(LocalizedStringKey(timeRange[time]))
                                                 .font(.caption2)
                                                 .fontWeight(.medium)
                                                 .padding(.vertical,8)
