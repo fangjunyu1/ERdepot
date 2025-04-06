@@ -11,6 +11,7 @@ import StoreKit
 struct HomeView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
+    @EnvironmentObject var exchangeRate: ExchangeRate
     @State private var selectedTime: Int = 0
     @State private var isShowForeignCurrency = false
     @State private var isShowConversion = false
@@ -174,7 +175,7 @@ struct HomeView: View {
                             VStack {
                                 // 更新时间
                                 VStack {
-                                    Text("Update time") + Text(" : ") + Text("2000-1-1")
+                                    Text("Update time") + Text(" : ") + Text("2025-4-4")
                                 }
                                 .font(.footnote)
                                 .frame(width: 160,height: 50)
@@ -388,6 +389,7 @@ struct HomeView: View {
                 appStorage.RequestRating = true
                 SKStoreReviewController.requestReview()
             }
+            exchangeRate.downloadExchangeRates()
         }
     }
 }
@@ -395,4 +397,5 @@ struct HomeView: View {
 #Preview {
     HomeView()
         .environmentObject(AppStorageManager.shared)
+        .environmentObject(ExchangeRate.shared)
 }
