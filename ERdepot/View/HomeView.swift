@@ -399,4 +399,5 @@ struct HomeView: View {
     HomeView()
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
+        .environmentObject(IAPManager.shared)
 }

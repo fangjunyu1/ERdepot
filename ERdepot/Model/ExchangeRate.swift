@@ -18,6 +18,7 @@ class ExchangeRate :ObservableObject {
     private var container: NSPersistentContainer
     private var context: NSManagedObjectContext
     
+    private let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
     // 初始化方法
     init() {
         // 创建并加载 NSPersistentContainer
@@ -134,55 +135,39 @@ class ExchangeRate :ObservableObject {
                 }
             }
             
-            // 检查数据
-            fetchExchangeRates()
+            print("所有汇率数据处理完成")
         } catch {
             print("读取CSV失败: \(error)")
         }
     }
     
     func saveExchangeRates(date: Date, rates: [String: Double]) {
-        
-        
-        // 遍历汇率数据并插入到 Core Data
-        for (currency, rate) in rates {
-            let exchangeRate = Eurofxrefhist(context: context)
-            exchangeRate.date = date
-            exchangeRate.currencySymbol = currency
-            exchangeRate.exchangeRate = rate
-        }
-        
+        fetchRequest.predicate = NSPredicate(format: "date == %@", date as CVarArg)
         do {
+            // 获取过滤的数据
+            let existingRecords = try context.fetch(fetchRequest)
+            
+            if existingRecords.isEmpty {
+                // 如果没有找到该日期的数据，插入新的记录
+                for (currency, rate) in rates {
+                    let exchangeRate = Eurofxrefhist(context: context)
+                    exchangeRate.date = date
+                    exchangeRate.currencySymbol = currency
+                    exchangeRate.exchangeRate = rate
+                    
+                    print("插入新的数据 \(exchangeRate.currencySymbol) 在 \(exchangeRate.date)")
+                }
+            } else {
+                // 如果已有该日期的数据，跳过
+                print("该日期的数据已存在，跳过：\(date)")
+            }
+            
+            //  一次性保存所有修改
             try context.save()
-            print("汇率数据保存成功")
+            print("所有数据保存成功")
+            
         } catch {
             print("保存数据失败: \(error)")
-        }
-    }
-    
-    func fetchExchangeRates() {
-        let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
-        let components = DateComponents(year: 2025, month: 4, day: 9)
-        let calendar = Calendar.current
-        let date = calendar.date(from: components)!
-        
-        // 通过 CVarArg 将 date 转换为合适的类型
-        fetchRequest.predicate = NSPredicate(format: "date == %@", date as CVarArg)
-        
-        do {
-            
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                print("没有找到2025年4月9日的数据")
-            } else {
-                // 如果查询结果不为空，输出并处理数据
-                for result in results {
-                    // 在这里处理找到的数据
-                    print("汇率数据: \(result.currencySymbol) - \(result.exchangeRate) at \(result.date!)")
-                }
-            }
-        } catch {
-            print("获取数据失败: \(error)")
         }
     }
 }
