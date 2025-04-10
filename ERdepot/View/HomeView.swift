@@ -378,7 +378,8 @@ struct HomeView: View {
                     }
                 }
                 .refreshable {
-                    // 刷新方法
+                    // 调用下载方法
+                    exchangeRate.downloadExchangeRates()
                 }
             }
         }

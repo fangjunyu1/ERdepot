@@ -39,6 +39,7 @@
 		1DAEAD412D05C2F700107211 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1DAEAD402D05C2F700107211 /* Lottie */; };
 		1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC0E9D72CC3959700C1A9BA /* StoreKit.framework */; };
 		1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD84DD42CC74DD300C55178 /* LottieView.swift */; };
+		1DEA15002DA6304400CE8A9C /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 1DEA14FF2DA6304400CE8A9C /* Zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 			files = (
 				1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */,
 				1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */,
+				1DEA15002DA6304400CE8A9C /* Zip in Frameworks */,
 				1DAEAD412D05C2F700107211 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +322,7 @@
 			name = ERdepot;
 			packageProductDependencies = (
 				1DAEAD402D05C2F700107211 /* Lottie */,
+				1DEA14FF2DA6304400CE8A9C /* Zip */,
 			);
 			productName = ERdepot;
 			productReference = 1D93E9C92CBE57A6006E077C /* ERdepot.app */;
@@ -434,6 +437,7 @@
 			mainGroup = 1D93E9C02CBE57A6006E077C;
 			packageReferences = (
 				1DAEAD3F2D05C2F700107211 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = 1D93E9CA2CBE57A6006E077C /* Products */;
 			projectDirPath = "";
@@ -920,6 +924,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -927,6 +939,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1DAEAD3F2D05C2F700107211 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		1DEA14FF2DA6304400CE8A9C /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
 		};
 /* End XCSwiftPackageProductDependency section */
 

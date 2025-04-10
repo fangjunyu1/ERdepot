@@ -1,5 +1,5 @@
 {
-  "originHash" : "0a79f2009ea5ba6a9e7c2c6471d05458a7ac9a981d2fd7ab914f1eb741af1ea1",
+  "originHash" : "fa6ca21ca5b17eb0a0b7f280c38b3d0c1cb027e19b9d0e949a8ae186a4ebc326",
   "pins" : [
     {
       "identity" : "lottie-ios",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "fe4c6fe3a0aa66cdeb51d549623c82ca9704b9a5",
         "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "zip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/Zip",
+      "state" : {
+        "revision" : "67fa55813b9e7b3b9acee9c0ae501def28746d76",
+        "version" : "2.1.2"
       }
     }
   ],

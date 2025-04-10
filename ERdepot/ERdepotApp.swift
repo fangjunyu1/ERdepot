@@ -21,7 +21,6 @@ struct ERdepotApp: App {
         
         // 加载持久化存储
         container.loadPersistentStores { (storeDescription, error) in
-            print("storeDescription:\(storeDescription)")
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -31,7 +30,7 @@ struct ERdepotApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(iapManager)
-                .environment(\.managedObjectContext, container.viewContext)
+                .environment(\.managedObjectContext, container.viewContext) // 加载 NSPersistentContainer
                 .environment(\.backgroundContext, container.newBackgroundContext())
                 .environmentObject(appStorage)
                 .environmentObject(exchangeRate)
