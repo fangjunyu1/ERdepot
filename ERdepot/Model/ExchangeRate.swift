@@ -40,6 +40,7 @@ class ExchangeRate :ObservableObject {
         let task = URLSession.shared.downloadTask(with: fileURL) { localURL, response, error in
             if let error = error {
                 print("下载失败: \(error)")
+                self.loadExchangeRatesFromBundle()
                 return
             }
             if let localURL = localURL,let response = response,let suggestedFilename = response.suggestedFilename {
@@ -73,6 +74,20 @@ class ExchangeRate :ObservableObject {
         task.resume()   // 启动下载任务
     }
     
+    // 无网络的情况下，从Bundle中加载文件
+    func loadExchangeRatesFromBundle() {
+        print("尝试从 Bundle 加载 eurofxref-hist 文件")
+        
+        if let bundleURL = Bundle.main.url(forResource: "eurofxref-hist", withExtension: "csv") {
+            print("从 Bundle 找到文件，路径为：\(bundleURL)")
+            // 处理CSV文件
+            self.processCSVData(bundleURL.path)
+        } else {
+            print("在 Bundle 中未找到 eurofxref-hist.csv 文件")
+        }
+    }
+    
+    // 下载新的压缩包后，从 临时文件夹 中加载文件
     func processDownloadedFile(_ destinationURL: URL) {
         do {
             print("进入processDownloadedFile方法")
@@ -97,14 +112,20 @@ class ExchangeRate :ObservableObject {
     }
     func processCSVData(_ filePath: String) {
         // 读取并解析CSV文件
+        let startDate = Date()
+        print("开始解析CSV文件")
         do {
             let csvString = try String(contentsOfFile: filePath)
-            // 每一行列表
+            // 按行拆分CSV数据
             var lines = csvString.split(separator: "\n")
+            guard !lines.isEmpty else {
+                print("CSV 文件没有数据")
+                return
+            }
             
-            // 设置货币列表
+            // CSV 第一行：货币列表（去除第一列日期）
             let CurrencyCodes = lines[0].split(separator: ",").dropFirst().map { String($0) }
-            // 设置汇率列表，移除首行
+            /// 移除标题行
             lines.removeFirst()
             
             // 处理每一行
@@ -135,7 +156,9 @@ class ExchangeRate :ObservableObject {
                 }
             }
             
-            print("所有汇率数据处理完成")
+            let endDate = Date()
+            let interval = endDate.timeIntervalSince(startDate)
+            print("所有汇率数据处理完成，用时:\(interval)秒")
         } catch {
             print("读取CSV失败: \(error)")
         }
@@ -147,6 +170,7 @@ class ExchangeRate :ObservableObject {
             // 获取过滤的数据
             let existingRecords = try context.fetch(fetchRequest)
             
+            // 如果没有当前的日期，则插入新的数据
             if existingRecords.isEmpty {
                 // 如果没有找到该日期的数据，插入新的记录
                 for (currency, rate) in rates {
@@ -157,7 +181,7 @@ class ExchangeRate :ObservableObject {
                     
                     print("插入新的数据 \(exchangeRate.currencySymbol) 在 \(exchangeRate.date)")
                 }
-            } else {
+            }  else {
                 // 如果已有该日期的数据，跳过
                 print("该日期的数据已存在，跳过：\(date)")
             }
