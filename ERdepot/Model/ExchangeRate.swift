@@ -110,6 +110,7 @@ class ExchangeRate :ObservableObject {
             print("Error during zipping: \(error)")
         }
     }
+    
     func processCSVData(_ filePath: String) {
         // 读取并解析CSV文件
         let startDate = Date()
@@ -125,12 +126,17 @@ class ExchangeRate :ObservableObject {
             
             // CSV 第一行：货币列表（去除第一列日期）
             let CurrencyCodes = lines[0].split(separator: ",").dropFirst().map { String($0) }
+            // 将CSV的外币列表同步到 App Storage Manager 中。
+            AppStorageManager.shared.listOfSupportedCurrencies = CurrencyCodes
+            print("CSV的外币列表同步到 App Storage Manager 的listOfSupportedCurrencies 中，\(AppStorageManager.shared.listOfSupportedCurrencies)")
             /// 移除标题行
             lines.removeFirst()
             
             // 初始化日期格式器
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let existingDates = fetchExistingDates() // 获取已存在日期
             
             // 构造用于批量插入的数据数组
             var records: [[String: Any]] = []
@@ -143,36 +149,85 @@ class ExchangeRate :ObservableObject {
                 if columns.count > 1 {
                     // 设置每一行的第一个字段为日期
                     let dateString = String(columns[0])
-                    if let date = dateFormatter.date(from: dateString) {
-                        // 移除每一行的第一个日期字段后，使用 enumerated() 设置序号
-                        for (currencyCode, column) in zip(CurrencyCodes, columns.dropFirst()) {
-                            let rate = Double(column) ?? 0.0
-                            let record: [String: Any] = [
-                                "date": date,
-                                "currencySymbol": currencyCode,
-                                "exchangeRate": rate
-                            ]
-                            records.append(record)
-                        }
-                    } else {
+                    guard let date = dateFormatter.date(from: dateString) else {
                         print("处理汇率数据时，日期解码失败")
+                        continue
+                    }
+                    
+                    // 如果该日期已经存在，跳过
+                    if existingDates.contains(date) {
+                        print("已包含\(date)日期的汇率数据，跳过插入。")
+                        continue
+                    }
+                    
+                    // 移除每一行的第一个日期字段后，使用 enumerated() 设置序号
+                    for (currencyCode, column) in zip(CurrencyCodes, columns.dropFirst()) {
+                        let rate = Double(column) ?? 0.0
+                        let record: [String: Any] = [
+                            "date": date,
+                            "currencySymbol": currencyCode,
+                            "exchangeRate": rate
+                        ]
+                        records.append(record)
                     }
                 }
             }
             print("CSV 解析完成，共解析出 \(records.count) 条记录")
             
-            // 直接使用 NSBatchInsertRequest 批量插入 Core Data
-            batchInsertExchangeRates(records: records)
+            if records.isEmpty {
+                print("无新增记录，跳过插入")
+            } else {
+                // 直接使用 NSBatchInsertRequest 批量插入 Core Data
+                batchInsertExchangeRates(records: records)
+            }
             
             let endDate = Date()
-            let interval = endDate.timeIntervalSince(startDate)
-            print("所有汇率数据处理完成，用时:\(interval)秒")
+            print("所有汇率数据处理完成，用时:\(endDate.timeIntervalSince(startDate))秒")
         } catch {
             print("读取CSV失败: \(error)")
         }
     }
     
+    /// 提前获取 Core Data 中已有的日期集合
+    func fetchExistingDates() -> Set<Date> {
+        let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
+        fetchRequest.resultType = .dictionaryResultType
+        fetchRequest.propertiesToFetch = ["date"]   // 指定 date 字段
+        fetchRequest.returnsDistinctResults = true  // 去重
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            let dates = results.compactMap { $0["date"] as? Date}
+            // 返回Set类型
+            return Set(dates)
+        } catch {
+            print("获取已有日期失败: \(error)")
+            return []
+        }
+    }
+    
+    // 获取
+    func fetchLatestDate() -> Date? {
+        let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
+        fetchRequest.resultType = .dictionaryResultType
+        fetchRequest.propertiesToFetch = ["date"]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results.first?["date"] as? Date
+        } catch {
+            print("获取最新日期失败: \(error)")
+            return nil
+        }
+    }
+    
     func batchInsertExchangeRates(records: [[String: Any]]) {
+        guard !records.isEmpty else {
+            print("批量插入跳过：没有数据")
+            return
+        }
         // 使用后台上下文进行插入，确保 UI 不会卡顿
         let backgroundContext = container.newBackgroundContext()
         
