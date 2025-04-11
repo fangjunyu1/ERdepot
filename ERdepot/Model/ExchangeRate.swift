@@ -128,33 +128,41 @@ class ExchangeRate :ObservableObject {
             /// 移除标题行
             lines.removeFirst()
             
+            // 初始化日期格式器
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            // 构造用于批量插入的数据数组
+            var records: [[String: Any]] = []
+            
             // 处理每一行
             for line in lines {
                 // 处理每一行的对应字段
                 let columns = String(line).split(separator: ",")
+                // 至少要有日期和一个汇率数据
                 if columns.count > 1 {
-                    // 解析日期和各货币的汇率
                     // 设置每一行的第一个字段为日期
                     let dateString = String(columns[0])
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    
                     if let date = dateFormatter.date(from: dateString) {
-                        // 处理汇率数据
-                        var exchangeRates: [String: Double] = [:]
                         // 移除每一行的第一个日期字段后，使用 enumerated() 设置序号
                         for (currencyCode, column) in zip(CurrencyCodes, columns.dropFirst()) {
                             let rate = Double(column) ?? 0.0
-                            exchangeRates[currencyCode] = rate
+                            let record: [String: Any] = [
+                                "date": date,
+                                "currencySymbol": currencyCode,
+                                "exchangeRate": rate
+                            ]
+                            records.append(record)
                         }
-                        
-                        // 保存到Core Data
-                        saveExchangeRates(date: date, rates: exchangeRates)
                     } else {
                         print("处理汇率数据时，日期解码失败")
                     }
                 }
             }
+            print("CSV 解析完成，共解析出 \(records.count) 条记录")
+            
+            // 直接使用 NSBatchInsertRequest 批量插入 Core Data
+            batchInsertExchangeRates(records: records)
             
             let endDate = Date()
             let interval = endDate.timeIntervalSince(startDate)
@@ -164,34 +172,23 @@ class ExchangeRate :ObservableObject {
         }
     }
     
-    func saveExchangeRates(date: Date, rates: [String: Double]) {
-        fetchRequest.predicate = NSPredicate(format: "date == %@", date as CVarArg)
-        do {
-            // 获取过滤的数据
-            let existingRecords = try context.fetch(fetchRequest)
-            
-            // 如果没有当前的日期，则插入新的数据
-            if existingRecords.isEmpty {
-                // 如果没有找到该日期的数据，插入新的记录
-                for (currency, rate) in rates {
-                    let exchangeRate = Eurofxrefhist(context: context)
-                    exchangeRate.date = date
-                    exchangeRate.currencySymbol = currency
-                    exchangeRate.exchangeRate = rate
-                    
-                    print("插入新的数据 \(exchangeRate.currencySymbol) 在 \(exchangeRate.date)")
-                }
-            }  else {
-                // 如果已有该日期的数据，跳过
-                print("该日期的数据已存在，跳过：\(date)")
+    func batchInsertExchangeRates(records: [[String: Any]]) {
+        // 使用后台上下文进行插入，确保 UI 不会卡顿
+        let backgroundContext = container.newBackgroundContext()
+        
+        let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
+        backgroundContext.perform {
+            // 构造批量插入请求，实体名称对应你的 Core Data 模型中定义的实体
+            let batchInsertRequest = NSBatchInsertRequest(entityName: "Eurofxrefhist", objects: records)
+            do {
+                try backgroundContext.execute(batchInsertRequest)
+                print("批量插入成功，共 \(records.count) 条记录")
+                
+                let results = try self.context.fetch(fetchRequest)
+                print("Core Data中一共有 \(results.count)条记录") // 处理结果
+            } catch {
+                print("批量插入失败：\(error)")
             }
-            
-            //  一次性保存所有修改
-            try context.save()
-            print("所有数据保存成功")
-            
-        } catch {
-            print("保存数据失败: \(error)")
         }
     }
 }
