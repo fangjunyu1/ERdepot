@@ -25,6 +25,23 @@ struct ERdepotApp: App {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
+        
+        // 更新 Core Data 中的汇率数据
+        exchangeRate.downloadExchangeRates()
+        
+        // 更新最新的汇率数据日期
+        appStorage.latestSyncDate = exchangeRate.fetchLatestDate()
+        var components = DateComponents()
+        components.year = 2025
+        components.month = 4
+        components.day = 4
+        let calendar = Calendar.current
+        
+        if let newDate = calendar.date(from: components) {
+            print("最新的汇率数据日期为:\(appStorage.latestSyncDate ?? newDate)")
+        } else {
+            print("DateComponents日期创建失败") // 输出2025年1月1日
+        }
     }
     var body: some Scene {
         WindowGroup {

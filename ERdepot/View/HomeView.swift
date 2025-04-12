@@ -20,6 +20,11 @@ struct HomeView: View {
     @State private var isShowSet = false
     @State private var isShowProfit = false
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
+    private let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        return formatter
+    }()
     
     var body: some View {
         NavigationView {
@@ -78,7 +83,7 @@ struct HomeView: View {
                                         Button(action: {
                                             selectedTime = time
                                         }, label: {
-                                                Text(LocalizedStringKey(timeRange[time]))
+                                            Text(LocalizedStringKey(timeRange[time]))
                                                 .font(.caption2)
                                                 .fontWeight(.medium)
                                                 .padding(.vertical,8)
@@ -175,7 +180,13 @@ struct HomeView: View {
                             VStack {
                                 // 更新时间
                                 VStack {
-                                    Text("Update time") + Text(" : ") + Text("2025-4-4")
+                                    if let latestSyncDate = appStorage.latestSyncDate {
+                                        Text("Update time") + Text(":") + 
+                                        Text(formatter.string(from: latestSyncDate))  // 显示格式化后的日期
+                                    } else {
+                                        Text("Update time") + Text(":") +
+                                        Text("2025-4-4")
+                                    }
                                 }
                                 .font(.footnote)
                                 .frame(width: 160,height: 50)
@@ -390,7 +401,6 @@ struct HomeView: View {
                 appStorage.RequestRating = true
                 SKStoreReviewController.requestReview()
             }
-            exchangeRate.downloadExchangeRates()
         }
     }
 }

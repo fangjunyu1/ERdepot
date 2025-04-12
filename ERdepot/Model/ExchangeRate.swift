@@ -127,7 +127,11 @@ class ExchangeRate :ObservableObject {
             // CSV 第一行：货币列表（去除第一列日期）
             let CurrencyCodes = lines[0].split(separator: ",").dropFirst().map { String($0) }
             // 将CSV的外币列表同步到 App Storage Manager 中。
-            AppStorageManager.shared.listOfSupportedCurrencies = CurrencyCodes
+            
+            // 一旦数据准备好，切换到主线程来更新UI
+            DispatchQueue.main.async {
+                AppStorageManager.shared.listOfSupportedCurrencies = CurrencyCodes
+            }
             print("CSV的外币列表同步到 App Storage Manager 的listOfSupportedCurrencies 中，\(AppStorageManager.shared.listOfSupportedCurrencies)")
             /// 移除标题行
             lines.removeFirst()
@@ -210,7 +214,7 @@ class ExchangeRate :ObservableObject {
     func fetchLatestDate() -> Date? {
         let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
         fetchRequest.resultType = .dictionaryResultType
-        fetchRequest.propertiesToFetch = ["date"]
+        fetchRequest.propertiesToFetch = ["date"]   // 查询字段 date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = 1
         
@@ -241,6 +245,9 @@ class ExchangeRate :ObservableObject {
                 
                 let results = try self.context.fetch(fetchRequest)
                 print("Core Data中一共有 \(results.count)条记录") // 处理结果
+                
+                // 更新同步日期
+                AppStorageManager.shared.latestSyncDate = self.fetchLatestDate()
             } catch {
                 print("批量插入失败：\(error)")
             }

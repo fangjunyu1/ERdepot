@@ -29,7 +29,7 @@ class AppStorageManager:ObservableObject {
         didSet {
             if isInit != oldValue {
                 UserDefaults.standard.set(isInit, forKey: "isInit")
-                syncToiCloud()
+//                syncToiCloud()
             }
         }
     }
@@ -63,9 +63,18 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    @Published var latestSyncDate: Date? {
+        didSet {
+            // 当日期更新时，保存到 UserDefaults 和 iCloud
+            UserDefaults.standard.set(latestSyncDate, forKey: "latestSyncDate")
+            syncToiCloud()  // 同步到 iCloud
+        }
+    }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
+        latestSyncDate = UserDefaults.standard.object(forKey: "latestSyncDate") as? Date    // 读取最新同步日期
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
         if let tmpListOfSupportedCurrencies = UserDefaults.standard.array(forKey: "listOfSupportedCurrencies") as? [String] {
@@ -82,11 +91,12 @@ class AppStorageManager:ObservableObject {
         print("从iCloud读取数据")
         
         // 读取布尔值
-        if store.object(forKey: "isInit") != nil {
-            isInit = store.bool(forKey: "isInit")
-        } else {
-            store.set(isInit, forKey: "isInit")
-        }
+        // 暂时不将初始化同步到iCloud
+//        if store.object(forKey: "isInit") != nil {
+//            isInit = store.bool(forKey: "isInit")
+//        } else {
+//            store.set(isInit, forKey: "isInit")
+//        }
         
         if store.object(forKey: "RequestRating") != nil {
             RequestRating = store.bool(forKey: "RequestRating")
@@ -108,14 +118,13 @@ class AppStorageManager:ObservableObject {
         }
         
         print("完成 loadFromiCloud 方法的读取")
-        print("isInit: \(isInit)")
         store.synchronize() // 强制触发数据同步
     }
     
     /// 数据变化时，**同步到 iCloud**
     private func syncToiCloud() {
         let store = NSUbiquitousKeyValueStore.default
-        store.set(isInit, forKey: "isInit")
+//        store.set(isInit, forKey: "isInit")
         store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
         store.set(RequestRating, forKey: "RequestRating")
         store.set(isInAppPurchase, forKey: "isInAppPurchase")

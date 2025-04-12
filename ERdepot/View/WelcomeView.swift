@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     @State private var offsets: [CGFloat] = [-3100, -3600]
+    @EnvironmentObject var exchangeRate: ExchangeRate
     let animationDuration: Double = 120
     @Binding var ViewSteps: Int
     @Environment(\.colorScheme) var color
