@@ -20,7 +20,7 @@ class ExchangeRate :ObservableObject {
     
     private let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
     // 初始化方法
-    init() {
+    private init() {
         // 创建并加载 NSPersistentContainer
         container = NSPersistentContainer(name: "ExchangeRateDataModel")
         
@@ -48,6 +48,8 @@ class ExchangeRate :ObservableObject {
                 // 保存到永久路径
                 let fileManager = FileManager.default
                 let destinationURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFilename)
+                
+                
                 // 删除之前下载的文件
                 do {
                     try fileManager.removeItem(at: destinationURL)
@@ -104,6 +106,15 @@ class ExchangeRate :ObservableObject {
                 if file.lastPathComponent == "eurofxref-hist.csv" {
                     print("进入csv判定：\(file.path)")
                     processCSVData(file.path)
+                }
+            }
+            
+            // 删除测试文件
+            for file in files {
+                print(file.lastPathComponent) // 打印文件名
+                if file.pathExtension == "tmp" {
+                    try FileManager.default.removeItem(at: file)
+                    print("删除 \(file.lastPathComponent) 文件")
                 }
             }
         } catch {
@@ -169,8 +180,8 @@ class ExchangeRate :ObservableObject {
                         let rate = Double(column) ?? 0.0
                         let record: [String: Any] = [
                             "date": date,
-                            "currencySymbol": currencyCode,
-                            "exchangeRate": rate
+                            "symbol": currencyCode,
+                            "rate": rate
                         ]
                         records.append(record)
                     }

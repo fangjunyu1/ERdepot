@@ -2,7 +2,7 @@
 //  Eurofxrefhist+CoreDataProperties.swift
 //  ERdepot
 //
-//  Created by 方君宇 on 2025/3/27.
+//  Created by 方君宇 on 2025/4/13.
 //
 //
 
@@ -16,9 +16,9 @@ extension Eurofxrefhist {
         return NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
     }
 
-    @NSManaged public var currencySymbol: String?
-    @NSManaged public var exchangeRate: Double
     @NSManaged public var date: Date?
+    @NSManaged public var rate: Double
+    @NSManaged public var symbol: String?
 
 }
 

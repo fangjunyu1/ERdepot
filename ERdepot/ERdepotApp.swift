@@ -13,42 +13,24 @@ struct ERdepotApp: App {
     @StateObject var appStorage = AppStorageManager.shared  // 共享实例
     @StateObject var iapManager = IAPManager.shared
     @StateObject var exchangeRate = ExchangeRate.shared
+    let CoreDatacontainer = CoreDataPersistenceController.shared
     // 创建 NSPersistentContainer
-    let container: NSPersistentContainer
     init() {
-        // 加载 xcdatamodeld 文件，确保名字匹配
-        container = NSPersistentContainer(name: "ExchangeRateDataModel")
-        
-        // 加载持久化存储
-        container.loadPersistentStores { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        }
-        
         // 更新 Core Data 中的汇率数据
+        #if DEBUG
+        print("测试环境，不更新 Core Data 汇率数据")
+        #else
         exchangeRate.downloadExchangeRates()
-        
+        #endif
         // 更新最新的汇率数据日期
         appStorage.latestSyncDate = exchangeRate.fetchLatestDate()
-        var components = DateComponents()
-        components.year = 2025
-        components.month = 4
-        components.day = 4
-        let calendar = Calendar.current
-        
-        if let newDate = calendar.date(from: components) {
-            print("最新的汇率数据日期为:\(appStorage.latestSyncDate ?? newDate)")
-        } else {
-            print("DateComponents日期创建失败") // 输出2025年1月1日
-        }
     }
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(iapManager)
-                .environment(\.managedObjectContext, container.viewContext) // 加载 NSPersistentContainer
-                .environment(\.backgroundContext, container.newBackgroundContext())
+                .environment(\.managedObjectContext, CoreDatacontainer.context) // 加载 NSPersistentContainer
+                .environment(\.backgroundContext, CoreDatacontainer.backgroundContext)
                 .environmentObject(appStorage)
                 .environmentObject(exchangeRate)
                 .task {

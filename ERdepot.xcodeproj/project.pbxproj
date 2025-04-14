@@ -16,9 +16,8 @@
 		1D0FA6DB2D22513A00ABF5F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D0FA6D92D22513A00ABF5F6 /* InfoPlist.strings */; };
 		1D1BABA72CBF45C500FDA031 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1D1BABA62CBF45C500FDA031 /* Localizable.xcstrings */; };
 		1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1BABEB2CBF5EB000FDA031 /* Color.swift */; };
+		1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */; };
 		1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */; };
-		1D2AAF6B2D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AAF692D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift */; };
-		1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AAF6A2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift */; };
 		1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */; };
 		1D5AA1652D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AA1632D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodeld */; };
 		1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */; };
@@ -36,10 +35,14 @@
 		1D93E9DE2CBE57A8006E077C /* ERdepotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9DD2CBE57A8006E077C /* ERdepotTests.swift */; };
 		1D93E9E82CBE57A8006E077C /* ERdepotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9E72CBE57A8006E077C /* ERdepotUITests.swift */; };
 		1D93E9EA2CBE57A8006E077C /* ERdepotUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9E92CBE57A8006E077C /* ERdepotUITestsLaunchTests.swift */; };
-		1DAEAD412D05C2F700107211 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1DAEAD402D05C2F700107211 /* Lottie */; };
 		1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC0E9D72CC3959700C1A9BA /* StoreKit.framework */; };
 		1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD84DD42CC74DD300C55178 /* LottieView.swift */; };
-		1DEA15002DA6304400CE8A9C /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 1DEA14FF2DA6304400CE8A9C /* Zip */; };
+		1DE82AED2DABBFA500AF9A11 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE82AEC2DABBFA500AF9A11 /* Zip */; };
+		1DE82AF02DABBFB500AF9A11 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE82AEF2DABBFB500AF9A11 /* Lottie */; };
+		1DF2BDE62DABFD1600FEEFEA /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2BDE22DABFD1600FEEFEA /* Eurofxrefhist+CoreDataClass.swift */; };
+		1DF2BDE72DABFD1600FEEFEA /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2BDE32DABFD1600FEEFEA /* Eurofxrefhist+CoreDataProperties.swift */; };
+		1DF2BDE82DABFD1600FEEFEA /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2BDE42DABFD1600FEEFEA /* UserForeignCurrency+CoreDataClass.swift */; };
+		1DF2BDE92DABFD1600FEEFEA /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2BDE52DABFD1600FEEFEA /* UserForeignCurrency+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,9 +78,8 @@
 		1D0FA6E12D22517D00ABF5F6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D1BABA62CBF45C500FDA031 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1D1BABEB2CBF5EB000FDA031 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceController.swift; sourceTree = "<group>"; };
 		1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeignCurrencyView.swift; sourceTree = "<group>"; };
-		1D2AAF692D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D2AAF6A2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
 		1D5AA1642D9445DA000B7336 /* ExchangeRateDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExchangeRateDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,10 @@
 		1DAF14552D93856400AEE887 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DC0E9D72CC3959700C1A9BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DD84DD42CC74DD300C55178 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1DF2BDE22DABFD1600FEEFEA /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1DF2BDE32DABFD1600FEEFEA /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1DF2BDE42DABFD1600FEEFEA /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1DF2BDE52DABFD1600FEEFEA /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,10 +148,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DE82AED2DABBFA500AF9A11 /* Zip in Frameworks */,
 				1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */,
 				1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */,
-				1DEA15002DA6304400CE8A9C /* Zip in Frameworks */,
-				1DAEAD412D05C2F700107211 /* Lottie in Frameworks */,
+				1DE82AF02DABBFB500AF9A11 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +213,7 @@
 				1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */,
 				1D7882922DA20B880041AAF9 /* IAPManager.swift */,
 				1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */,
+				1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,8 +246,10 @@
 		1D93E9C02CBE57A6006E077C = {
 			isa = PBXGroup;
 			children = (
-				1D2AAF692D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift */,
-				1D2AAF6A2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift */,
+				1DF2BDE22DABFD1600FEEFEA /* Eurofxrefhist+CoreDataClass.swift */,
+				1DF2BDE32DABFD1600FEEFEA /* Eurofxrefhist+CoreDataProperties.swift */,
+				1DF2BDE42DABFD1600FEEFEA /* UserForeignCurrency+CoreDataClass.swift */,
+				1DF2BDE52DABFD1600FEEFEA /* UserForeignCurrency+CoreDataProperties.swift */,
 				1D93E9CB2CBE57A6006E077C /* ERdepot */,
 				1D93E9DC2CBE57A8006E077C /* ERdepotTests */,
 				1D93E9E62CBE57A8006E077C /* ERdepotUITests */,
@@ -321,8 +330,8 @@
 			);
 			name = ERdepot;
 			packageProductDependencies = (
-				1DAEAD402D05C2F700107211 /* Lottie */,
-				1DEA14FF2DA6304400CE8A9C /* Zip */,
+				1DE82AEC2DABBFA500AF9A11 /* Zip */,
+				1DE82AEF2DABBFB500AF9A11 /* Lottie */,
 			);
 			productName = ERdepot;
 			productReference = 1D93E9C92CBE57A6006E077C /* ERdepot.app */;
@@ -436,8 +445,8 @@
 			);
 			mainGroup = 1D93E9C02CBE57A6006E077C;
 			packageReferences = (
-				1DAEAD3F2D05C2F700107211 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */,
+				1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */,
+				1DE82AEE2DABBFB500AF9A11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 1D93E9CA2CBE57A6006E077C /* Products */;
 			projectDirPath = "";
@@ -485,10 +494,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D2AAF6B2D956AF200D71C14 /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1DF2BDE62DABFD1600FEEFEA /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1DF2BDE72DABFD1600FEEFEA /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1DF2BDE82DABFD1600FEEFEA /* UserForeignCurrency+CoreDataClass.swift in Sources */,
+				1DF2BDE92DABFD1600FEEFEA /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
 				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
 				1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */,
-				1D2AAF6C2D956AF200D71C14 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
 				1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */,
 				1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */,
 				1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */,
@@ -505,6 +516,7 @@
 				1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */,
 				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
 				1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */,
+				1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,15 +928,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1DAEAD3F2D05C2F700107211 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.0;
-			};
-		};
-		1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */ = {
+		1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
 			requirement = {
@@ -932,18 +936,26 @@
 				minimumVersion = 2.1.2;
 			};
 		};
+		1DE82AEE2DABBFB500AF9A11 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1DAEAD402D05C2F700107211 /* Lottie */ = {
+		1DE82AEC2DABBFA500AF9A11 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1DAEAD3F2D05C2F700107211 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
-		1DEA14FF2DA6304400CE8A9C /* Zip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1DEA14FE2DA6304400CE8A9C /* XCRemoteSwiftPackageReference "Zip" */;
+			package = 1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		1DE82AEF2DABBFB500AF9A11 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DE82AEE2DABBFB500AF9A11 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 

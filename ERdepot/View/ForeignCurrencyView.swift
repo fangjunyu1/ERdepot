@@ -6,18 +6,63 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ForeignCurrencyView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
     @Binding var isShowForeignCurrency: Bool
     @State private var textField: String = ""
-    var body: some View {
+    // 输入金额
+    @State private var inputAmounts: [String: String] = [:]
+    // 获取 Core Data 上下文
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        fetchRequest: {
+            let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \UserForeignCurrency.symbol, ascending: true)]
+            return request
+        }()
+    ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
+    
+    @FocusState private var focusedField: CurrencyField?
+    
+    enum CurrencyField: Hashable {
+        case symbol(String)
+    }
+    
+    func handleInputChange(for symbol: String, newValue: String) {
+        let trimmedValue = newValue.trimmingCharacters(in: .whitespaces)
+        let existing = userForeignCurrencies.first(where: { $0.symbol == symbol })
+        //
+        // 删除
+        if trimmedValue.isEmpty {
+            if let existing = existing {
+                viewContext.delete(existing)
+                try? viewContext.save()
+            }
+            return
+        }
         
-            GeometryReader { geo in
-                let width = geo.frame(in: .global).width * 0.95
-                let height = geo.frame(in: .global).height
-                ScrollView(showsIndicators: false) {
+        // 新增或更新
+        let value = Double(trimmedValue) ?? 0
+        if let existing = existing {
+            // 修改
+            existing.amount = value
+        } else {
+            // 新增
+            let newCurrency = UserForeignCurrency(context: viewContext)
+            newCurrency.symbol = symbol
+            newCurrency.amount = value
+        }
+        
+        try? viewContext.save()
+    }
+    var body: some View {
+        GeometryReader { geo in
+            let width = geo.frame(in: .global).width * 0.95
+            let height = geo.frame(in: .global).height
+            ScrollView(showsIndicators: false) {
                 VStack {
                     Spacer()
                         .frame(height: 30)
@@ -44,7 +89,7 @@ struct ForeignCurrencyView: View {
                         Spacer()
                     }
                     Spacer().frame(height: 24)
-                    // 外币
+                    // 外币顶部内容
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Foreign currency")
@@ -65,36 +110,52 @@ struct ForeignCurrencyView: View {
                     }
                     Spacer()
                         .frame(height: 20)
-                    ForEach(appStorage.listOfSupportedCurrencies, id: \.self) { currency in
-                        // 国旗列表
+                    // 显示已有的外币记录
+                    ForEach(userForeignCurrencies,id:\.self) { currency in
                         HStack {
-                            Image("\(currency)")
+                            Image(currency.symbol ?? "")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 60, height: 36)
                                 .cornerRadius(10)
                             Spacer().frame(width: 20)
                             VStack(alignment: .leading) {
-                                Text("\(currency)" as String)
+                                Text("\(currency.symbol ?? "")")
                                     .foregroundColor(.gray)
                                 Spacer().frame(height: 4)
-                                Text(LocalizedStringKey(currency))
+                                Text(LocalizedStringKey(currency.symbol ?? ""))
                             }
                             .font(.caption2)
                             Spacer()
-                            TextField("0.0", text: $textField)
-                                .multilineTextAlignment(.trailing)
-                                .padding(.leading,10)
+                            TextField("0.0", text: Binding(get: {
+                                inputAmounts[currency.symbol ?? ""] ?? ""
+                            }, set: { newValue in
+                                inputAmounts[currency.symbol ?? ""] = newValue
+                            }))
+                            .keyboardType(.decimalPad) // 数字小数点键盘
+                            .focused($focusedField, equals: .symbol(currency.symbol ?? "")) // 添加这一行
+                            .multilineTextAlignment(.trailing)
+                            .padding(.leading,10)
+                            .onChange(of: focusedField) { newFocus in
+                                // 当失去焦点，处理文本框关于 CoreData 方法
+                                if newFocus != .symbol(currency.symbol ?? "") {
+                                    handleInputChange(for: currency.symbol ?? "", newValue: inputAmounts[currency.symbol ?? ""] ?? "")
+                                }
+                            }
                         }
                         .padding(.horizontal,20)
                         .frame(width: width * 0.85,height: 50)
                         .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
                         .cornerRadius(10)
+                        .transition(.move(edge: .bottom).combined(with: .opacity)) // 添加过渡
                         Spacer()
                             .frame(height: 10)
                     }
-                    Spacer()
-                        .frame(height: 20)
+                    .animation(.easeInOut, value: userForeignCurrencies.count) // 对列表数量变化做动画
+                    // 当 Core Data 有数据，添加与其他列表之间的间隔。
+                    if !userForeignCurrencies.isEmpty {
+                        Spacer().frame(height: 20)
+                    }
                     // 其他
                     HStack {
                         VStack(alignment: .leading) {
@@ -105,17 +166,77 @@ struct ForeignCurrencyView: View {
                         }
                         Spacer()
                     }
+                    // 除已有外币意外的所有外币
+                    ForEach(appStorage.listOfSupportedCurrencies, id: \.self) {
+                        currency in
+                        if userForeignCurrencies.first(where: { $0.symbol == currency }) == nil {
+                            // 国旗列表
+                            HStack {
+                                Image("\(currency)")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 36)
+                                    .cornerRadius(10)
+                                Spacer().frame(width: 20)
+                                VStack(alignment: .leading) {
+                                    Text(verbatim:"\(currency)")
+                                        .foregroundColor(.gray)
+                                    Spacer().frame(height: 4)
+                                    Text(LocalizedStringKey(currency))
+                                }
+                                .font(.caption2)
+                                Spacer()
+                                TextField("0.0", text: Binding(get: {
+                                    inputAmounts[currency] ?? ""
+                                }, set: { newValue in
+                                    inputAmounts[currency] = newValue
+                                }))
+                                .keyboardType(.decimalPad) // 数字小数点键盘
+                                .focused($focusedField, equals: .symbol(currency)) // 添加这一行
+                                .multilineTextAlignment(.trailing)
+                                .padding(.leading,10)
+                                .onChange(of: focusedField) { newFocus in
+                                    // 当失去焦点，处理文本框关于 CoreData 方法
+                                    if newFocus != .symbol(currency) {
+                                        handleInputChange(for: currency, newValue: inputAmounts[currency] ?? "")
+                                    }
+                                }
+                                
+                            }
+                            .padding(.horizontal,20)
+                            .frame(width: width * 0.85,height: 50)
+                            .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                            .transition(.move(edge: .top).combined(with: .opacity))
+                            .cornerRadius(10)
+                            Spacer()
+                                .frame(height: 10)
+                        }
+                    }
+                    .animation(.easeInOut, value: userForeignCurrencies.count) // 对列表数量变化做动画
                     Spacer()
-                        .frame(height: 40)
+                        .frame(height: 20)
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+        .onTapGesture {
+            // 取消TextField的聚焦
+            focusedField = nil
+        }
+        .onAppear {
+            for currency in userForeignCurrencies {
+                if let symbol = currency.symbol {
+                    inputAmounts[symbol] = currency.amount == 0 ? "" : String(format: "%.2f", currency.amount)
+                }
             }
         }
     }
 }
 
 #Preview {
-    ForeignCurrencyView(isShowForeignCurrency: .constant(true))
+    let container = CoreDataPersistenceController.shared
+    return ForeignCurrencyView(isShowForeignCurrency: .constant(true))
         .environmentObject(AppStorageManager.shared)
+        .environment(\.managedObjectContext, container.context) // 加载 NSPersistentContainer
 }

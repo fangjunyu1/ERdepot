@@ -276,7 +276,7 @@ struct HomeView: View {
                                             .foregroundColor(.gray)
                                         Spacer()
                                             .frame(height: 10)
-                                        Text("CNY" as String)
+                                        Text(verbatim:"CNY")
                                             .font(.title3)
                                             .fontWeight(.bold)
                                             .foregroundColor(color == .light ? .black : .white)
@@ -406,8 +406,11 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    
+    let container = CoreDataPersistenceController.shared
+    return HomeView()
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
+        .environment(\.managedObjectContext, container.context) // 加载 NSPersistentContainer
 }
