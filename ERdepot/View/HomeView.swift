@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StoreKit
+import CoreData
 
 struct HomeView: View {
     @Environment(\.colorScheme) var color
@@ -25,6 +26,54 @@ struct HomeView: View {
         formatter.dateFormat = "y-MM-dd"
         return formatter
     }()
+    
+    @State private var latestDate: Date?
+    
+    @State private var warehouseAmount = 0.0
+    
+    // 获取 Core Data 上下文
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        fetchRequest: {
+            let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \UserForeignCurrency.symbol, ascending: true)]
+            return request
+        }()
+    ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
+    
+    func fetchLatestDate() -> Date? {
+        let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
+        request.resultType = .dictionaryResultType
+        request.propertiesToFetch = ["date"]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        request.fetchLimit = 1
+
+        do {
+            if let result = try viewContext.fetch(request).first,
+               let latestDate = result["date"] as? Date {
+                return latestDate
+            }
+        } catch {
+            print("Error fetching latest date: \(error)")
+        }
+        return nil
+    }
+    
+    func fetchLatestRates() -> [Eurofxrefhist] {
+        guard let latestDate = fetchLatestDate() else { return [] }
+
+        let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
+        request.predicate = NSPredicate(format: "date == %@", latestDate as NSDate)
+        request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: true)]
+
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            print("Error fetching latest rates: \(error)")
+            return []
+        }
+    }
+    
     
     var body: some View {
         NavigationView {
@@ -48,7 +97,7 @@ struct HomeView: View {
                             // 仓库金额 $999
                             HStack {
                                 HStack{
-                                    Text("¥  ") + Text("888,888.00")
+                                    Text("¥  ") + Text("\(warehouseAmount)")
                                 }
                                 .font(.title2)
                                 .foregroundColor(.white)
@@ -180,13 +229,8 @@ struct HomeView: View {
                             VStack {
                                 // 更新时间
                                 VStack {
-                                    if let latestSyncDate = appStorage.latestSyncDate {
-                                        Text("Update time") + Text(":") + 
-                                        Text(formatter.string(from: latestSyncDate))  // 显示格式化后的日期
-                                    } else {
                                         Text("Update time") + Text(":") +
-                                        Text("2025-4-4")
-                                    }
+                                    Text(formatter.string(from: latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
                                 }
                                 .font(.footnote)
                                 .frame(width: 160,height: 50)
@@ -401,6 +445,22 @@ struct HomeView: View {
                 appStorage.RequestRating = true
                 SKStoreReviewController.requestReview()
             }
+            // 获取最新的汇率数据
+            var latestRates = fetchLatestRates()
+            // 生成最新的汇率字典
+            let rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
+
+            for userCurrency in userForeignCurrencies {
+                if let symbol = userCurrency.symbol,
+                   let rate = rateDict[symbol] {
+                    let amount = userCurrency.amount
+                    warehouseAmount += amount / rate
+                }
+            }
+            // 获取并更新最新的日期，确保视图刷新
+                DispatchQueue.main.async {
+                    latestDate = exchangeRate.fetchLatestDate()
+                }
         }
     }
 }

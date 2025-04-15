@@ -19,11 +19,10 @@ struct ERdepotApp: App {
         // 更新 Core Data 中的汇率数据
         #if DEBUG
         print("测试环境，不更新 Core Data 汇率数据")
+        exchangeRate.downloadExchangeRates()
         #else
         exchangeRate.downloadExchangeRates()
         #endif
-        // 更新最新的汇率数据日期
-        appStorage.latestSyncDate = exchangeRate.fetchLatestDate()
     }
     var body: some Scene {
         WindowGroup {

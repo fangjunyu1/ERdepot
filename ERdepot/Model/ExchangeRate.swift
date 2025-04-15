@@ -257,8 +257,6 @@ class ExchangeRate :ObservableObject {
                 let results = try self.context.fetch(fetchRequest)
                 print("Core Data中一共有 \(results.count)条记录") // 处理结果
                 
-                // 更新同步日期
-                AppStorageManager.shared.latestSyncDate = self.fetchLatestDate()
             } catch {
                 print("批量插入失败：\(error)")
             }
