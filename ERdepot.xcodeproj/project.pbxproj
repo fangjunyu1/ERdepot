@@ -36,12 +36,13 @@
 		1D93E9DE2CBE57A8006E077C /* ERdepotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9DD2CBE57A8006E077C /* ERdepotTests.swift */; };
 		1D93E9E82CBE57A8006E077C /* ERdepotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9E72CBE57A8006E077C /* ERdepotUITests.swift */; };
 		1D93E9EA2CBE57A8006E077C /* ERdepotUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9E92CBE57A8006E077C /* ERdepotUITestsLaunchTests.swift */; };
-		1DBD4B232DAD610B00FF2C8E /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4B1F2DAD610B00FF2C8E /* Eurofxrefhist+CoreDataClass.swift */; };
-		1DBD4B242DAD610B00FF2C8E /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4B202DAD610B00FF2C8E /* Eurofxrefhist+CoreDataProperties.swift */; };
-		1DBD4B252DAD610B00FF2C8E /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4B212DAD610B00FF2C8E /* UserForeignCurrency+CoreDataClass.swift */; };
-		1DBD4B262DAD610B00FF2C8E /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4B222DAD610B00FF2C8E /* UserForeignCurrency+CoreDataProperties.swift */; };
+		1DB52F032DAE7B66005A374E /* ExtensionDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB52F022DAE7B66005A374E /* ExtensionDouble.swift */; };
 		1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC0E9D72CC3959700C1A9BA /* StoreKit.framework */; };
 		1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD84DD42CC74DD300C55178 /* LottieView.swift */; };
+		1DE414972DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE414932DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataClass.swift */; };
+		1DE414982DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE414942DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataProperties.swift */; };
+		1DE414992DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE414952DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataClass.swift */; };
+		1DE4149A2DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE414962DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataProperties.swift */; };
 		1DE82AED2DABBFA500AF9A11 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE82AEC2DABBFA500AF9A11 /* Zip */; };
 		1DE82AF02DABBFB500AF9A11 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE82AEF2DABBFB500AF9A11 /* Lottie */; };
 /* End PBXBuildFile section */
@@ -137,12 +138,13 @@
 		1DAF14532D93856000AEE887 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DAF14542D93856300AEE887 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DAF14552D93856400AEE887 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1DBD4B1F2DAD610B00FF2C8E /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1DBD4B202DAD610B00FF2C8E /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1DBD4B212DAD610B00FF2C8E /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1DBD4B222DAD610B00FF2C8E /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1DB52F022DAE7B66005A374E /* ExtensionDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDouble.swift; sourceTree = "<group>"; };
 		1DC0E9D72CC3959700C1A9BA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DD84DD42CC74DD300C55178 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1DE414932DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1DE414942DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1DE414952DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1DE414962DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 				1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */,
 				1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */,
 				1D1AE4902DAE185F00642709 /* currencySymbol.swift */,
+				1DB52F022DAE7B66005A374E /* ExtensionDouble.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,10 +252,10 @@
 		1D93E9C02CBE57A6006E077C = {
 			isa = PBXGroup;
 			children = (
-				1DBD4B1F2DAD610B00FF2C8E /* Eurofxrefhist+CoreDataClass.swift */,
-				1DBD4B202DAD610B00FF2C8E /* Eurofxrefhist+CoreDataProperties.swift */,
-				1DBD4B212DAD610B00FF2C8E /* UserForeignCurrency+CoreDataClass.swift */,
-				1DBD4B222DAD610B00FF2C8E /* UserForeignCurrency+CoreDataProperties.swift */,
+				1DE414932DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataClass.swift */,
+				1DE414942DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataProperties.swift */,
+				1DE414952DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataClass.swift */,
+				1DE414962DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataProperties.swift */,
 				1D93E9CB2CBE57A6006E077C /* ERdepot */,
 				1D93E9DC2CBE57A8006E077C /* ERdepotTests */,
 				1D93E9E62CBE57A8006E077C /* ERdepotUITests */,
@@ -497,11 +500,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DBD4B232DAD610B00FF2C8E /* Eurofxrefhist+CoreDataClass.swift in Sources */,
-				1DBD4B242DAD610B00FF2C8E /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
-				1DBD4B252DAD610B00FF2C8E /* UserForeignCurrency+CoreDataClass.swift in Sources */,
-				1DBD4B262DAD610B00FF2C8E /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
+				1DB52F032DAE7B66005A374E /* ExtensionDouble.swift in Sources */,
 				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
+				1DE414972DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1DE414982DAE9DDA002AC5E4 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1DE414992DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataClass.swift in Sources */,
+				1DE4149A2DAE9DDA002AC5E4 /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
 				1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */,
 				1D78828F2DA1F2970041AAF9 /* SetView.swift in Sources */,
 				1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */,

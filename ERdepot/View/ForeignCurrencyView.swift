@@ -58,6 +58,7 @@ struct ForeignCurrencyView: View {
         
         try? viewContext.save()
     }
+    
     var body: some View {
         GeometryReader { geo in
             let width = geo.frame(in: .global).width * 0.95
