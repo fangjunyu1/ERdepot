@@ -32,11 +32,12 @@ struct ForeignCurrencyView: View {
     }
     
     func handleInputChange(for symbol: String, newValue: String) {
-        let trimmedValue = newValue.trimmingCharacters(in: .whitespaces)
+        print("计算货币:\(symbol)")
+        let cleanedValue = newValue.replacingOccurrences(of: ",", with: "")  // 移除千分位分隔符
         let existing = userForeignCurrencies.first(where: { $0.symbol == symbol })
         //
         // 删除
-        if trimmedValue.isEmpty {
+        if newValue.isEmpty {
             if let existing = existing {
                 viewContext.delete(existing)
                 try? viewContext.save()
@@ -45,15 +46,34 @@ struct ForeignCurrencyView: View {
         }
         
         // 新增或更新
-        let value = Double(trimmedValue) ?? 0
-        if let existing = existing {
-            // 修改
-            existing.amount = value
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        if let number = formatter.number(from: cleanedValue) {
+            print("number计算成功")
+            let value = number.doubleValue
+            if let existing = existing {
+                // 修改
+                existing.amount = value
+            } else {
+                // 新增
+                let newCurrency = UserForeignCurrency(context: viewContext)
+                newCurrency.symbol = symbol
+                newCurrency.amount = value
+            }
         } else {
-            // 新增
-            let newCurrency = UserForeignCurrency(context: viewContext)
-            newCurrency.symbol = symbol
-            newCurrency.amount = value
+            print("number计算失败")
+        }
+        
+        
+        if let doubleValue = Double(cleanedValue) {
+            print("string计算成功")
+            let string = formatter.string(from: NSNumber(value:doubleValue))
+            inputAmounts[symbol] = string
+            print("string:\(string ?? "")")
+        } else {
+            print("string计算失败")
         }
         
         try? viewContext.save()
@@ -107,7 +127,6 @@ struct ForeignCurrencyView: View {
                                 .scaledToFit()
                                 .frame(width: 70)
                         }
-                        
                     }
                     Spacer()
                         .frame(height: 20)
@@ -188,9 +207,9 @@ struct ForeignCurrencyView: View {
                                 .font(.caption2)
                                 Spacer()
                                 TextField("0.0", text: Binding(get: {
-                                    inputAmounts[currency] ?? ""
+                                    inputAmounts[currency ?? ""] ?? ""
                                 }, set: { newValue in
-                                    inputAmounts[currency] = newValue
+                                    inputAmounts[currency ?? ""] = newValue
                                 }))
                                 .keyboardType(.decimalPad) // 数字小数点键盘
                                 .focused($focusedField, equals: .symbol(currency)) // 添加这一行
@@ -202,7 +221,6 @@ struct ForeignCurrencyView: View {
                                         handleInputChange(for: currency, newValue: inputAmounts[currency] ?? "")
                                     }
                                 }
-                                
                             }
                             .padding(.horizontal,20)
                             .frame(width: width * 0.85,height: 50)
@@ -228,7 +246,11 @@ struct ForeignCurrencyView: View {
         .onAppear {
             for currency in userForeignCurrencies {
                 if let symbol = currency.symbol {
-                    inputAmounts[symbol] = currency.amount == 0 ? "" : String(format: "%.2f", currency.amount)
+                    let formatter = NumberFormatter()
+                                    formatter.numberStyle = .decimal
+                                    formatter.maximumFractionDigits = 2
+                                    formatter.minimumFractionDigits = 2
+                    inputAmounts[symbol] =  formatter.string(from: NSNumber(value: currency.amount)) ?? ""
                 }
             }
         }
