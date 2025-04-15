@@ -29,7 +29,16 @@ class AppStorageManager:ObservableObject {
         didSet {
             if isInit != oldValue {
                 UserDefaults.standard.set(isInit, forKey: "isInit")
-//                syncToiCloud()
+                //                syncToiCloud()
+            }
+        }
+    }
+    
+    @Published var localCurrency: String = "CNY"  {
+        didSet {
+            if localCurrency != oldValue {
+                UserDefaults.standard.set(localCurrency, forKey: "localCurrency")
+                syncToiCloud()
             }
         }
     }
@@ -68,6 +77,7 @@ class AppStorageManager:ObservableObject {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
+        localCurrency = UserDefaults.standard.string(forKey: "localCurrency") ??  "USD" // 当前币种
         if let tmpListOfSupportedCurrencies = UserDefaults.standard.array(forKey: "listOfSupportedCurrencies") as? [String] {
             listOfSupportedCurrencies = tmpListOfSupportedCurrencies
         } else {
@@ -83,11 +93,11 @@ class AppStorageManager:ObservableObject {
         
         // 读取布尔值
         // 暂时不将初始化同步到iCloud
-//        if store.object(forKey: "isInit") != nil {
-//            isInit = store.bool(forKey: "isInit")
-//        } else {
-//            store.set(isInit, forKey: "isInit")
-//        }
+        //        if store.object(forKey: "isInit") != nil {
+        //            isInit = store.bool(forKey: "isInit")
+        //        } else {
+        //            store.set(isInit, forKey: "isInit")
+        //        }
         
         if store.object(forKey: "RequestRating") != nil {
             RequestRating = store.bool(forKey: "RequestRating")
@@ -101,11 +111,20 @@ class AppStorageManager:ObservableObject {
             store.set(isInit, forKey: "isInAppPurchase")
         }
         
+        // 读取数组值
         if let tmpListOfSupportedCurrencies = store.object(forKey: "listOfSupportedCurrencies") as? [String] {
             listOfSupportedCurrencies = tmpListOfSupportedCurrencies
         } else {
             print("未从 iCloud 获取listOfSupportedCurrencies货币数组")
             store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
+        }
+        
+        // 读取字符串值
+        // 更新当前币种
+        if let storedLocalCurrency = store.string(forKey: "localCurrency") {
+            localCurrency = storedLocalCurrency
+        } else {
+            store.set(localCurrency, forKey: "localCurrency")
         }
         
         print("完成 loadFromiCloud 方法的读取")
@@ -115,10 +134,11 @@ class AppStorageManager:ObservableObject {
     /// 数据变化时，**同步到 iCloud**
     private func syncToiCloud() {
         let store = NSUbiquitousKeyValueStore.default
-//        store.set(isInit, forKey: "isInit")
+        //        store.set(isInit, forKey: "isInit")
         store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
         store.set(RequestRating, forKey: "RequestRating")
         store.set(isInAppPurchase, forKey: "isInAppPurchase")
+        store.set(localCurrency, forKey: "localCurrency")
         store.synchronize() // 强制触发数据同步
     }
     

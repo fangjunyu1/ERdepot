@@ -27,7 +27,6 @@ struct HomeView: View {
         return formatter
     }()
     
-    @State private var warehouseAmount = 0.0
     
     // 获取 Core Data 上下文
     @Environment(\.managedObjectContext) private var viewContext
@@ -39,13 +38,34 @@ struct HomeView: View {
         }()
     ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
     
+    // 计算总金额的计算属性
+    var totalAmount: (Int,Double) {
+        // 获取最新的汇率数据
+        let latestRates = fetchLatestRates()
+        let rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
+        
+        // 计算所有外币的金额
+        var total = 0.0
+        for userCurrency in userForeignCurrencies {
+            if let symbol = userCurrency.symbol, let rate = rateDict[symbol],let localCurrency = rateDict[appStorage.localCurrency] {
+                total += userCurrency.amount / rate * localCurrency
+            }
+        }
+        
+        // 将 totalAmount 拆分为整数部分和小数部分
+        let integerPart = Int(total)
+        let decimalPart = total - Double(integerPart)
+        
+        return (integerPart,decimalPart)
+    }
+    
     func fetchLatestDate() -> Date? {
         let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
         request.resultType = .dictionaryResultType
         request.propertiesToFetch = ["date"]
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         request.fetchLimit = 1
-
+        
         do {
             if let result = try viewContext.fetch(request).first,
                let latestDate = result["date"] as? Date {
@@ -59,11 +79,11 @@ struct HomeView: View {
     
     func fetchLatestRates() -> [Eurofxrefhist] {
         guard let latestDate = fetchLatestDate() else { return [] }
-
+        
         let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
         request.predicate = NSPredicate(format: "date == %@", latestDate as NSDate)
         request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: true)]
-
+        
         do {
             return try viewContext.fetch(request)
         } catch {
@@ -71,7 +91,6 @@ struct HomeView: View {
             return []
         }
     }
-    
     
     var body: some View {
         NavigationView {
@@ -94,8 +113,13 @@ struct HomeView: View {
                             Spacer().frame(height: 10)
                             // 仓库金额 $999
                             HStack {
-                                HStack{
-                                    Text("¥  ") + Text("\(warehouseAmount)")
+                                HStack(spacing:0){
+                                    Text(currencySymbols[appStorage.localCurrency] ?? "USD")
+                                    Text("  ")
+                                    Text("\(totalAmount.0)")
+                                    // 显示小数部分（格式化为两位小数）
+                                            Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
+                                                .foregroundColor(.gray)  // 小数部分使用灰色字体
                                 }
                                 .font(.title2)
                                 .foregroundColor(.white)
@@ -139,6 +163,7 @@ struct HomeView: View {
                                                 .background(time == selectedTime ? Color(hex: "5D5D5D") : color == .light ? Color(hex: "FFFFFF") : Color(hex: "999999"))
                                                 .cornerRadius(10)
                                         })
+                                        .disabled(time == selectedTime)
                                     }
                                 }
                             }
@@ -227,7 +252,7 @@ struct HomeView: View {
                             VStack {
                                 // 更新时间
                                 VStack {
-                                        Text("Update time") + Text(":") +
+                                    Text("Update time") + Text(":") +
                                     Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
                                 }
                                 .font(.footnote)
@@ -318,7 +343,7 @@ struct HomeView: View {
                                             .foregroundColor(.gray)
                                         Spacer()
                                             .frame(height: 10)
-                                        Text(verbatim:"CNY")
+                                        Text(verbatim:"\(appStorage.localCurrency)")
                                             .font(.title3)
                                             .fontWeight(.bold)
                                             .foregroundColor(color == .light ? .black : .white)
@@ -445,16 +470,7 @@ struct HomeView: View {
             }
             // 获取最新的汇率数据
             var latestRates = fetchLatestRates()
-            // 生成最新的汇率字典
-            let rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
-
-            for userCurrency in userForeignCurrencies {
-                if let symbol = userCurrency.symbol,
-                   let rate = rateDict[symbol] {
-                    let amount = userCurrency.amount
-                    warehouseAmount += amount / rate
-                }
-            }
+            
             // 如果最新日期为nil，更新最新日期
             if exchangeRate.latestDate == nil {
                 exchangeRate.updateLatestDate()
