@@ -19,6 +19,7 @@ class ExchangeRate :ObservableObject {
     private var context: NSManagedObjectContext
     
     private let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
+    @Published var latestDate: Date? // 用于管理最新日期
     // 初始化方法
     private init() {
         // 创建并加载 NSPersistentContainer
@@ -221,6 +222,9 @@ class ExchangeRate :ObservableObject {
         }
     }
     
+    func updateLatestDate() {
+        self.latestDate = self.fetchLatestDate() // 更新latestDate
+    }
     // 获取
     func fetchLatestDate() -> Date? {
         let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
@@ -256,6 +260,13 @@ class ExchangeRate :ObservableObject {
                 
                 let results = try self.context.fetch(fetchRequest)
                 print("Core Data中一共有 \(results.count)条记录") // 处理结果
+                
+                // 更新 Core Data 中最新日期
+                DispatchQueue.main.async {
+                    print("更新 Core Data 中最新日期")
+                    self.updateLatestDate()
+                    print("最新日期:\(self.latestDate)")
+                }
                 
             } catch {
                 print("批量插入失败：\(error)")

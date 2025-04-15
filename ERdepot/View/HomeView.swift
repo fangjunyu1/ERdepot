@@ -27,8 +27,6 @@ struct HomeView: View {
         return formatter
     }()
     
-    @State private var latestDate: Date?
-    
     @State private var warehouseAmount = 0.0
     
     // 获取 Core Data 上下文
@@ -230,7 +228,7 @@ struct HomeView: View {
                                 // 更新时间
                                 VStack {
                                         Text("Update time") + Text(":") +
-                                    Text(formatter.string(from: latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
+                                    Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
                                 }
                                 .font(.footnote)
                                 .frame(width: 160,height: 50)
@@ -457,10 +455,10 @@ struct HomeView: View {
                     warehouseAmount += amount / rate
                 }
             }
-            // 获取并更新最新的日期，确保视图刷新
-                DispatchQueue.main.async {
-                    latestDate = exchangeRate.fetchLatestDate()
-                }
+            // 如果最新日期为nil，更新最新日期
+            if exchangeRate.latestDate == nil {
+                exchangeRate.updateLatestDate()
+            }
         }
     }
 }
