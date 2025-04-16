@@ -140,11 +140,7 @@ class ExchangeRate :ObservableObject {
             let CurrencyCodes = lines[0].split(separator: ",").dropFirst().map { String($0) }
             // 将CSV的外币列表同步到 App Storage Manager 中。
             
-            // 一旦数据准备好，切换到主线程来更新UI
-            DispatchQueue.main.async {
-                AppStorageManager.shared.listOfSupportedCurrencies = CurrencyCodes
-            }
-            print("CSV的外币列表同步到 App Storage Manager 的listOfSupportedCurrencies 中，\(AppStorageManager.shared.listOfSupportedCurrencies)")
+            print("CSV的外币列表：\(CurrencyCodes)")
             /// 移除标题行
             lines.removeFirst()
             
@@ -186,6 +182,15 @@ class ExchangeRate :ObservableObject {
                         ]
                         records.append(record)
                     }
+                    
+                    // 额外添加 欧元（EUR）的汇率
+                    let EURRecord: [String: Any] = [
+                        "date": date,
+                        "symbol": "EUR",
+                        "rate": 1.00
+                    ]
+                    print("新增\(date)日期的欧元汇率")
+                    records.append(EURRecord)
                 }
             }
             print("CSV 解析完成，共解析出 \(records.count) 条记录")

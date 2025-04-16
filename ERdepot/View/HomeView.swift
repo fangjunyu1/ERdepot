@@ -49,6 +49,8 @@ struct HomeView: View {
         for userCurrency in userForeignCurrencies {
             if let symbol = userCurrency.symbol, let rate = rateDict[symbol],let localCurrency = rateDict[appStorage.localCurrency] {
                 total += userCurrency.amount / rate * localCurrency
+            } else {
+                print("计算出问题了")
             }
         }
         
@@ -480,11 +482,9 @@ struct HomeView: View {
 }
 
 #Preview {
-    
-    let container = CoreDataPersistenceController.shared
-    return HomeView()
+    HomeView()
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
-        .environment(\.managedObjectContext, container.context) // 加载 NSPersistentContainer
+        .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
 }

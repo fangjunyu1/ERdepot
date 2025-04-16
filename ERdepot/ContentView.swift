@@ -29,6 +29,8 @@ struct ContentView: View {
         UserDefaults.standard.removePersistentDomain(forName: bundleID)
     }
     return ContentView()
-        .environmentObject(AppStorageManager.shared)
-        .environment(\.locale, .init(identifier: "ja")) // 设置为阿拉伯语
+        .environmentObject(AppStorageManager.shared) // 设置为阿拉伯语
+        .environmentObject(ExchangeRate.shared)
+        .environmentObject(IAPManager.shared)
+        .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
 }
