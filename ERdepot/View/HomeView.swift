@@ -31,6 +31,10 @@ struct HomeView: View {
     let colorPalette: [Color] = [
         .red, .purple, .blue, .green, .orange, .pink, .yellow, .teal, .mint
     ]
+    
+    // 汇率字典
+    @State private var rateDict: [String:Double] = [:]
+    @State private var currencyCount = 0.0
     // 获取 Core Data 上下文
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
@@ -45,7 +49,7 @@ struct HomeView: View {
     var totalAmount: (Int,Double) {
         // 获取最新的汇率数据
         let latestRates = fetchLatestRates()
-        let rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
+        rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
         
         // 计算所有外币的金额
         var total = 0.0
@@ -57,12 +61,14 @@ struct HomeView: View {
             }
         }
         
+        currencyCount = total
         // 将 totalAmount 拆分为整数部分和小数部分
         let integerPart = Int(total)
         let decimalPart = total - Double(integerPart)
         
         return (integerPart,decimalPart)
     }
+    
     
     func fetchLatestDate() -> Date? {
         let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
@@ -133,19 +139,26 @@ struct HomeView: View {
                             Spacer().frame(height: 10)
                             // 仓库金额各币种进度
                             HStack {
-                                ForEach(Array(userForeignCurrencies.enumerated()), id:\.1){ index,currency in
-                                    let total = userForeignCurrencies.map { $0.amount }.reduce(0,+)
-                                    let ratio = total > 0 ? currency.amount / total : 0
-                                    let barColor = colorPalette[index % colorPalette.count]
-                                    VStack {
-                                        Text(currency.symbol ?? "")
-                                            .font(.footnote)
-                                            .foregroundColor(Color(hex: "FFFFFF"))
-                                        Rectangle().frame(width: width * ratio * 0.8,height: 8)
-                                            .foregroundColor(barColor)
-                                            .cornerRadius(10)
+                                
+                                    ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
+                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
+                                            let ratio = currency.amount  / rate * localCurrency / currencyCount
+                                            let barColor = colorPalette[index % colorPalette.count]
+                                            VStack {
+                                                Text(symbol)
+                                                    .font(.footnote)
+                                                    .foregroundColor(Color(hex: "FFFFFF"))
+                                                    .fixedSize()
+                                                Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                                    .foregroundColor(barColor)
+                                                    .cornerRadius(10)
+                                            }
+                                            .onAppear {
+                                                print("currency.amount  / rate :\(currency.amount  / rate )")
+                                                print("currencyCount:\(currencyCount)")
+                                            }
+                                        }
                                     }
-                                }
                             }
                         }
                         .padding(14)
