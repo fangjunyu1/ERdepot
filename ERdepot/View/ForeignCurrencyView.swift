@@ -72,8 +72,6 @@ struct ForeignCurrencyView: View {
             let string = formatter.string(from: NSNumber(value:doubleValue))
             inputAmounts[symbol] = string
             print("string:\(string ?? "")")
-        } else {
-            print("string计算失败")
         }
         
         try? viewContext.save()

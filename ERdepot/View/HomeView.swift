@@ -145,7 +145,7 @@ struct HomeView: View {
                                             let ratio = currency.amount  / rate * localCurrency / currencyCount
                                             let barColor = colorPalette[index % colorPalette.count]
                                             VStack(spacing: 0) {
-                                                if ratio >= 0.08 {
+                                                if ratio >= 0.05 {
                                                     Text(symbol)
                                                         .font(.footnote)
                                                         .foregroundColor(Color(hex: "FFFFFF"))
