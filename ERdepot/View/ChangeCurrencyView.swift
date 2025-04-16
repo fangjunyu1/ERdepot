@@ -59,7 +59,44 @@ struct ChangeCurrencyView: View {
                             .scaledToFit()
                             .frame(width: 70)
                     }
-                    
+                }
+                Spacer().frame(height:20)
+                ForEach(appStorage.listOfSupportedCurrencies, id: \.self) {
+                    currency in
+                        // 国旗列表
+                        HStack {
+                            Image("\(currency)")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 60, height: 36)
+                                .cornerRadius(10)
+                            Spacer().frame(width: 20)
+                            VStack(alignment: .leading) {
+                                Text(verbatim:"\(currency)")
+                                    .foregroundColor(.gray)
+                                Spacer().frame(height: 4)
+                                Text(LocalizedStringKey(currency))
+                            }
+                            .font(.caption2)
+                            Spacer()
+                            if currency == appStorage.localCurrency {
+                                Image(systemName: "checkmark.circle.fill")
+                            } else {
+                                Image(systemName: "circle")
+                                    .foregroundColor(Color(hex: "969696"))
+                            }
+                        }
+                        .padding(.horizontal,20)
+                        .frame(width: width * 0.85,height: 50)
+                        .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            // 当点击时，设置当前币种
+                            appStorage.localCurrency = currency
+                        }
+                        Spacer()
+                            .frame(height: 10)
                 }
             }
             .frame(width: width * 0.85)
