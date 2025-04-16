@@ -254,8 +254,15 @@ struct HomeView: View {
                             VStack {
                                 // 更新时间
                                 VStack {
-                                    Text("Update time") + Text(":") +
-                                    Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
+                                    if exchangeRate.isload {
+                                        ProgressView("")
+                                            .offset(y:5)
+                                            .tint(.white)
+
+                                    } else {
+                                        Text("Update time") + Text(":") +
+                                        Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
+                                    }
                                 }
                                 .font(.footnote)
                                 .frame(width: 160,height: 50)

@@ -20,6 +20,7 @@ class ExchangeRate :ObservableObject {
     
     private let fetchRequest: NSFetchRequest<Eurofxrefhist> = Eurofxrefhist.fetchRequest()
     @Published var latestDate: Date? // 用于管理最新日期
+    @Published var isload = false // 数据同步状态
     // 初始化方法
     private init() {
         // 创建并加载 NSPersistentContainer
@@ -37,6 +38,9 @@ class ExchangeRate :ObservableObject {
     }
     
     func downloadExchangeRates() {
+        // 开始下载文件，开启同步状态
+        self.isload = true
+        
         print("进入下载方法 downloadExchangeRates")
         let task = URLSession.shared.downloadTask(with: fileURL) { localURL, response, error in
             if let error = error {
@@ -133,6 +137,8 @@ class ExchangeRate :ObservableObject {
             var lines = csvString.split(separator: "\n")
             guard !lines.isEmpty else {
                 print("CSV 文件没有数据")
+                // CSV文件没有数据，同步状态改为false，结束同步动画
+                self.isload = false
                 return
             }
             
@@ -204,6 +210,8 @@ class ExchangeRate :ObservableObject {
             
             let endDate = Date()
             print("所有汇率数据处理完成，用时:\(endDate.timeIntervalSince(startDate))秒")
+            // CSV文件没有数据，同步状态改为false，结束同步动画
+            self.isload = false
         } catch {
             print("读取CSV失败: \(error)")
         }
