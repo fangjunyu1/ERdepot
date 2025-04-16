@@ -27,7 +27,10 @@ struct HomeView: View {
         return formatter
     }()
     
-    
+    // 可循环的颜色数组
+    let colorPalette: [Color] = [
+        .red, .purple, .blue, .green, .orange, .pink, .yellow, .teal, .mint
+    ]
     // 获取 Core Data 上下文
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
@@ -129,15 +132,19 @@ struct HomeView: View {
                             }
                             Spacer().frame(height: 10)
                             // 仓库金额各币种进度
-                            Group {
-                                Text("JPY")
-                                    .font(.footnote)
-                                    .foregroundColor(Color(hex: "FFFFFF"))
-                                Spacer().frame(height: 5)
-                                HStack {
-                                    Rectangle().frame(width: width * 0.8,height: 8)
-                                        .foregroundColor(.purple)
-                                        .cornerRadius(10)
+                            HStack {
+                                ForEach(Array(userForeignCurrencies.enumerated()), id:\.1){ index,currency in
+                                    let total = userForeignCurrencies.map { $0.amount }.reduce(0,+)
+                                    let ratio = total > 0 ? currency.amount / total : 0
+                                    let barColor = colorPalette[index % colorPalette.count]
+                                    VStack {
+                                        Text(currency.symbol ?? "")
+                                            .font(.footnote)
+                                            .foregroundColor(Color(hex: "FFFFFF"))
+                                        Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                            .foregroundColor(barColor)
+                                            .cornerRadius(10)
+                                    }
                                 }
                             }
                         }
