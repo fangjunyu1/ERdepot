@@ -138,20 +138,24 @@ struct HomeView: View {
                             }
                             Spacer().frame(height: 10)
                             // 仓库金额各币种进度
-                            HStack {
+                            HStack(spacing:1) {
                                 
                                     ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
                                         if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
                                             let ratio = currency.amount  / rate * localCurrency / currencyCount
                                             let barColor = colorPalette[index % colorPalette.count]
-                                            VStack {
-                                                Text(symbol)
-                                                    .font(.footnote)
-                                                    .foregroundColor(Color(hex: "FFFFFF"))
-                                                    .fixedSize()
+                                            VStack(spacing: 0) {
+                                                if ratio >= 0.08 {
+                                                    Text(symbol)
+                                                        .font(.footnote)
+                                                        .foregroundColor(Color(hex: "FFFFFF"))
+                                                } else {
+                                                    Rectangle().frame(width:1,height:15)
+                                                        .opacity(0)
+                                                }
                                                 Rectangle().frame(width: width * ratio * 0.8,height: 8)
                                                     .foregroundColor(barColor)
-                                                    .cornerRadius(10)
+                                                    .cornerRadius(6)
                                             }
                                             .onAppear {
                                                 print("currency.amount  / rate :\(currency.amount  / rate )")
