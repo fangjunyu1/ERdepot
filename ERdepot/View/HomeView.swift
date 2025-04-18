@@ -422,7 +422,7 @@ struct HomeView: View {
                                     Spacer().frame(width: 14)
                                     VStack {
                                         HStack {
-                                            Text("Income")
+                                            Text("Profit")
                                                 .font(.footnote)
                                                 .foregroundColor(.gray)
                                         }

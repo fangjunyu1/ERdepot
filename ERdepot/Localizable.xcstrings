@@ -2719,6 +2719,18 @@
         }
       }
     },
+    "Cost" : {
+      "comment" : "1.0.4:成本",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成本"
+          }
+        }
+      }
+    },
     "Croatian" : {
       "comment" : "克罗地亚语",
       "extractionState" : "manual",
@@ -7804,6 +7816,30 @@
         }
       }
     },
+    "HistoricalHighs" : {
+      "comment" : "1.0.4:历史高点",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "历史高点"
+          }
+        }
+      }
+    },
+    "HistoricalTime" : {
+      "comment" : "1.0.4:历史时间",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "历史时间"
+          }
+        }
+      }
+    },
     "HKD" : {
       "comment" : "港元",
       "extractionState" : "manual",
@@ -8736,18 +8772,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以色列新谢克尔"
-          }
-        }
-      }
-    },
-    "Income" : {
-      "comment" : "1.0.4:收益",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "收益"
           }
         }
       }
