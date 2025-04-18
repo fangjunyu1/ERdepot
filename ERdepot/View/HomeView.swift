@@ -55,8 +55,6 @@ struct HomeView: View {
         for userCurrency in userForeignCurrencies {
             if let symbol = userCurrency.symbol, let rate = rateDict[symbol],let localCurrency = rateDict[appStorage.localCurrency] {
                 total += userCurrency.amount / rate * localCurrency
-            } else {
-                print("计算出问题了")
             }
         }
         
@@ -68,6 +66,29 @@ struct HomeView: View {
         return (integerPart,decimalPart)
     }
     
+    // 计算汇率仓库的收益
+    var calculatePenefits: Double {
+        // 可计算收益的外币价值
+        var foreignCurrencyValue = 0.0
+        // 可计算收益的外币购入价值
+        var foreignCurrencyPurchasePrice = 0.0
+        for userCurrency in userForeignCurrencies {
+            if userCurrency.purchaseAmount > 0 {
+                // 叠加当前外币价值
+                // 计算公式为，外币金额 / 兑换欧元的汇率 * 本币的汇率
+                foreignCurrencyValue += userCurrency.amount / (rateDict[userCurrency.symbol ?? ""] ?? 0) * (rateDict[appStorage.localCurrency] ?? 0)
+                // 叠加可计算收益的外币购入价值
+                foreignCurrencyPurchasePrice += userCurrency.purchaseAmount
+            }
+        }
+        
+        // 如果有外币购入金额，计算收益率
+            if foreignCurrencyPurchasePrice > 0 {
+                return (foreignCurrencyValue - foreignCurrencyPurchasePrice) / foreignCurrencyPurchasePrice * 100
+            } else {
+                return 0.0  // 没有外币购入时，收益率为 0
+            }
+    }
     
     func fetchLatestDate() -> Date? {
         let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
@@ -155,10 +176,6 @@ struct HomeView: View {
                                                 Rectangle().frame(width: width * ratio * 0.8,height: 8)
                                                     .foregroundColor(barColor)
                                                     .cornerRadius(6)
-                                            }
-                                            .onAppear {
-                                                print("currency.amount  / rate :\(currency.amount  / rate )")
-                                                print("currencyCount:\(currencyCount)")
                                             }
                                         }
                                     }
@@ -393,7 +410,6 @@ struct HomeView: View {
                             Button(action: {
                                 isShowProfit = true
                             }, label: {
-                                
                                 HStack {
                                     VStack {
                                         Spacer()
@@ -413,10 +429,17 @@ struct HomeView: View {
                                         .overlay {
                                             
                                             if #available(iOS 16.0, *) {
-                                                Image(systemName: "arrow.down")
-                                                    .fontWeight(.bold)
-                                                    .foregroundColor(Color(hex: "ED3434"))
-                                                    .offset(x:30)
+                                                if calculatePenefits > 0 {
+                                                    Image(systemName: "arrow.up")
+                                                        .fontWeight(.bold)
+                                                        .foregroundColor(Color(hex: "0B8B2C"))
+                                                        .offset(x:30)
+                                                } else {
+                                                    Image(systemName: "arrow.down")
+                                                        .fontWeight(.bold)
+                                                        .foregroundColor(Color(hex: "ED3434"))
+                                                        .offset(x:30)
+                                                }
                                             } else {
                                                 // Fallback on earlier versions
                                                 Image(systemName: "arrow.down")
@@ -426,10 +449,17 @@ struct HomeView: View {
                                         }
                                         Spacer()
                                             .frame(height: 10)
-                                        Text("-20%")
-                                            .font(.title3)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(Color(hex: "ED3434"))
+                                        if calculatePenefits == 0 {
+                                                Text("--")
+                                                    .font(.title3)
+                                                    .fontWeight(.bold)
+                                                    .foregroundColor(Color(hex: "ED3434"))
+                                        } else {
+                                            Text("\(String(format:"%.2f",calculatePenefits))%")
+                                                .font(.title3)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(Color(hex: calculatePenefits > 0 ? "0B8B2C" :"ED3434"))
+                                        }
                                     }
                                 }
                                 .padding(20)
@@ -510,11 +540,16 @@ struct HomeView: View {
         }
     }
 }
-
-#Preview {
-    HomeView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            HomeView()
+            HomeView()
+                .preferredColorScheme(.dark)
+        }
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
+    }
 }
