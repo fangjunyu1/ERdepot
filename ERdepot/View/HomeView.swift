@@ -31,7 +31,6 @@ struct HomeView: View {
     let colorPalette: [Color] = [
         .red, .purple, .blue, .green, .orange, .pink, .yellow, .teal, .mint
     ]
-    
     // 汇率字典
     @State private var rateDict: [String:Double] = [:]
     @State private var currencyCount = 0.0
@@ -138,7 +137,7 @@ struct HomeView: View {
                             }
                             Spacer().frame(height: 10)
                             // 仓库金额各币种进度
-                            HStack(spacing:1) {
+                            HStack(spacing:3) {
                                 
                                     ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
                                         if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {

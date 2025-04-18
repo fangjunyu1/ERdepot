@@ -256,8 +256,7 @@ struct ForeignCurrencyView: View {
 }
 
 #Preview {
-    let container = CoreDataPersistenceController.shared
-    return ForeignCurrencyView(isShowForeignCurrency: .constant(true))
+    ForeignCurrencyView(isShowForeignCurrency: .constant(true))
         .environmentObject(AppStorageManager.shared)
-        .environment(\.managedObjectContext, container.context) // 加载 NSPersistentContainer
+        .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
 }

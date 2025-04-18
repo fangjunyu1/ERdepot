@@ -1,5 +1,5 @@
 {
-  "originHash" : "b0147ca74466c9c31e4838494f5217dac85c6767ba171d92846d4c21aba62a74",
+  "originHash" : "308ffceb5ca69bdf3283a9bfa285182861f234b77753a9393d9a9a4ff6ee5b91",
   "pins" : [
     {
       "identity" : "lottie-ios",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "047aa81b77adcbf583a966dfef620d17650cc656",
         "version" : "4.5.1"
+      }
+    },
+    {
+      "identity" : "swiftuicharts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/willdale/SwiftUICharts",
+      "state" : {
+        "revision" : "c16f47217d1e32900f6b37c322d419945fadae9c",
+        "version" : "2.10.4"
       }
     },
     {

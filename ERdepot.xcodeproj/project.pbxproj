@@ -29,6 +29,7 @@
 		1D7882932DA20B880041AAF9 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882922DA20B880041AAF9 /* IAPManager.swift */; };
 		1D7882962DA22F3D0041AAF9 /* eurofxref-hist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1D7882952DA22F3D0041AAF9 /* eurofxref-hist.csv */; };
 		1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D807D582CC3495B0078DD91 /* MessageUI.framework */; };
+		1D889A782DB0EE5C001E9D70 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 1D889A772DB0EE5C001E9D70 /* SwiftUICharts */; };
 		1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CC2CBE57A6006E077C /* ERdepotApp.swift */; };
 		1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CE2CBE57A6006E077C /* ContentView.swift */; };
 		1D93E9D12CBE57A8006E077C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D93E9D02CBE57A8006E077C /* Assets.xcassets */; };
@@ -156,6 +157,7 @@
 				1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */,
 				1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */,
 				1DE82AF02DABBFB500AF9A11 /* Lottie in Frameworks */,
+				1D889A782DB0EE5C001E9D70 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +340,7 @@
 			packageProductDependencies = (
 				1DE82AEC2DABBFA500AF9A11 /* Zip */,
 				1DE82AEF2DABBFB500AF9A11 /* Lottie */,
+				1D889A772DB0EE5C001E9D70 /* SwiftUICharts */,
 			);
 			productName = ERdepot;
 			productReference = 1D93E9C92CBE57A6006E077C /* ERdepot.app */;
@@ -453,6 +456,7 @@
 			packageReferences = (
 				1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */,
 				1DE82AEE2DABBFB500AF9A11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 1D93E9CA2CBE57A6006E077C /* Products */;
 			projectDirPath = "";
@@ -936,6 +940,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/willdale/SwiftUICharts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.4;
+			};
+		};
 		1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
@@ -955,6 +967,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1D889A772DB0EE5C001E9D70 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
+		};
 		1DE82AEC2DABBFA500AF9A11 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */;
