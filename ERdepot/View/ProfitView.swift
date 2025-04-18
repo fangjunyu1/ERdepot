@@ -36,29 +36,29 @@ struct ProfitView: View {
     
     func handleInputChange(for symbol: String, newValue: String) {
         print("计算货币:\(symbol)")
-        let cleanedValue = newValue.replacingOccurrences(of: ",", with: "")  // 移除千分位分隔符
+        var cleanedValue = newValue.replacingOccurrences(of: ",", with: "")  // 移除千分位分隔符
         let existing = userForeignCurrencies.first(where: { $0.symbol == symbol })
-        //
-        // 删除
-//        if newValue.isEmpty {
-//            if let existing = existing {
-//                viewContext.delete(existing)
-//                try? viewContext.save()
-//            }
-//            return
-//        }
         
         // 新增或更新
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
+        
+        print("cleanedValue:\(cleanedValue)")
         if let number = formatter.number(from: cleanedValue) {
             print("number计算成功")
             let value = number.doubleValue
             if let existing = existing {
                 // 修改
                 existing.purchaseAmount = value
+                print("当前的购买金额改为:\(existing.purchaseAmount)")
+            }
+        } else if cleanedValue.isEmpty {
+            if let existing = existing {
+                // 修改
+                existing.purchaseAmount = 0.00
+                print("当前的购买金额改为:\(existing.purchaseAmount)")
             }
         } else {
             print("number计算失败")
@@ -70,8 +70,13 @@ struct ProfitView: View {
             let string = formatter.string(from: NSNumber(value:doubleValue))
             inputAmounts[symbol] = string
             print("string:\(string ?? "")")
+        } else if cleanedValue.isEmpty {
+            inputAmounts[symbol] = "0.00"
+        }else {
+            print("string计算失败")
         }
         
+        print("Core Datab保存")
         try? viewContext.save()
     }
     

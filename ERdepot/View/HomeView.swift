@@ -429,7 +429,12 @@ struct HomeView: View {
                                         .overlay {
                                             
                                             if #available(iOS 16.0, *) {
-                                                if calculatePenefits > 0 {
+                                                if calculatePenefits == 0 {
+                                                    Image(systemName: "arrow.up")
+                                                        .offset(x:30)
+                                                        .opacity(0)
+                                                }
+                                                else if calculatePenefits > 0 {
                                                     Image(systemName: "arrow.up")
                                                         .fontWeight(.bold)
                                                         .foregroundColor(Color(hex: "0B8B2C"))
@@ -453,7 +458,7 @@ struct HomeView: View {
                                                 Text("--")
                                                     .font(.title3)
                                                     .fontWeight(.bold)
-                                                    .foregroundColor(Color(hex: "ED3434"))
+                                                    .foregroundColor(.gray)
                                         } else {
                                             Text("\(String(format:"%.2f",calculatePenefits))%")
                                                 .font(.title3)
