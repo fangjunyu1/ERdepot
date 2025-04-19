@@ -513,7 +513,7 @@ struct HomeView: View {
                         StatisticsView(isShowStatistics: $isShowStatistics)
                     }
                     .sheet(isPresented: $isShowChangeCurrency) {
-                        ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrency)
+                        ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrency, selectionType: .localCurrency)
                     }
                     .sheet(isPresented: $isShowSet) {
                         SetView(isShowSet: $isShowSet)

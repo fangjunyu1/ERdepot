@@ -7,10 +7,19 @@
 
 import SwiftUI
 
+// 更换外币类型的枚举
+enum CurrencySelectionType {
+    case localCurrency
+    case convertCurrency(index: Int) // 可传入需要更换的下标
+}
+
 struct ChangeCurrencyView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
     @Binding var isShowChangeCurrency: Bool
+    
+    let selectionType: CurrencySelectionType
+    
     var body: some View {
         GeometryReader { geo in
             let width = geo.frame(in: .global).width * 0.95
@@ -79,12 +88,23 @@ struct ChangeCurrencyView: View {
                             }
                             .font(.caption2)
                             Spacer()
-                            if currency == appStorage.localCurrency {
-                                Image(systemName: "checkmark.circle.fill")
-                            } else {
-                                Image(systemName: "circle")
-                                    .foregroundColor(Color(hex: "969696"))
+                            switch selectionType {
+                            case .localCurrency:
+                                if currency == appStorage.localCurrency {
+                                    Image(systemName: "checkmark.circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
+                                        .foregroundColor(Color(hex: "969696"))
+                                }
+                            case .convertCurrency(let index):
+                                if currency == appStorage.convertForeignCurrency[index] {
+                                    Image(systemName: "checkmark.circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
+                                        .foregroundColor(Color(hex: "969696"))
+                                }
                             }
+                            
                         }
                         .padding(.horizontal,20)
                         .frame(width: width * 0.85,height: 50)
@@ -103,11 +123,14 @@ struct ChangeCurrencyView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
+        .onAppear {
+            print("selectionType:\(selectionType)")
+        }
 
     }
 }
 
 #Preview {
-    ChangeCurrencyView(isShowChangeCurrency: .constant(true))
+    ChangeCurrencyView(isShowChangeCurrency: .constant(true), selectionType: .convertCurrency(index: 2))
         .environmentObject(AppStorageManager.shared)
 }

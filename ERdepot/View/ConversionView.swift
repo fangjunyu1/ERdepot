@@ -7,6 +7,8 @@
 
 import SwiftUI
 import CoreData
+
+
 struct ConversionView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
@@ -24,6 +26,7 @@ struct ConversionView: View {
         case symbol(String)
     }
     
+    @State private var isShowChangeCurrencyView = false
     // 转换动画
     @State private var transitionAnimation = false
     // 转换动画角度
@@ -158,13 +161,20 @@ struct ConversionView: View {
                             let screenHeight = UIScreen.main.bounds.height
                             let centerY = screenHeight / 2 - 80
                              let distance = abs(midY - centerY)
-                            let scale = max(0.8, 1.1 - (distance / screenHeight)) // 自定义缩放算法
+                            let scale = max(0.9, 1.1 - (distance / screenHeight)) // 自定义缩放算法
                             HStack {
                                 Image("\(symbol)")
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 110, height: 70)
                                     .clipped()
+                                    .onTapGesture {
+                                        isShowChangeCurrencyView = true
+                                        print("index:\(index)")
+                                    }
+                                    .sheet(isPresented: $isShowChangeCurrencyView) {
+                                        ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrencyView, selectionType: .convertCurrency(index: index))
+                                    }
                                 Spacer().frame(width: 20)
                                 VStack(alignment: .leading) {
                                     Text("\(symbol)")
@@ -192,6 +202,7 @@ struct ConversionView: View {
                             }
                             .padding(.trailing,20)
                             .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                            .border(.gray.opacity(0.3))
                             .cornerRadius(5)
                             .scaleEffect(scale)
                         }
@@ -243,7 +254,7 @@ struct ConversionView: View {
                         }
                         
                     }
-                    Spacer().frame(height: 100)
+                    Spacer().frame(height: 200)
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
