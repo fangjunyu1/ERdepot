@@ -32,6 +32,10 @@ struct ForeignCurrencyView: View {
     }
     
     func handleInputChange(for symbol: String, newValue: String) {
+        
+        // 修改外币储蓄后，重新计算历史最高点
+        appStorage.reCountingHistoricalHighs = true
+        
         print("计算货币:\(symbol)")
         let cleanedValue = newValue.replacingOccurrences(of: ",", with: "")  // 移除千分位分隔符
         let existing = userForeignCurrencies.first(where: { $0.symbol == symbol })

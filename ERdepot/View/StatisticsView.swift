@@ -22,13 +22,18 @@ struct StatisticsView: View {
     // 成本
     @State private var Cost = 0.0
     
+    // 查询历史高点的状态，true表示查询结束
+    @State private var queryHistoricalHighs = false
+    
     // 历史高点
     @State private var historicalHighs = 0.00
     // 历史时间
-    @State private var historicalTime: Date = Date()
+    @State private var historicalTime: Date = Date(timeIntervalSince1970: 915379200)
     
     // 获取 Core Data 上下文
     @Environment(\.managedObjectContext) private var viewContext
+    let backgroundContext = CoreDataPersistenceController.shared.backgroundContext
+    
     @FetchRequest(
         fetchRequest: {
             let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
@@ -41,8 +46,8 @@ struct StatisticsView: View {
     private func fetchListOfForeignCurrencies() -> [UserForeignCurrency] {
         
         // 使用正确的请求类型，直接请求 UserForeignCurrency 类型的实体
-            let request: NSFetchRequest<UserForeignCurrency> = UserForeignCurrency.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: false)]
+        let request: NSFetchRequest<UserForeignCurrency> = UserForeignCurrency.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: false)]
         
         do {
             let resultList =  try viewContext.fetch(request)
@@ -116,6 +121,11 @@ struct StatisticsView: View {
     
     // 轮训汇率的所有日期
     private func CalculatingHistoricalHighs() {
+        
+        // 查询状态改为 true
+        queryHistoricalHighs = true
+        print("查询状态改为\(queryHistoricalHighs)")
+        
         // 用户所有外币
         var UserCurrency: [UserForeignCurrency] = []
         // 获取用户所有外币
@@ -131,23 +141,35 @@ struct StatisticsView: View {
         rateDate.returnsDistinctResults = true
         rateDate.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
-        do {
-            print("开始调用获取时间的方法")
-            let startDate = Date()
-            let rateDateresults = try viewContext.fetch(rateDate)
-            // 遍历所有的汇率日期
-            for rate in rateDateresults {
-                // 从字典中提取出 date 字段并确保它是 Date 类型
-                if let rateDate = rate["date"] as? Date {
-                    // 调用 CalculateForeignCurrencyAmounts 方法，并传递正确的 Date 类型
-                    CalculateForeignCurrencyAmounts(date: rateDate,userCurrencies: UserCurrency)
-                } else {
-                    print("无法获取日期，跳过该条记录")
+        backgroundContext.perform {
+            
+            do {
+                print("开始调用 CalculatingHistoricalHighs 获取时间的方法")
+                let startDate = Date()
+                
+                let rateDateresults = try backgroundContext.fetch(rateDate)
+                // 遍历所有的汇率日期
+                for rate in rateDateresults {
+                    // 从字典中提取出 date 字段并确保它是 Date 类型
+                    if let rateDate = rate["date"] as? Date {
+                        let rateRequest =
+                        // 调用 CalculateForeignCurrencyAmounts 方法，并传递正确的 Date 类型
+                        CalculateForeignCurrencyAmounts(date: rateDate,userCurrencies: UserCurrency)
+                    } else {
+                        print("无法获取日期，跳过该条记录")
+                    }
                 }
+                print("结束 CalculatingHistoricalHighs 方法的调用，用时:\(Date().timeIntervalSince(startDate))秒")
+            } catch {
+                print("未获取到全部时间")
             }
-            print("用时:\(Date().timeIntervalSince(startDate))秒")
-        } catch {
-            print("未获取到全部时间")
+            
+            DispatchQueue.main.async {
+                queryHistoricalHighs = false
+                print("查询状态改为\(queryHistoricalHighs)")
+                appStorage.reCountingHistoricalHighs = false
+                print("完成历史时间和高点的查询，改为\(queryHistoricalHighs)")
+            }
         }
     }
     
@@ -162,21 +184,34 @@ struct StatisticsView: View {
         // 添加过滤条件（可选）
         request.predicate = NSPredicate(format: "date == %@", date as NSDate)
         
-        let result = try? viewContext.fetch(request)
-        // 遍历所有的外币
-        for currency in userCurrencies {
-            // 获取对应外币的汇率
-            if let result = result {
-                if let rate = result.filter({ $0.symbol == currency.symbol}).first?.rate {
-                    let amount = currency.amount / rate * (result.filter{ $0.symbol == appStorage.localCurrency}.first?.rate ?? 0.00)
-                    calculateCount += amount
+        do {
+            
+            let result = try? backgroundContext.fetch(request)
+            // 遍历所有的外币
+            for currency in userCurrencies {
+                // 获取对应外币的汇率
+                if let result = result {
+                    if let rate = result.filter({ $0.symbol == currency.symbol}).first?.rate, let localRate = result.first(where: { $0.symbol == appStorage.localCurrency })?.rate,rate > 0,
+                       localRate > 0 {
+                        let amount = currency.amount / rate * localRate
+
+                        // 确保这个计算结果是正常数值（非 inf 非 nan）
+                        if amount.isFinite {
+                            calculateCount += amount
+                        } else {
+                            print("非法金额（inf 或 nan）在日期：\(date)，symbol: \(currency.symbol ?? "")")
+                        }
+                    }
                 }
             }
-        }
-        
-        if calculateCount >= historicalHighs {
-            historicalHighs = calculateCount
-            historicalTime = date
+            DispatchQueue.main.async {
+                if calculateCount >= appStorage.historicalHigh && calculateCount > 0 {
+                    appStorage.historicalHigh = calculateCount
+                    appStorage.historicalTime = date.timeIntervalSince1970
+                }
+            }
+        } catch {
+            print("backgroundContext发生了报错")
         }
     }
     // 格式化日期
@@ -291,7 +326,11 @@ struct StatisticsView: View {
                             HStack(spacing:0) {
                                 Text("HistoricalTime")
                                 Spacer()
-                                Text(formattedDate(historicalTime))
+                                if queryHistoricalHighs {
+                                    ProgressView("").offset(y:6).padding(.trailing,5)
+                                }
+                                Text(formattedDate(Date(timeIntervalSince1970: appStorage.historicalTime)))
+                                
                             }
                             .frame(height: 50)
                             Divider()
@@ -300,9 +339,12 @@ struct StatisticsView: View {
                             HStack(spacing:0) {
                                 Text("HistoricalHighs")
                                 Spacer()
+                                if queryHistoricalHighs {
+                                    ProgressView("").offset(y:6).padding(.trailing,5)
+                                }
                                 Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
                                 Spacer().frame(width: 8)
-                                Text(String(format: "%.2f", historicalHighs))
+                                Text(String(format: "%.2f", appStorage.historicalHigh))
                             }
                             .frame(height: 50)
                         }
@@ -322,8 +364,11 @@ struct StatisticsView: View {
             CalculateWarehouseAmount()
             // 调用称成本金额
             CalculateCosts()
-            // 计算历史高点和历史时间
-            CalculatingHistoricalHighs()
+            // 当需要计算历史最高点时，调用对应方法
+            if appStorage.reCountingHistoricalHighs {
+                // 计算历史高点和历史时间
+                CalculatingHistoricalHighs()
+            }
         }
     }
 }
@@ -339,5 +384,6 @@ struct StatisticsView_Previews: PreviewProvider {
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
+        .environment(\.backgroundContext, CoreDataPersistenceController.shared.backgroundContext) // 加载 NSPersistentContainer
     }
 }

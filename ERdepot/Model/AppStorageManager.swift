@@ -72,11 +72,58 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 重新统计历史高点
+    @Published var reCountingHistoricalHighs = false {
+        didSet {
+            if reCountingHistoricalHighs != oldValue {
+                UserDefaults.standard.set(reCountingHistoricalHighs, forKey: "reCountingHistoricalHighs")
+                // syncToiCloud()
+            }
+        }
+    }
+    
+    // 历史时间
+    @Published var historicalTime: Double = Date().timeIntervalSince1970 {
+        didSet {
+            if historicalTime != oldValue {
+                UserDefaults.standard.set(historicalTime, forKey: "historicalTime")
+                // syncToiCloud()
+            }
+        }
+    }
+    
+    // 历史高点
+    @Published var historicalHigh: Double = 0.00 {
+        didSet {
+            if historicalHigh != oldValue {
+                UserDefaults.standard.set(historicalHigh, forKey: "historicalHigh")
+                // syncToiCloud()
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
+        
+        // 如果没有历史时间，默认设置为1999年1月4日
+        if UserDefaults.standard.double(forKey: "historicalTime") == 0.00 {
+            historicalTime = 915379200.00
+        } else {
+            historicalTime = UserDefaults.standard.double(forKey: "historicalTime") // 历史时间
+        }
+        historicalHigh = UserDefaults.standard.double(forKey: "historicalHigh") // 历史高点
+        
+        // 如果UserDefaults中重新统计为nil
+        if UserDefaults.standard.object(forKey: "reCountingHistoricalHighs") == nil {
+            // 设置默认值为true
+            reCountingHistoricalHighs = true
+        } else {
+            reCountingHistoricalHighs = UserDefaults.standard.bool(forKey: "reCountingHistoricalHighs") // 内购标识
+        }
+        
         localCurrency = UserDefaults.standard.string(forKey: "localCurrency") ??  "USD" // 当前币种
         if let tmpListOfSupportedCurrencies = UserDefaults.standard.array(forKey: "listOfSupportedCurrencies") as? [String] {
             listOfSupportedCurrencies = tmpListOfSupportedCurrencies
