@@ -102,12 +102,22 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 折算外币
+    @Published var convertForeignCurrency: [String] = ["USD", "EUR", "JPY", "GBP", "HKD", "CNY"] {
+        didSet {
+            if convertForeignCurrency != oldValue {
+                UserDefaults.standard.set(convertForeignCurrency, forKey: "convertForeignCurrency")
+                // syncToiCloud()
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
-        
+        convertForeignCurrency = UserDefaults.standard.stringArray(forKey: "convertForeignCurrency") ?? ["USD", "EUR", "JPY", "GBP", "HKD", "CNY"] // 折算外币
         // 如果没有历史时间，默认设置为1999年1月4日
         if UserDefaults.standard.double(forKey: "historicalTime") == 0.00 {
             historicalTime = 915379200.00

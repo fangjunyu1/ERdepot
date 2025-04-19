@@ -25,9 +25,9 @@ struct ContentView: View {
 }
 
 #Preview {
-//    if let bundleID = Bundle.main.bundleIdentifier {
-//        UserDefaults.standard.removePersistentDomain(forName: bundleID)
-//    }
+    if let bundleID = Bundle.main.bundleIdentifier {
+        UserDefaults.standard.removePersistentDomain(forName: bundleID)
+    }
     return ContentView()
         .environmentObject(AppStorageManager.shared) // 设置为阿拉伯语
         .environmentObject(ExchangeRate.shared)
