@@ -16,6 +16,7 @@ enum CurrencySelectionType {
 struct ChangeCurrencyView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
+    @Environment(\.dismiss) var dismiss
     @Binding var isShowChangeCurrency: Bool
     
     let selectionType: CurrencySelectionType
@@ -31,7 +32,8 @@ struct ChangeCurrencyView: View {
                 HStack {
                     // 返回箭头
                     Button(action: {
-                        isShowChangeCurrency = false
+                        // isShowChangeCurrency = false
+                        dismiss()
                     }, label: {
                         if #available(iOS 16.0, *) {
                             Image(systemName: "chevron.left")
@@ -112,8 +114,12 @@ struct ChangeCurrencyView: View {
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .cornerRadius(10)
                         .onTapGesture {
-                            // 当点击时，设置当前币种
-                            appStorage.localCurrency = currency
+                            switch selectionType {
+                            case .localCurrency:
+                                appStorage.localCurrency = currency
+                            case .convertCurrency(let index):
+                                appStorage.convertForeignCurrency[index] = currency
+                            }
                         }
                         Spacer()
                             .frame(height: 10)

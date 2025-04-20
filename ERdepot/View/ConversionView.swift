@@ -8,6 +8,11 @@
 import SwiftUI
 import CoreData
 
+extension Int: Identifiable {
+    public var id: Int {
+        return self
+    }
+}
 
 struct ConversionView: View {
     @Environment(\.colorScheme) var color
@@ -17,6 +22,13 @@ struct ConversionView: View {
     // 输入金额
     @State private var inputAmounts: [String: String] = [:]
     
+    // 最新外币汇率
+    @State private var exchangeRateList: [String: Double] = [:]
+    
+    // 当前正在编辑的是哪一个币种
+    @State private var editingCurrency: String? = nil
+    
+    @State private var indexCurrency: Int?
     // 获取 Core Data 上下文
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -43,6 +55,7 @@ struct ConversionView: View {
         do {
             if let result = try viewContext.fetch(request).first,
                let latestDate = result["date"] as? Date {
+                print("获取到最新日期，返回\(latestDate)")
                 return latestDate
             }
         } catch {
@@ -52,23 +65,29 @@ struct ConversionView: View {
     }
     
     // 获取最新汇率
-    private func fetchLatestRates() -> [Eurofxrefhist] {
-        guard let latestDate = fetchLatestDate() else { return [] }
-        
+    private func fetchLatestRates(){
+        let latestDate = fetchLatestDate() ?? Date()
         let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
         request.predicate = NSPredicate(format: "date == %@", latestDate as NSDate)
         request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: true)]
         
         do {
-            return try viewContext.fetch(request)
+            let exchangeRrequestList = try viewContext.fetch(request)
+            for exchange in exchangeRrequestList {
+                exchangeRateList[exchange.symbol ?? ""] = exchange.rate
+            }
+            print("当前所有汇率列表：\(exchangeRateList)")
         } catch {
             print("Error fetching latest rates: \(error)")
-            return []
         }
+        
     }
     
-    func handleInputChange(for symbol: String, newValue: String) {
-        print("计算货币:\(symbol)")
+    func handleInputChange(id index: Int,for symbol: String, newValue: String) {
+        print("进入handleInputChange 方法，调用货币为:\(symbol)")
+        // 设置当前货币为编辑货币
+        editingCurrency = symbol
+        
         var cleanedValue = newValue.replacingOccurrences(of: ",", with: "")  // 移除千分位分隔符
         
         // 新增或更新
@@ -79,29 +98,39 @@ struct ConversionView: View {
         
         print("cleanedValue:\(cleanedValue)")
         if let number = formatter.number(from: cleanedValue) {
-            print("number计算成功")
+            print("number计算成功,number为:\(number)")
             let value = number.doubleValue
-            
+            print("value计算成功,value为:\(value)")
+            print("inputAmounts:\(inputAmounts)")
+            for (inputSymbol,inputAmount) in inputAmounts {
+                print("折算币种:\(inputSymbol)")
+                // 遍历折算的数组，如果和输入的符号意义，则跳过计算
+                if symbol == inputSymbol {
+                    print("折算币种 \(inputSymbol) 和当前输入币种 \(symbol) 一致，跳过")
+                    continue
+                }
+                // 否则，计算除输入符号以后的汇率
+                // 折算列表中，每个折算单位的金额等于：输入币种金额 / 输入币种汇率 * 对应折算单位汇率
+                // 输入币种汇率
+                let rate1 = exchangeRateList[symbol] ?? 1
+                print("当前输入币种\(symbol)的汇率为:\(rate1)")
+                // 折算单位汇率
+                let rate2 = exchangeRateList[inputSymbol] ?? 1
+                print("当前折算币种\(inputSymbol)的汇率为:\(rate2)")
+                let result = value / rate1 * rate2
+                print("当前折算币种\(inputSymbol)的金额为:\(result)")
+                if result.isFinite {
+                    let string = formatter.string(from: NSNumber(value:result))
+                    inputAmounts[inputSymbol] = string
+                } else {
+                    inputAmounts[inputSymbol] = "0"
+                }
+            }
         } else if cleanedValue.isEmpty {
-            
+            inputAmounts[symbol] = "0.00"
         } else {
             print("number计算失败")
         }
-        
-        
-        if let doubleValue = Double(cleanedValue) {
-            print("string计算成功")
-            let string = formatter.string(from: NSNumber(value:doubleValue))
-            inputAmounts[symbol] = string
-            print("string:\(string ?? "")")
-        } else if cleanedValue.isEmpty {
-            inputAmounts[symbol] = "0.00"
-        }else {
-            print("string计算失败")
-        }
-        
-        print("Core Datab保存")
-        try? viewContext.save()
     }
     
     var body: some View {
@@ -160,7 +189,7 @@ struct ConversionView: View {
                             let midY = itemGeo.frame(in: .global).midY
                             let screenHeight = UIScreen.main.bounds.height
                             let centerY = screenHeight / 2 - 80
-                             let distance = abs(midY - centerY)
+                            let distance = abs(midY - centerY)
                             let scale = max(0.9, 1.1 - (distance / screenHeight)) // 自定义缩放算法
                             HStack {
                                 Image("\(symbol)")
@@ -169,10 +198,9 @@ struct ConversionView: View {
                                     .frame(width: 110, height: 70)
                                     .clipped()
                                     .onTapGesture {
-                                        isShowChangeCurrencyView = true
-                                        print("index:\(index)")
+                                        indexCurrency = index
                                     }
-                                    .sheet(isPresented: $isShowChangeCurrencyView) {
+                                    .sheet(item: $indexCurrency) { index in
                                         ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrencyView, selectionType: .convertCurrency(index: index))
                                     }
                                 Spacer().frame(width: 20)
@@ -193,12 +221,10 @@ struct ConversionView: View {
                                 .focused($focusedField, equals: .symbol(symbol)) // 添加这一行
                                 .multilineTextAlignment(.trailing)
                                 .padding(.leading,10)
-                                .onChange(of: focusedField) { newFocus in
-                                    // 当失去焦点，处理文本框关于 CoreData 方法
-                                    if newFocus != .symbol(symbol) {
-                                        handleInputChange(for: symbol, newValue: inputAmounts[symbol] ?? "")
-                                    }
+                                .onChange(of: focusedField == .symbol(symbol)) { newFocus in
+                                    handleInputChange(id: index,for: symbol, newValue: inputAmounts[symbol] ?? "")
                                 }
+                                .foregroundColor(Double(inputAmounts[symbol] ?? "") == 0 ? .gray : .black)
                             }
                             .padding(.trailing,20)
                             .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
@@ -219,7 +245,6 @@ struct ConversionView: View {
                                     var tmpCurrency = appStorage.convertForeignCurrency[0]
                                     appStorage.convertForeignCurrency[0] = appStorage.convertForeignCurrency[1]
                                     appStorage.convertForeignCurrency[1] = tmpCurrency
-                                    
                                     
                                     // 调用转换动画
                                     withAnimation(.easeInOut(duration: 1)) {
@@ -259,6 +284,13 @@ struct ConversionView: View {
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .onAppear {
+                // 开始加载最新的汇率列表
+                print("进入onAppear方法")
+                fetchLatestRates()
+                // 设置折算各币种所绑定的字典
+                appStorage.convertForeignCurrency.map{ inputAmounts[$0] = ""}
+            }
         }
         .onTapGesture {
             // 点击视图，取消文本库选中
@@ -271,4 +303,8 @@ struct ConversionView: View {
 #Preview {
     ConversionView(isShowConversion: .constant(true))
         .environmentObject(AppStorageManager.shared)
+        .environmentObject(ExchangeRate.shared)
+        .environmentObject(IAPManager.shared)
+        .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
+        .environment(\.backgroundContext, CoreDataPersistenceController.shared.backgroundContext) // 加载 NSPersistentContainer
 }
