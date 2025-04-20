@@ -123,11 +123,11 @@ struct ConversionView: View {
                     let string = formatter.string(from: NSNumber(value:result))
                     inputAmounts[inputSymbol] = string
                 } else {
-                    inputAmounts[inputSymbol] = "0"
+                    inputAmounts[inputSymbol] = ""
                 }
             }
         } else if cleanedValue.isEmpty {
-            inputAmounts[symbol] = "0.00"
+            inputAmounts[symbol] = ""
         } else {
             print("number计算失败")
         }
@@ -202,6 +202,14 @@ struct ConversionView: View {
                                     }
                                     .sheet(item: $indexCurrency) { index in
                                         ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrencyView, selectionType: .convertCurrency(index: index))
+                                            .onDisappear {
+                                                print("关闭了选择币种视图")
+                                                
+                                                // 重新绑定当前的货币
+                                                inputAmounts[appStorage.convertForeignCurrency[index]] = ""
+                                                // 调用折算视图
+                                                handleInputChange(id: index,for: symbol, newValue: inputAmounts[symbol] ?? "")
+                                            }
                                     }
                                 Spacer().frame(width: 20)
                                 VStack(alignment: .leading) {
