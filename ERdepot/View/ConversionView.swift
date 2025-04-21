@@ -184,7 +184,7 @@ struct ConversionView: View {
                         
                     }
                     Spacer().frame(height: 20)
-                    ForEach(Array(appStorage.convertForeignCurrency.enumerated()), id: \.1) { index,symbol in
+                    ForEach(Array(appStorage.convertForeignCurrency.enumerated()), id: \.0) { index,symbol in
                         GeometryReader { itemGeo in
                             let midY = itemGeo.frame(in: .global).midY
                             let screenHeight = UIScreen.main.bounds.height
@@ -232,7 +232,7 @@ struct ConversionView: View {
                                 .onChange(of: focusedField == .symbol(symbol)) { newFocus in
                                     handleInputChange(id: index,for: symbol, newValue: inputAmounts[symbol] ?? "")
                                 }
-                                .foregroundColor(Double(inputAmounts[symbol] ?? "") == 0 ? .gray : .black)
+                                .foregroundColor(Double(inputAmounts[symbol] ?? "") == 0 ? .gray : color == .light ? .black : .white)
                             }
                             .padding(.trailing,20)
                             .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
@@ -315,4 +315,13 @@ struct ConversionView: View {
         .environmentObject(IAPManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
         .environment(\.backgroundContext, CoreDataPersistenceController.shared.backgroundContext) // 加载 NSPersistentContainer
+}
+#Preview {
+    ConversionView(isShowConversion: .constant(true))
+        .environmentObject(AppStorageManager.shared)
+        .environmentObject(ExchangeRate.shared)
+        .environmentObject(IAPManager.shared)
+        .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
+        .environment(\.backgroundContext, CoreDataPersistenceController.shared.backgroundContext) // 加载 NSPersistentContainer
+        .preferredColorScheme(.dark)
 }

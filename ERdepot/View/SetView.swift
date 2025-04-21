@@ -178,7 +178,7 @@ struct SetView: View {
                             HStack {
                                 Text("Data sources")
                                     .fontWeight(.medium)
-                                    .tint(.black)
+                                    .tint(color == .light ? .black : .white)
                                 Spacer()
                                 Text("European Central Bank")
                                     .foregroundColor(.gray)
@@ -192,7 +192,7 @@ struct SetView: View {
                             HStack {
                                 Text("Issue feedback")
                                     .fontWeight(.medium)
-                                    .tint(.black)
+                                    .tint(color == .light ? .black : .white)
                                 Spacer()
                                 Text("E-mail")
                                     .foregroundColor(.gray)
@@ -204,7 +204,7 @@ struct SetView: View {
                             HStack {
                                 Text("Terms of use")
                                     .fontWeight(.medium)
-                                    .tint(.black)
+                                    .tint(color == .light ? .black : .white)
                                 Spacer()
                                 Text("Webpage")
                                     .foregroundColor(.gray)
@@ -216,7 +216,7 @@ struct SetView: View {
                             HStack {
                                 Text("Privacy Policy")
                                     .fontWeight(.medium)
-                                    .tint(.black)
+                                    .tint(color == .light ? .black : .white)
                                 Spacer()
                                 Text("Webpage")
                                     .foregroundColor(.gray)
@@ -228,7 +228,7 @@ struct SetView: View {
                             HStack {
                                 Text("Open Source")
                                     .fontWeight(.medium)
-                                    .tint(.black)
+                                    .tint(color == .light ? .black : .white)
                                 Spacer()
                                 Text("GitHub")
                                     .foregroundColor(.gray)
@@ -239,7 +239,7 @@ struct SetView: View {
                         HStack {
                             Text("Acknowledgements")
                                 .fontWeight(.medium)
-                                .tint(.black)
+                                .foregroundColor(color == .light ? .black : .white)
                             Spacer()
                             Text("Freepik")
                                 .foregroundColor(.gray)
@@ -248,7 +248,7 @@ struct SetView: View {
                     }
                     .padding(.vertical,16)
                     .padding(.horizontal,14)
-                    .background(Color(hex: "ECECEC"))
+                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
                     .cornerRadius(10)
                     Spacer()
                 }
@@ -297,4 +297,10 @@ struct SetView: View {
     SetView(isShowSet: .constant(true))
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
+}
+#Preview {
+    SetView(isShowSet: .constant(true))
+        .environmentObject(IAPManager.shared)
+        .environmentObject(AppStorageManager.shared)
+        .preferredColorScheme(.dark)
 }

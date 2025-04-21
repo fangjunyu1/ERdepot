@@ -464,6 +464,7 @@ struct HomeView: View {
                                                 .font(.title3)
                                                 .fontWeight(.bold)
                                                 .foregroundColor(Color(hex: calculatePenefits > 0 ? "0B8B2C" :"ED3434"))
+                                                .fixedSize()
                                         }
                                     }
                                 }
