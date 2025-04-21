@@ -189,6 +189,7 @@ struct HomeView: View {
                         
                         // 图表
                         VStack {
+                            ExchangeRateChart()
                             Spacer()
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
