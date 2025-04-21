@@ -194,7 +194,7 @@ struct SetView: View {
                                     .fontWeight(.medium)
                                     .tint(.black)
                                 Spacer()
-                                Text("Email")
+                                Text("E-mail")
                                     .foregroundColor(.gray)
                             }
                         })
@@ -275,11 +275,11 @@ struct SetView: View {
                                     Button(action: {
                                         iapManager.loadPurchased = false
                                     }, label: {
-//                                        Text("End of the wait")
-//                                            .foregroundStyle(.red)
-//                                            .frame(width: 100,height: 30)
-//                                            .background(.white)
-//                                            .cornerRadius(10)
+                                        Text("End of the wait")
+                                            .foregroundStyle(.red)
+                                            .frame(width: 100,height: 30)
+                                            .background(.white)
+                                            .cornerRadius(10)
                                     })
                                     .offset(y:60)
                                 }
