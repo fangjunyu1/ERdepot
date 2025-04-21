@@ -106,7 +106,10 @@ struct ConversionView: View {
                 print("折算币种:\(inputSymbol)")
                 // 遍历折算的数组，如果和输入的符号意义，则跳过计算
                 if symbol == inputSymbol {
+                    // 将输入金额转换为千分位和二位小数
+                    let string = formatter.string(from: NSNumber(value:value))
                     print("折算币种 \(inputSymbol) 和当前输入币种 \(symbol) 一致，跳过")
+                    inputAmounts[inputSymbol] = string
                     continue
                 }
                 // 否则，计算除输入符号以后的汇率

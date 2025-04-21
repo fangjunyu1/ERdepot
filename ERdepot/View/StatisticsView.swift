@@ -281,7 +281,7 @@ struct StatisticsView: View {
                                 
                                 Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
                                 Spacer().frame(width: 8)
-                                Text(String(format: "%.2f", Amount))
+                                Text(Amount.formattedWithTwoDecimalPlaces())
                             }
                             .frame(height: 50)
                             Divider()
@@ -293,7 +293,7 @@ struct StatisticsView: View {
                                 
                                 Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
                                 Spacer().frame(width: 8)
-                                Text(String(format: "%.2f", Cost))
+                                Text(Cost.formattedWithTwoDecimalPlaces())
                             }
                             .frame(height: 50)
                             Divider()
@@ -305,7 +305,7 @@ struct StatisticsView: View {
                                 
                                 Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
                                 Spacer().frame(width: 8)
-                                Text(String(format: "%.2f", Benefit))
+                                Text(Benefit.formattedWithTwoDecimalPlaces())
                             }
                             .frame(height: 50)
                         }
@@ -344,7 +344,7 @@ struct StatisticsView: View {
                                 }
                                 Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
                                 Spacer().frame(width: 8)
-                                Text(String(format: "%.2f", appStorage.historicalHigh))
+                                Text(appStorage.historicalHigh.formattedWithTwoDecimalPlaces())
                             }
                             .frame(height: 50)
                         }

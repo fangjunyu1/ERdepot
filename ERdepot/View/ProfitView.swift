@@ -151,7 +151,7 @@ struct ProfitView: View {
                                 }
                                 .font(.caption2)
                                 Spacer()
-                                Text(String(format:"%.2f",currency.amount))
+                                Text(currency.amount.formattedWithTwoDecimalPlaces())
                                     .foregroundColor(.gray)
                             }
                             .padding(.horizontal,20)
