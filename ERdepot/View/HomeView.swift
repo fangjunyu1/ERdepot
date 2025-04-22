@@ -83,11 +83,11 @@ struct HomeView: View {
         }
         
         // 如果有外币购入金额，计算收益率
-            if foreignCurrencyPurchasePrice > 0 {
-                return (foreignCurrencyValue - foreignCurrencyPurchasePrice) / foreignCurrencyPurchasePrice * 100
-            } else {
-                return 0.0  // 没有外币购入时，收益率为 0
-            }
+        if foreignCurrencyPurchasePrice > 0 {
+            return (foreignCurrencyValue - foreignCurrencyPurchasePrice) / foreignCurrencyPurchasePrice * 100
+        } else {
+            return 0.0  // 没有外币购入时，收益率为 0
+        }
     }
     
     func fetchLatestDate() -> Date? {
@@ -123,6 +123,23 @@ struct HomeView: View {
         }
     }
     
+    // 设置获取的范围并返回 ExchangeRateChartPoint 类型
+    func generateHistoricalChartData(scope: Int) {
+        
+        // 用户外币列表
+        var userCurrencyList: [String:Double] = [:]
+        
+        // 获取用户的外币列表
+        let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
+        do {
+            let results = try viewContext.fetch(request)
+            for result in results {
+                userCurrencyList[result.symbol ?? ""] = result.amount
+            }
+        } catch {
+            print("Error fetching latest date: \(error)")
+        }
+    }
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -149,8 +166,8 @@ struct HomeView: View {
                                     Text("  ")
                                     Text("\(totalAmount.0)")
                                     // 显示小数部分（格式化为两位小数）
-                                            Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
-                                                .foregroundColor(.gray)  // 小数部分使用灰色字体
+                                    Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
+                                        .foregroundColor(.gray)  // 小数部分使用灰色字体
                                 }
                                 .font(.title2)
                                 .foregroundColor(.white)
@@ -160,25 +177,25 @@ struct HomeView: View {
                             // 仓库金额各币种进度
                             HStack(spacing:3) {
                                 
-                                    ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
-                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
-                                            let ratio = currency.amount  / rate * localCurrency / currencyCount
-                                            let barColor = colorPalette[index % colorPalette.count]
-                                            VStack(spacing: 0) {
-                                                if ratio >= 0.05 {
-                                                    Text(symbol)
-                                                        .font(.footnote)
-                                                        .foregroundColor(Color(hex: "FFFFFF"))
-                                                } else {
-                                                    Rectangle().frame(width:1,height:15)
-                                                        .opacity(0)
-                                                }
-                                                Rectangle().frame(width: width * ratio * 0.8,height: 8)
-                                                    .foregroundColor(barColor)
-                                                    .cornerRadius(6)
+                                ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
+                                    if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
+                                        let ratio = currency.amount  / rate * localCurrency / currencyCount
+                                        let barColor = colorPalette[index % colorPalette.count]
+                                        VStack(spacing: 0) {
+                                            if ratio >= 0.05 {
+                                                Text(symbol)
+                                                    .font(.footnote)
+                                                    .foregroundColor(Color(hex: "FFFFFF"))
+                                            } else {
+                                                Rectangle().frame(width:1,height:15)
+                                                    .opacity(0)
                                             }
+                                            Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                                .foregroundColor(barColor)
+                                                .cornerRadius(6)
                                         }
                                     }
+                                }
                             }
                         }
                         .padding(14)
@@ -189,7 +206,7 @@ struct HomeView: View {
                         
                         // 图表
                         VStack {
-                            ExchangeRateChart()
+                            // ExchangeRateChart()
                             Spacer()
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
@@ -299,7 +316,7 @@ struct HomeView: View {
                                         ProgressView("")
                                             .offset(y:5)
                                             .tint(.white)
-
+                                        
                                     } else {
                                         Text("Update time") + Text(":") +
                                         Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
@@ -456,10 +473,10 @@ struct HomeView: View {
                                         Spacer()
                                             .frame(height: 10)
                                         if calculatePenefits == 0 {
-                                                Text("--")
-                                                    .font(.title3)
-                                                    .fontWeight(.bold)
-                                                    .foregroundColor(.gray)
+                                            Text("--")
+                                                .font(.title3)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.gray)
                                         } else {
                                             Text("\(String(format:"%.2f",calculatePenefits))%")
                                                 .font(.title3)
@@ -544,6 +561,7 @@ struct HomeView: View {
             if exchangeRate.latestDate == nil {
                 exchangeRate.updateLatestDate()
             }
+            generateHistoricalChartData(scope: 1)
         }
     }
 }
