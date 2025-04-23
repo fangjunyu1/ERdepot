@@ -20,6 +20,8 @@ struct HomeView: View {
     @State private var isShowChangeCurrency = false
     @State private var isShowSet = false
     @State private var isShowProfit = false
+    @State private var chartPoints: [ExchangeRateChartPoint] = []
+    
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -123,23 +125,80 @@ struct HomeView: View {
         }
     }
     
-    // 设置获取的范围并返回 ExchangeRateChartPoint 类型
-    func generateHistoricalChartData(scope: Int) {
+    func dateRange(for selectedTime: Int) -> Date? {
+        let calendar = Calendar.current
+        let now = Date()
         
-        // 用户外币列表
-        var userCurrencyList: [String:Double] = [:]
-        
-        // 获取用户的外币列表
-        let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
-        do {
-            let results = try viewContext.fetch(request)
-            for result in results {
-                userCurrencyList[result.symbol ?? ""] = result.amount
-            }
-        } catch {
-            print("Error fetching latest date: \(error)")
+        switch selectedTime {
+        case 0: return calendar.date(byAdding: .day, value: -7, to: now)
+        case 1: return calendar.date(byAdding: .month, value: -1, to: now)
+        case 2: return calendar.date(byAdding: .month, value: -3, to: now)
+        case 3: return calendar.date(byAdding: .month, value: -6, to: now)
+        case 4: return calendar.date(byAdding: .year, value: -1, to: now)
+        case 5: return calendar.date(byAdding: .year, value: -5, to: now)
+        case 6: return calendar.date(byAdding: .year, value: -10, to: now)
+        default: return nil // All
         }
     }
+    
+    func generateHistoricalChartData(scope: Int) {
+        let calendar = Calendar.current
+        let context = viewContext
+        let startDate = dateRange(for: scope)
+
+        // 获取用户外币列表
+        var userCurrencyList: [String:Double] = [:]
+        let userRequest = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
+        do {
+            let userCurrencies = try context.fetch(userRequest)
+            for currency in userCurrencies {
+                if let symbol = currency.symbol {
+                    userCurrencyList[symbol] = currency.amount
+                }
+            }
+        } catch {
+            print("Error fetching user currency: \(error)")
+            return
+        }
+
+        // 获取汇率数据请求
+//        let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
+//        if let start = startDate {
+//            request.predicate = NSPredicate(format: "date >= %@", start as NSDate)
+//        }
+//        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+//        
+//        do {
+//            var results = try context.fetch(request)
+//
+//            // 抽样：限制最多50条
+//            if results.count > 50 {
+//                let step = max(1, results.count / 50)
+//                results = stride(from: 0, to: results.count, by: step).map { results[$0] }
+//            }
+//
+//            var chartData: [ExchangeRateChartPoint] = []
+//
+//            for result in results {
+//                var total: Double = 0
+//                for (symbol, amount) in userCurrencyList {
+//                    let rate = result.symbol
+//                    total += rate * amount
+//                }
+//
+//                if let date = result.date {
+//                    chartData.append(ExchangeRateChartPoint(date: date, totalValue: total))
+//                }
+//            }
+//
+//            // 用于绑定到视图
+//            self.chartPoints = chartData
+//
+//        } catch {
+//            print("Error fetching exchange rates: \(error)")
+//        }
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -176,23 +235,33 @@ struct HomeView: View {
                             Spacer().frame(height: 10)
                             // 仓库金额各币种进度
                             HStack(spacing:3) {
-                                
-                                ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
-                                    if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
-                                        let ratio = currency.amount  / rate * localCurrency / currencyCount
-                                        let barColor = colorPalette[index % colorPalette.count]
-                                        VStack(spacing: 0) {
-                                            if ratio >= 0.05 {
-                                                Text(symbol)
-                                                    .font(.footnote)
-                                                    .foregroundColor(Color(hex: "FFFFFF"))
-                                            } else {
-                                                Rectangle().frame(width:1,height:15)
-                                                    .opacity(0)
+                                if userForeignCurrencies.isEmpty {
+                                    VStack(spacing: 0) {
+                                        Text("")
+                                            .font(.footnote)
+                                            .opacity(0)
+                                        Rectangle().frame(width: width * 0.8,height: 8)
+                                            .foregroundColor(.purple)
+                                            .cornerRadius(6)
+                                    }
+                                } else {
+                                    ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
+                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
+                                            let ratio = currency.amount  / rate * localCurrency / currencyCount
+                                            let barColor = colorPalette[index % colorPalette.count]
+                                            VStack(spacing: 0) {
+                                                if ratio >= 0.05 {
+                                                    Text(symbol)
+                                                        .font(.footnote)
+                                                        .foregroundColor(Color(hex: "FFFFFF"))
+                                                } else {
+                                                    Rectangle().frame(width:1,height:15)
+                                                        .opacity(0)
+                                                }
+                                                Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                                    .foregroundColor(barColor)
+                                                    .cornerRadius(6)
                                             }
-                                            Rectangle().frame(width: width * ratio * 0.8,height: 8)
-                                                .foregroundColor(barColor)
-                                                .cornerRadius(6)
                                         }
                                     }
                                 }
@@ -202,17 +271,22 @@ struct HomeView: View {
                         .background(color == .light ? .black : Color(hex: "1f1f1f"))
                         .cornerRadius(10)
                         .frame(width: width * 0.95)
-                        .zIndex(1)
                         
                         // 图表
                         VStack {
-                            // ExchangeRateChart()
                             Spacer()
+                            ExchangeRateChart(dataPoints: chartPoints)
+                                .padding(.vertical,12)
+                                .padding(.horizontal,14)
+                                .frame(height: 180)
+                                .background(color == .light ? .white : .gray)
+                                .cornerRadius(4)
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
                                     ForEach(timeRange.indices, id: \.self) { time in
                                         Button(action: {
                                             selectedTime = time
+                                            generateHistoricalChartData(scope: time)
                                         }, label: {
                                             Text(LocalizedStringKey(timeRange[time]))
                                                 .font(.caption2)
@@ -230,10 +304,10 @@ struct HomeView: View {
                         }
                         .padding(10)
                         .frame(width: width * 0.9, height: 250)
-                        .background(color == .light ? Color(hex: "F6F6F6") : Color(hex: "444444"))
+                        .background(
+                            color == .light ? Color(hex: "F6F6F6") : Color(hex: "444444")
+                        )
                         .cornerRadius(10)
-                        .offset(y: -10)
-                        .zIndex(0)
                         
                         Spacer().frame(height: 15)
                         Rectangle().frame(width: 0.9 * width, height: 0.5)
