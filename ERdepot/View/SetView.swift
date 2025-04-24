@@ -251,9 +251,13 @@ struct SetView: View {
                     .cornerRadius(10)
                     Spacer()
                         .frame(height: 30)
-                    Text("version:\(Bundle.main.appVersion).\(Bundle.main.appBuild)")
-                        .foregroundColor(.gray)
-                        .font(.caption2)
+                    HStack(spacing:2) {
+                        Text("Version")
+                        Text(":")
+                        Text("\(Bundle.main.appVersion).\(Bundle.main.appBuild)")
+                    }
+                    .foregroundColor(.gray)
+                    .font(.caption)
                     Spacer()
                 }
                 .frame(width: width * 0.85)
