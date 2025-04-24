@@ -20,6 +20,11 @@ struct ExchangeRateChart: View {
         return formatter.string(from: date)
     }
     
+    func normalize(_ value: Double, min: Double, max: Double) -> Double {
+        guard max != min else { return 0 }
+        return (value - min) / (max - min)
+    }
+    
     var body: some View {
         
         if dataPoints.isEmpty {
@@ -74,12 +79,7 @@ struct ExchangeRateChart: View {
                                         // X轴的各点
                                         let xPosition = CGFloat(index) / CGFloat(dataPoints.count - 1) * width
                                         // Y轴的数值 - 从底部开始计算，减去归一化的值
-                                        let normalizedValue: Double
-                                        if dataMax != dataMin {
-                                            normalizedValue = (data.totalValue - dataMin) / (dataMax - dataMin)
-                                        } else {
-                                            normalizedValue = 0
-                                        }
+                                        let normalizedValue = normalize(data.totalValue, min: dataMin, max: dataMax)
                                         let yPosition = height - spacing -  (normalizedValue * spacingHeight)
                                         if index == 0 {
                                             origin = CGPoint(x: xPosition, y: yPosition)
@@ -106,12 +106,7 @@ struct ExchangeRateChart: View {
                                         // X轴的各点
                                         let xPosition = CGFloat(index) / CGFloat(dataPoints.count - 1) * width
                                         // Y轴的数值 - 从底部开始计算，减去归一化的值
-                                        let normalizedValue: Double
-                                        if dataMax != dataMin {
-                                            normalizedValue = (data.totalValue - dataMin) / (dataMax - dataMin)
-                                        } else {
-                                            normalizedValue = 0
-                                        }
+                                        let normalizedValue = normalize(data.totalValue, min: dataMin, max: dataMax)
                                         let spacing:CGFloat = 40
                                         let spacingHeight = height - 2 * spacing
                                         let yPosition = height - spacing -  (normalizedValue * spacingHeight)
@@ -142,12 +137,7 @@ struct ExchangeRateChart: View {
                                    let selectedIndex = selectedIndex{
                                     let selectedData = dataPoints[selectedIndex]
                                     let xPosition = CGFloat(selectedIndex) / CGFloat(dataPoints.count - 1) * width
-                                    let normalizedValue: Double
-                                    if dataMax != dataMin {
-                                        normalizedValue = (selectedData.totalValue - dataMin) / (dataMax - dataMin)
-                                    } else {
-                                        normalizedValue = 0
-                                    }
+                                    var normalizedValue = normalize(selectedData.totalValue, min: dataMin, max: dataMax)
                                     let yPosition = height - spacing -  (normalizedValue * spacingHeight)
                                     
                                     // 垂直线
