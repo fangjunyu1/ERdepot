@@ -292,7 +292,7 @@ struct HomeView: View {
                                 .padding(.vertical,12)
                                 .padding(.horizontal,14)
                                 .frame(height: 180)
-                                .background(color == .light ? .white : .gray)
+                                .background(color == .light ? .white : Color(hex: "111111"))
                                 .cornerRadius(4)
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
@@ -307,7 +307,7 @@ struct HomeView: View {
                                                 .padding(.vertical,8)
                                                 .padding(.horizontal,12)
                                                 .foregroundColor(time == selectedTime ? .white : color == .light ? .black : Color(hex: "eeeeee"))
-                                                .background(time == selectedTime ? Color(hex: "5D5D5D") : color == .light ? Color(hex: "FFFFFF") : Color(hex: "999999"))
+                                                .background(time == selectedTime ? Color(hex: "5D5D5D") : color == .light ? Color(hex: "FFFFFF") : Color(hex: "888888"))
                                                 .cornerRadius(10)
                                         })
                                         .disabled(time == selectedTime)
@@ -316,11 +316,24 @@ struct HomeView: View {
                             }
                         }
                         .padding(10)
-                        .frame(width: width * 0.9, height: 250)
+                        .frame(width: width * 0.9, height: 240)
                         .background(
-                            color == .light ? Color(hex: "F6F6F6") : Color(hex: "444444")
+                            ZStack{
+                                color == .light ? Color(hex: "F6F6F6") : Color(hex: "3f3f3f")
+                                
+                            }
                         )
                         .cornerRadius(10)
+                        .overlay {
+                            VStack {
+                                Rectangle()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 10)
+                                    .foregroundColor(color == .light ? Color(hex: "F6F6F6") : Color(hex: "3f3f3f"))
+                                    .offset(y:0)
+                                Spacer()
+                            }
+                        }
                         
                         Spacer().frame(height: 15)
                         Rectangle().frame(width: 0.9 * width, height: 0.5)
@@ -665,6 +678,7 @@ struct ContentView_Previews: PreviewProvider {
             HomeView()
                 .preferredColorScheme(.dark)
         }
+        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)

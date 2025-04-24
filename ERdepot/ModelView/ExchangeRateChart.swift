@@ -216,24 +216,30 @@ struct ExchangeRateChart: View {
     }
 }
 #Preview {
-    ZStack {
+    @Environment(\.colorScheme) var color
+    return ZStack {
         Color.gray.opacity(0.5)
         ExchangeRateChart(dataPoints: ExchangeRateChartPoint.previewData)
-            .padding(14)
+            .padding(.vertical,12)
+            .padding(.horizontal,14)
+            .background(color == .light ? .white : .gray)
             .frame(width: 300,height: 180)
-            .background(.white)
             .cornerRadius(10)
+            .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
     }
 }
 
 #Preview {
-    ZStack {
+    @Environment(\.colorScheme) var color
+    return ZStack {
         Color.gray.opacity(0.5)
         ExchangeRateChart(dataPoints: ExchangeRateChartPoint.previewData)
-            .padding(14)
+            .padding(.vertical,12)
+            .padding(.horizontal,14)
+            .background(color == .light ? .white : .gray)
             .frame(width: 300,height: 180)
-            .background(.white)
             .cornerRadius(10)
             .preferredColorScheme(.dark)
+            .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
     }
 }

@@ -31843,6 +31843,16 @@
         }
       }
     },
+    "version:%@.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "version:%1$@.%2$@"
+          }
+        }
+      }
+    },
     "Vietnamese" : {
       "comment" : "越南语",
       "extractionState" : "manual",
