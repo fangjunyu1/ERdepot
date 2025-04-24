@@ -374,6 +374,8 @@ struct HomeView: View {
                                             .font(.title)
                                             .fontWeight(.bold)
                                             .foregroundColor(.white)
+                                            .lineLimit(2) // 限制为单行
+                                            .minimumScaleFactor(0.5) // 最小缩放到 30%
                                         Spacer()
                                     }
                                     Spacer()
@@ -430,6 +432,8 @@ struct HomeView: View {
                                         .opacity(color == .light ? 1 : 0.8)
                                 )
                                 .cornerRadius(10)
+                                .lineLimit(2) // 限制为单行
+                                .minimumScaleFactor(0.5) // 最小缩放到 30%
                                 // 折算，统计
                                 VStack(spacing: 0) {
                                     Button(action: {
@@ -447,6 +451,8 @@ struct HomeView: View {
                                             Text("Conversion")
                                                 .font(.footnote)
                                                 .foregroundColor(color == .light ? .black : .white)
+                                                .lineLimit(1) // 限制为单行
+                                                .minimumScaleFactor(0.5) // 最小缩放到 30%
                                             Spacer()
                                             Text("1:7")
                                                 .font(.footnote)
@@ -474,6 +480,8 @@ struct HomeView: View {
                                             Text("Statistics")
                                                 .font(.footnote)
                                                 .foregroundColor(color == .light ? .black : .white)
+                                                .lineLimit(1) // 限制为单行
+                                                .minimumScaleFactor(0.5) // 最小缩放到 30%
                                             Spacer()
                                         }
                                         .padding(.vertical,6)
@@ -508,6 +516,7 @@ struct HomeView: View {
                                         Text("Current currency")
                                             .font(.footnote)
                                             .foregroundColor(.gray)
+                                            .fixedSize()
                                         Spacer()
                                             .frame(height: 10)
                                         Text(verbatim:"\(appStorage.localCurrency)")
