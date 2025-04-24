@@ -275,7 +275,7 @@ struct SetView: View {
                         // 加载条修饰符
                             .progressViewStyle(CircularProgressViewStyle())
                             .padding()
-                            .background(color == .dark ? Color(hex: "A8AFB3") : Color.white)
+                            .background(color == .dark ? Color(hex: "2f2f2f") : Color.white)
                             .cornerRadius(10)
                             .overlay {
                                 // 当等待时间超过10秒时显示结束
@@ -305,10 +305,12 @@ struct SetView: View {
     SetView(isShowSet: .constant(true))
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
+        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
 }
 #Preview {
     SetView(isShowSet: .constant(true))
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
         .preferredColorScheme(.dark)
+        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
 }

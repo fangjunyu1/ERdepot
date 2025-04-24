@@ -16,6 +16,16 @@
     "%@" : {
 
     },
+    "%@.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@.%2$@"
+          }
+        }
+      }
+    },
     "%@%%" : {
 
     },
@@ -31839,16 +31849,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本"
-          }
-        }
-      }
-    },
-    "version:%@.%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "version:%1$@.%2$@"
           }
         }
       }
