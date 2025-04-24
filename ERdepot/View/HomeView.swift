@@ -259,7 +259,7 @@ struct HomeView: View {
                                     }
                                 } else {
                                     ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
-                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency] {
+                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency],rate > 0, localCurrency > 0 {
                                             let ratio = currency.amount  / rate * localCurrency / currencyCount
                                             let barColor = colorPalette[index % colorPalette.count]
                                             VStack(spacing: 0) {
