@@ -112,12 +112,23 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 更新日期
+    @Published var exchangeRateUpdateDate: Double = 0 {
+        didSet {
+            if exchangeRateUpdateDate != oldValue {
+                UserDefaults.standard.set(exchangeRateUpdateDate, forKey: "exchangeRateUpdateDate")
+                // syncToiCloud()
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
         convertForeignCurrency = UserDefaults.standard.stringArray(forKey: "convertForeignCurrency") ?? ["USD", "EUR", "JPY", "GBP", "HKD", "CNY"] // 折算外币
+        
         // 如果没有历史时间，默认设置为1999年1月4日
         if UserDefaults.standard.double(forKey: "historicalTime") == 0.00 {
             historicalTime = 915379200.00
@@ -125,6 +136,13 @@ class AppStorageManager:ObservableObject {
             historicalTime = UserDefaults.standard.double(forKey: "historicalTime") // 历史时间
         }
         historicalHigh = UserDefaults.standard.double(forKey: "historicalHigh") // 历史高点
+        
+        // 如果没有更新日期，默认设置为1999年1月4日
+        if UserDefaults.standard.double(forKey: "exchangeRateUpdateDate") == 0.00 {
+            exchangeRateUpdateDate = 915379200.00
+        } else {
+            exchangeRateUpdateDate = UserDefaults.standard.double(forKey: "exchangeRateUpdateDate") // 历史时间
+        }
         
         // 如果UserDefaults中重新统计为nil
         if UserDefaults.standard.object(forKey: "reCountingHistoricalHighs") == nil {

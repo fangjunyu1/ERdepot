@@ -21,6 +21,12 @@ struct HomeView: View {
     @State private var isShowSet = false
     @State private var isShowProfit = false
     @State private var chartPoints: [ExchangeRateChartPoint] = []
+    @State private var refreshID = UUID() {
+        didSet {
+            print("修改ID，刷新视图")
+            print("refreshID:\(oldValue)")
+        }
+    }
     
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     private let formatter: DateFormatter = {
@@ -55,17 +61,20 @@ struct HomeView: View {
         // 计算所有外币的金额
         var total = 0.0
         for userCurrency in userForeignCurrencies {
-            if let symbol = userCurrency.symbol, let rate = rateDict[symbol],let localCurrency = rateDict[appStorage.localCurrency] {
+            if let symbol = userCurrency.symbol, let rate = rateDict[symbol],let localCurrency = rateDict[appStorage.localCurrency] ,rate > 0, localCurrency > 0 {
                 total += userCurrency.amount / rate * localCurrency
             }
         }
         
         currencyCount = total
         // 将 totalAmount 拆分为整数部分和小数部分
-        let integerPart = Int(total)
-        let decimalPart = total - Double(integerPart)
-        
-        return (integerPart,decimalPart)
+        if total.isFinite {
+            let integerPart = Int(total)
+            let decimalPart = total - Double(integerPart)
+            return (integerPart,decimalPart)
+        } else {
+            return (0,0.0)
+        }
     }
     
     // 计算汇率仓库的收益
@@ -600,7 +609,11 @@ struct HomeView: View {
                             })
                         }
                     }
-                    .sheet(isPresented: $isShowForeignCurrency) {
+                    .sheet(isPresented: $isShowForeignCurrency,onDismiss: {
+                        // refreshID = UUID()
+                        print("返回当前用户外币")
+                        generateHistoricalChartData(scope: selectedTime)
+                    }) {
                         ForeignCurrencyView(isShowForeignCurrency: $isShowForeignCurrency)
                     }
                     .sheet(isPresented: $isShowConversion) {
@@ -609,7 +622,9 @@ struct HomeView: View {
                     .sheet(isPresented: $isShowStatistics) {
                         StatisticsView(isShowStatistics: $isShowStatistics)
                     }
-                    .sheet(isPresented: $isShowChangeCurrency) {
+                    .sheet(isPresented: $isShowChangeCurrency,onDismiss: {
+                        generateHistoricalChartData(scope: selectedTime)
+                    }) {
                         ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrency, selectionType: .localCurrency)
                     }
                     .sheet(isPresented: $isShowSet) {
@@ -639,7 +654,7 @@ struct HomeView: View {
             if exchangeRate.latestDate == nil {
                 exchangeRate.updateLatestDate()
             }
-            generateHistoricalChartData(scope: 1)
+            generateHistoricalChartData(scope: selectedTime)
         }
     }
 }
