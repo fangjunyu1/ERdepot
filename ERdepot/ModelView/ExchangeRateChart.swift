@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExchangeRateChart: View {
+    @Environment(\.colorScheme) var color
     @State private var dragLocation: CGFloat? = nil
     @State private var selectedIndex: Int? = nil
     
@@ -158,11 +159,11 @@ struct ExchangeRateChart: View {
                                         Text(formattedDate(selectedData.date))
                                             .font(.caption2)
                                             .bold()
-                                        Text(String(format: "%.2f", selectedData.totalValue))
+                                        Text(selectedData.totalValue.formattedWithTwoDecimalPlaces())
                                             .font(.caption2)
                                     }
                                     .padding(6)
-                                    .background(Color.white)
+                                    .background(color == .light ? Color.white : Color(hex: "888888"))
                                     .cornerRadius(6)
                                     .shadow(radius: 2)
                                     .position(x: xPosition + 80 > width ? xPosition - 60 : xPosition + 60,
