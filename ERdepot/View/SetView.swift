@@ -286,7 +286,7 @@ struct SetView: View {
                                         Text("End of the wait")
                                             .foregroundStyle(.red)
                                             .frame(width: 100,height: 30)
-                                            .background(.white)
+                                            .background(color == .dark ? Color(hex: "3f3f3f") : Color.white)
                                             .cornerRadius(10)
                                     })
                                     .offset(y:60)
