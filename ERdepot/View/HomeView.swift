@@ -145,7 +145,7 @@ struct HomeView: View {
         let calendar = Calendar.current
         let context = viewContext
         let startDate = dateRange(for: scope)
-
+        var chartData: [ExchangeRateChartPoint] = []
         // 获取用户外币列表
         var userCurrencyList: [String:Double] = [:]
         let userRequest = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
@@ -162,41 +162,45 @@ struct HomeView: View {
         }
 
         // 获取汇率数据请求
-//        let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
-//        if let start = startDate {
-//            request.predicate = NSPredicate(format: "date >= %@", start as NSDate)
-//        }
-//        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-//        
-//        do {
-//            var results = try context.fetch(request)
-//
-//            // 抽样：限制最多50条
-//            if results.count > 50 {
-//                let step = max(1, results.count / 50)
-//                results = stride(from: 0, to: results.count, by: step).map { results[$0] }
-//            }
-//
-//            var chartData: [ExchangeRateChartPoint] = []
-//
-//            for result in results {
-//                var total: Double = 0
-//                for (symbol, amount) in userCurrencyList {
-//                    let rate = result.symbol
-//                    total += rate * amount
-//                }
-//
-//                if let date = result.date {
-//                    chartData.append(ExchangeRateChartPoint(date: date, totalValue: total))
-//                }
-//            }
-//
-//            // 用于绑定到视图
-//            self.chartPoints = chartData
-//
-//        } catch {
-//            print("Error fetching exchange rates: \(error)")
-//        }
+        let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
+        if let start = startDate {
+            request.predicate = NSPredicate(format: "date >= %@", start as NSDate)
+        }
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        
+        do {
+            let coreDate = Date()
+            
+            var results = try context.fetch(request)
+            print("获取CoreData数据用时:\(Date().timeIntervalSince(coreDate))")
+            let grouped = Dictionary(grouping: results, by: { $0.date ?? Date.distantPast })
+            print("Dictionary分组用时:\(Date().timeIntervalSince(coreDate))")
+            let sortedDates = grouped.keys.sorted()
+            print("Dictionary排序用时:\(Date().timeIntervalSince(coreDate))")
+            print("排序时间为:\(sortedDates)")
+            for date in sortedDates {
+                if let dailyRate = grouped[date] {
+                    var total: Double = 0
+                    for (symbol, amount) in userCurrencyList {
+                        if let rate = dailyRate.first(where: { $0.symbol == symbol})?.rate, let localRate =  dailyRate.first(where: { $0.symbol == appStorage.localCurrency })?.rate, rate > 0, localRate > 0{
+                            total +=  amount / rate * localRate
+                        }
+                    }
+                    chartData.append(ExchangeRateChartPoint(date: date, totalValue: total))
+                }
+            }
+            print("完成所有时间的总额:\(Date().timeIntervalSince(coreDate)))")
+            
+            // 抽样最多50个点
+                    if chartData.count > 50 {
+                        let step = chartData.count / 50
+                        chartData = stride(from: 0, to: chartData.count, by: step).map { chartData[$0] }
+                    }
+
+                    self.chartPoints = chartData
+        } catch {
+            print("Error fetching exchange rates: \(error)")
+        }
     }
     
     var body: some View {

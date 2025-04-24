@@ -44,7 +44,7 @@ struct ExchangeRateChart: View {
             let firstDate = dataPoints.first?.date
             let middleDate = dataPoints[dataPoints.count / 2].date
             let lastDate = dataPoints.last?.date
-
+            var endPoint:CGPoint = .zero
             VStack {
                 
                 Spacer().frame(height:10)
@@ -69,6 +69,7 @@ struct ExchangeRateChart: View {
                             ZStack {
                                 Path { path in
                                     var origin:CGPoint = .zero
+                                    
                                     for (index,data) in dataPoints.enumerated() {
                                         // X轴的各点
                                         let xPosition = CGFloat(index) / CGFloat(dataPoints.count - 1) * width
@@ -108,6 +109,10 @@ struct ExchangeRateChart: View {
                                             path.move(to: CGPoint(x: xPosition, y: yPosition))
                                         } else {
                                             path.addLine(to: CGPoint(x: xPosition, y: yPosition))
+                                            if index == dataPoints.count - 1 {
+                                                endPoint = CGPoint(x: xPosition, y: yPosition)
+                                                print("endPoint:\(endPoint)")
+                                            }
                                         }
                                     }
                                 }
@@ -158,6 +163,13 @@ struct ExchangeRateChart: View {
                                     .shadow(radius: 2)
                                     .position(x: xPosition + 80 > width ? xPosition - 60 : xPosition + 60,
                                               y: yPosition < 40 ? yPosition + 30 : yPosition - 30)
+                                } else {
+                                    // 圆点
+                                    Circle()
+                                        .fill(Color.gray)
+                                        .frame(width: 8, height: 8)
+                                            .position(endPoint)
+                                            .offset(x:-2)
                                 }
                             }
                             .contentShape(Rectangle())
@@ -183,8 +195,10 @@ struct ExchangeRateChart: View {
                                let last = lastDate {
                                 Text(formattedDate(first))
                                 Spacer()
-                                Text(formattedDate(middleDate))
-                                Spacer()
+                                if dataPoints.count > 2 {
+                                    Text(formattedDate(middleDate))
+                                    Spacer()
+                                }
                                 Text(formattedDate(last))
                             }
                         }
@@ -200,9 +214,10 @@ struct ExchangeRateChart: View {
 #Preview {
     ZStack {
         Color.gray.opacity(0.5)
-        ExchangeRateChart(dataPoints: [])
+        ExchangeRateChart(dataPoints: ExchangeRateChartPoint.previewData)
             .padding(14)
             .frame(width: 300,height: 180)
+            .background(.white)
             .cornerRadius(10)
     }
 }
@@ -210,9 +225,10 @@ struct ExchangeRateChart: View {
 #Preview {
     ZStack {
         Color.gray.opacity(0.5)
-        ExchangeRateChart(dataPoints: [])
+        ExchangeRateChart(dataPoints: ExchangeRateChartPoint.previewData)
             .padding(14)
             .frame(width: 300,height: 180)
+            .background(.white)
             .cornerRadius(10)
             .preferredColorScheme(.dark)
     }
