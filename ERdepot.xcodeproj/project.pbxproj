@@ -21,6 +21,7 @@
 		1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */; };
 		1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */; };
 		1D38D4882DB9E9A600614E81 /* eurofxref-hist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1D38D4872DB9E9A600614E81 /* eurofxref-hist.csv */; };
+		1D38D48A2DBA17F300614E81 /* extensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D38D4892DBA17F300614E81 /* extensionBundle.swift */; };
 		1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */; };
 		1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */; };
 		1D472FD12DB208590077328B /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D472FCD2DB208590077328B /* UserForeignCurrency+CoreDataClass.swift */; };
@@ -35,7 +36,6 @@
 		1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */; };
 		1D7882932DA20B880041AAF9 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882922DA20B880041AAF9 /* IAPManager.swift */; };
 		1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D807D582CC3495B0078DD91 /* MessageUI.framework */; };
-		1D889A782DB0EE5C001E9D70 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 1D889A772DB0EE5C001E9D70 /* SwiftUICharts */; };
 		1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CC2CBE57A6006E077C /* ERdepotApp.swift */; };
 		1D93E9CF2CBE57A6006E077C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CE2CBE57A6006E077C /* ContentView.swift */; };
 		1D93E9D12CBE57A8006E077C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D93E9D02CBE57A8006E077C /* Assets.xcassets */; };
@@ -88,6 +88,7 @@
 		1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceController.swift; sourceTree = "<group>"; };
 		1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeignCurrencyView.swift; sourceTree = "<group>"; };
 		1D38D4872DB9E9A600614E81 /* eurofxref-hist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "eurofxref-hist.csv"; sourceTree = "<group>"; };
+		1D38D4892DBA17F300614E81 /* extensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionBundle.swift; sourceTree = "<group>"; };
 		1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateChartPoint.swift; sourceTree = "<group>"; };
 		1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
 		1D472FCD2DB208590077328B /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 				1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */,
 				1DC0E9D82CC3959700C1A9BA /* StoreKit.framework in Frameworks */,
 				1DE82AF02DABBFB500AF9A11 /* Lottie in Frameworks */,
-				1D889A782DB0EE5C001E9D70 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +227,7 @@
 				1D1AE4902DAE185F00642709 /* currencySymbol.swift */,
 				1DB52F022DAE7B66005A374E /* ExtensionDouble.swift */,
 				1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */,
+				1D38D4892DBA17F300614E81 /* extensionBundle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,7 +347,6 @@
 			packageProductDependencies = (
 				1DE82AEC2DABBFA500AF9A11 /* Zip */,
 				1DE82AEF2DABBFB500AF9A11 /* Lottie */,
-				1D889A772DB0EE5C001E9D70 /* SwiftUICharts */,
 			);
 			productName = ERdepot;
 			productReference = 1D93E9C92CBE57A6006E077C /* ERdepot.app */;
@@ -462,7 +462,6 @@
 			packageReferences = (
 				1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */,
 				1DE82AEE2DABBFB500AF9A11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 1D93E9CA2CBE57A6006E077C /* Products */;
 			projectDirPath = "";
@@ -521,6 +520,7 @@
 				1D7882932DA20B880041AAF9 /* IAPManager.swift in Sources */,
 				1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */,
 				1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */,
+				1D38D48A2DBA17F300614E81 /* extensionBundle.swift in Sources */,
 				1D06A0582D9A472C00A7E6A0 /* WelcomeView.swift in Sources */,
 				1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */,
 				1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */,
@@ -757,7 +757,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ERdepot/ERdepot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ERdepot/Preview Content\"";
 				DEVELOPMENT_TEAM = RRMSD743UQ;
 				ENABLE_PREVIEWS = YES;
@@ -796,7 +796,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ERdepot/ERdepot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ERdepot/Preview Content\"";
 				DEVELOPMENT_TEAM = RRMSD743UQ;
 				ENABLE_PREVIEWS = YES;
@@ -946,14 +946,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/willdale/SwiftUICharts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.10.4;
-			};
-		};
 		1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
@@ -973,11 +965,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D889A772DB0EE5C001E9D70 /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1D889A762DB0EE5C001E9D70 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
-			productName = SwiftUICharts;
-		};
 		1DE82AEC2DABBFA500AF9A11 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1DE82AEB2DABBFA500AF9A11 /* XCRemoteSwiftPackageReference "Zip" */;

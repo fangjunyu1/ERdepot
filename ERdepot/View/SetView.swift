@@ -244,12 +244,16 @@ struct SetView: View {
                             Text("Freepik")
                                 .foregroundColor(.gray)
                         }
-                        
                     }
                     .padding(.vertical,16)
                     .padding(.horizontal,14)
                     .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
                     .cornerRadius(10)
+                    Spacer()
+                        .frame(height: 30)
+                    Text("version:\(Bundle.main.appVersion).\(Bundle.main.appBuild)")
+                        .foregroundColor(.gray)
+                        .font(.caption2)
                     Spacer()
                 }
                 .frame(width: width * 0.85)
