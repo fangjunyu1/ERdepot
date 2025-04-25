@@ -65,14 +65,14 @@ struct ProfitView: View {
         }
         
         
-        if let doubleValue = Double(cleanedValue) {
+        if cleanedValue.isEmpty || Int(cleanedValue) == 0 {
+            inputAmounts[symbol] = ""
+        } else if let doubleValue = Double(cleanedValue) {
             print("string计算成功")
             let string = formatter.string(from: NSNumber(value:doubleValue))
             inputAmounts[symbol] = string
             print("string:\(string ?? "")")
-        } else if cleanedValue.isEmpty {
-            inputAmounts[symbol] = "0.00"
-        }else {
+        } else {
             print("string计算失败")
         }
         
@@ -176,7 +176,7 @@ struct ProfitView: View {
                                 }
                                 .font(.caption2)
                                 Spacer()
-                                TextField("0.0", text: Binding(get: {
+                                TextField("0.00", text: Binding(get: {
                                     inputAmounts[currency.symbol ?? ""] ?? ""
                                 }, set: { newValue in
                                     inputAmounts[currency.symbol ?? ""] = newValue
@@ -225,7 +225,11 @@ struct ProfitView: View {
                                     formatter.numberStyle = .decimal
                                     formatter.maximumFractionDigits = 2
                                     formatter.minimumFractionDigits = 2
-                    inputAmounts[symbol] =  formatter.string(from: NSNumber(value: currency.purchaseAmount)) ?? ""
+                    if currency.purchaseAmount == 0 {
+                        inputAmounts[symbol] = ""
+                    } else {
+                        inputAmounts[symbol] =  formatter.string(from: NSNumber(value: currency.purchaseAmount)) ?? ""
+                    }
                 }
             }
         }
