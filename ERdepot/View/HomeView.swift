@@ -13,7 +13,7 @@ struct HomeView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
     @EnvironmentObject var exchangeRate: ExchangeRate
-    @State private var selectedTime: Int = 0
+    @State private var selectedTime: Int = 1
     @State private var isShowForeignCurrency = false
     @State private var isShowConversion = false
     @State private var isShowStatistics = false
@@ -151,6 +151,7 @@ struct HomeView: View {
     }
     
     func generateHistoricalChartData(scope: Int) {
+        print("进入generateHistoricalChartData方法")
         let calendar = Calendar.current
         let context = viewContext
         let startDate = dateRange(for: scope)
@@ -163,6 +164,7 @@ struct HomeView: View {
             for currency in userCurrencies {
                 if let symbol = currency.symbol {
                     userCurrencyList[symbol] = currency.amount
+                    print("当前用户外币:\(symbol)，金额为：\(currency.amount)")
                 }
             }
         } catch {
@@ -181,6 +183,10 @@ struct HomeView: View {
             let coreDate = Date()
             
             var results = try context.fetch(request)
+            
+            if results.isEmpty {
+                print("Core Data中没有汇率数据")
+            }
             print("获取CoreData数据用时:\(Date().timeIntervalSince(coreDate))")
             let grouped = Dictionary(grouping: results, by: { $0.date ?? Date.distantPast })
             print("Dictionary分组用时:\(Date().timeIntervalSince(coreDate))")
@@ -349,16 +355,16 @@ struct HomeView: View {
                                 }
                             }, label: {
                                 // 管理外币
-                                VStack {
+                                VStack(spacing:0) {
                                     // 外币图片
                                     HStack {
                                         Image("money")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 40,height: 40)
+                                            .frame(width: 33,height: 33)
                                         Spacer()
                                     }
-                                    Spacer().frame(height: 14)
+                                    Spacer().frame(height: 10)
                                     // 管理
                                     HStack{
                                         Text("Manage")
@@ -367,7 +373,7 @@ struct HomeView: View {
                                             .foregroundColor(.white)
                                         Spacer()
                                     }
-                                    Spacer().frame(height: 14)
+                                    Spacer().frame(height: 10)
                                     // 外币
                                     HStack{
                                         Text("Foreign currency")
@@ -380,7 +386,8 @@ struct HomeView: View {
                                     }
                                     Spacer()
                                 }
-                                .padding(20)
+                                .padding(.vertical,10)
+                                .padding(.horizontal,20)
                                 .frame(width: 160,height: 140)
                                 .background(
                                     LinearGradient(
@@ -633,7 +640,7 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $isShowForeignCurrency,onDismiss: {
                         // refreshID = UUID()
-                        print("返回当前用户外币")
+                        print("从管理外币视图外汇，重新绘制折线图")
                         generateHistoricalChartData(scope: selectedTime)
                     }) {
                         ForeignCurrencyView(isShowForeignCurrency: $isShowForeignCurrency)
@@ -687,7 +694,7 @@ struct ContentView_Previews: PreviewProvider {
             HomeView()
                 .preferredColorScheme(.dark)
         }
-        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+//        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)

@@ -38,6 +38,9 @@
     "0.0" : {
 
     },
+    "0.00" : {
+
+    },
     "1 Month" : {
       "comment" : "1.0.4:1 个月",
       "extractionState" : "manual",

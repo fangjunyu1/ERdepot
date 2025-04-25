@@ -160,16 +160,17 @@ struct StatisticsView: View {
                     }
                 }
                 print("结束 CalculatingHistoricalHighs 方法的调用，用时:\(Date().timeIntervalSince(startDate))秒")
+                DispatchQueue.main.async {
+                    queryHistoricalHighs = false
+                    print("查询状态改为\(queryHistoricalHighs)")
+                    appStorage.reCountingHistoricalHighs = false
+                    print("完成历史时间和高点的查询，改为\(queryHistoricalHighs)")
+                }
             } catch {
                 print("未获取到全部时间")
             }
             
-            DispatchQueue.main.async {
-                queryHistoricalHighs = false
-                print("查询状态改为\(queryHistoricalHighs)")
-                appStorage.reCountingHistoricalHighs = false
-                print("完成历史时间和高点的查询，改为\(queryHistoricalHighs)")
-            }
+            
         }
     }
     
