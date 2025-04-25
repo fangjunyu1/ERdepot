@@ -58,10 +58,12 @@ struct ExchangeRateChart: View {
                     //  左侧 Y 轴数值
                     VStack {
                         ForEach(Array(yAxisValues.enumerated()),id:\.1) { index,value in
-                            Text(String(format: "%.0f", value))
+                            Text(value.formattedWithTwoDecimalPlaces())
                                 .font(.caption2)
                                 .offset(y: -6)
                                 .foregroundColor(.gray)
+                                .lineLimit(1) // 限制文本为一行
+                                .minimumScaleFactor(0.5) // 最小缩放比例
                             Spacer()
                         }
                     }
