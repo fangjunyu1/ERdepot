@@ -117,6 +117,8 @@ struct ChangeCurrencyView: View {
                             switch selectionType {
                             case .localCurrency:
                                 appStorage.localCurrency = currency
+                                // 修改当前外币时，重新统计历史高点
+                                appStorage.reCountingHistoricalHighs = true
                             case .convertCurrency(let index):
                                 appStorage.convertForeignCurrency[index] = currency
                             }
