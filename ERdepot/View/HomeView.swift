@@ -27,6 +27,8 @@ struct HomeView: View {
             print("refreshID:\(oldValue)")
         }
     }
+    // 分页指示器索引
+    @State private var selectedIndex = 0
     
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     private let formatter: DateFormatter = {
@@ -345,164 +347,189 @@ struct HomeView: View {
                         Rectangle().frame(width: 0.9 * width, height: 0.5)
                             .foregroundColor(.gray)
                         Spacer().frame(height: 15)
-                        // 外币，更新时间，折算，统计
-                        HStack {
-                            // 管理外币按钮
-                            Button(action: {
-                                withAnimation {
-                                    isShowForeignCurrency = true
-                                    print("当前isShowForeignCurrency:\(isShowForeignCurrency)")
-                                }
-                            }, label: {
-                                // 管理外币
-                                VStack(spacing:0) {
-                                    // 外币图片
-                                    HStack {
-                                        Image("money")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 33,height: 33)
-                                        Spacer()
+                        // TabView列表：外币、更新时间、数字货币、大宗商品
+                        TabView(selection: $selectedIndex) {
+                            // 外币，更新时间，折算，统计
+                            HStack {
+                                // 管理外币按钮
+                                Button(action: {
+                                    withAnimation {
+                                        isShowForeignCurrency = true
+                                        print("当前isShowForeignCurrency:\(isShowForeignCurrency)")
                                     }
-                                    Spacer().frame(height: 10)
-                                    // 管理
-                                    HStack{
-                                        Text("Manage")
-                                            .font(.footnote)
-                                            .fontWeight(.medium)
-                                            .foregroundColor(.white)
-                                        Spacer()
-                                    }
-                                    Spacer().frame(height: 10)
-                                    // 外币
-                                    HStack{
-                                        Text("Foreign currency")
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                            .lineLimit(2) // 限制为单行
-                                            .minimumScaleFactor(0.5) // 最小缩放到 30%
-                                        Spacer()
-                                    }
-                                    Spacer()
-                                }
-                                .padding(.vertical,10)
-                                .padding(.horizontal,20)
-                                .frame(width: 160,height: 140)
-                                .background(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [Color(hex: "0474FF"), color == .light ? .black : .gray]), // 渐变的颜色
-                                        startPoint: .top, // 渐变的起始点
-                                        endPoint: .bottom // 渐变的结束点
-                                    )
-                                )
-                                .cornerRadius(10)
-                                .overlay {
-                                    VStack {
+                                }, label: {
+                                    // 管理外币
+                                    VStack(spacing:0) {
+                                        // 外币图片
                                         HStack {
-                                            Spacer()
-                                            // 书签
-                                            Image(systemName: "bookmark.fill")
+                                            Image("money")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 50,height: 80)
-                                                .foregroundColor(.white)
-                                                .offset(y:-10)
-                                                .clipped()
+                                                .frame(width: 33,height: 33)
                                             Spacer()
-                                                .frame(width: 14)
                                         }
-                                        Spacer()
-                                    }
-                                }
-                            })
-                            Spacer().frame(width: 16)
-                            // 更新时间，折算，统计
-                            VStack {
-                                // 更新时间
-                                VStack {
-                                    if exchangeRate.isload {
-                                        ProgressView("")
-                                            .offset(y:5)
-                                            .tint(.white)
-                                        
-                                    } else {
-                                        Text("Update time") + Text(":") +
-                                        Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
-                                    }
-                                }
-                                .font(.footnote)
-                                .frame(width: 160,height: 50)
-                                .foregroundColor(.white)
-                                .background(
-                                    Color(hex: "1AAE0E")
-                                        .opacity(color == .light ? 1 : 0.8)
-                                )
-                                .cornerRadius(10)
-                                .lineLimit(2) // 限制为单行
-                                .minimumScaleFactor(0.5) // 最小缩放到 30%
-                                // 折算，统计
-                                VStack(spacing: 0) {
-                                    Button(action: {
-                                        isShowConversion = true
-                                    }, label: {
-                                        HStack {
-                                            Image(systemName: "repeat.circle.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color(hex:"E8731E"))
-                                                .background(.white)
-                                                .frame(width: 20,height: 20)
-                                                .cornerRadius(10)
-                                            Spacer().frame(width: 20)
-                                            Text("Conversion")
-                                                .font(.footnote)
-                                                .foregroundColor(color == .light ? .black : .white)
-                                                .lineLimit(1) // 限制为单行
-                                                .minimumScaleFactor(0.5) // 最小缩放到 30%
-                                            Spacer()
-                                            Text("1:7")
+                                        Spacer().frame(height: 10)
+                                        // 管理
+                                        HStack{
+                                            Text("Manage")
                                                 .font(.footnote)
                                                 .fontWeight(.medium)
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(.white)
+                                            Spacer()
                                         }
-                                        .padding(.vertical,6)
-                                        .padding(.horizontal,16)
-                                        .frame(maxWidth: .infinity,maxHeight: .infinity)
-                                    })
-                                    Rectangle().frame(width: 140,height: 0.5)
-                                        .padding(.leading,20)
-                                        .foregroundColor(.gray)
-                                    
-                                    Button(action: {
-                                        isShowStatistics = true
-                                    }, label: {
-                                        HStack {
-                                            Image(systemName:"chart.bar.xaxis")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color(hex:"135FE0"))
-                                                .frame(width: 20,height: 20)
-                                            Spacer().frame(width: 20)
-                                            Text("Statistics")
-                                                .font(.footnote)
-                                                .foregroundColor(color == .light ? .black : .white)
-                                                .lineLimit(1) // 限制为单行
+                                        Spacer().frame(height: 10)
+                                        // 外币
+                                        HStack{
+                                            Text("Foreign currency")
+                                                .font(.title)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.white)
+                                                .lineLimit(2) // 限制为单行
                                                 .minimumScaleFactor(0.5) // 最小缩放到 30%
                                             Spacer()
                                         }
-                                        .padding(.vertical,6)
-                                        .padding(.horizontal,16)
-                                        .frame(maxWidth: .infinity,maxHeight: .infinity)
-                                    })
+                                        Spacer()
+                                    }
+                                    .padding(.vertical,10)
+                                    .padding(.horizontal,20)
+                                    .frame(width: 160,height: 140)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color(hex: "0474FF"), color == .light ? .black : .gray]), // 渐变的颜色
+                                            startPoint: .top, // 渐变的起始点
+                                            endPoint: .bottom // 渐变的结束点
+                                        )
+                                    )
+                                    .cornerRadius(10)
+                                    .overlay {
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                // 书签
+                                                Image(systemName: "bookmark.fill")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 50,height: 80)
+                                                    .foregroundColor(.white)
+                                                    .offset(y:-10)
+                                                    .clipped()
+                                                Spacer()
+                                                    .frame(width: 14)
+                                            }
+                                            Spacer()
+                                        }
+                                    }
+                                })
+                                Spacer().frame(width: 16)
+                                // 更新时间，折算，统计
+                                VStack {
+                                    // 更新时间
+                                    VStack {
+                                        if exchangeRate.isload {
+                                            ProgressView("")
+                                                .offset(y:5)
+                                                .tint(.white)
+                                            
+                                        } else {
+                                            Text("Update time") + Text(":") +
+                                            Text(formatter.string(from: exchangeRate.latestDate ?? Date(timeIntervalSince1970: 1743696000)))  // 显示格式化后的日期
+                                        }
+                                    }
+                                    .font(.footnote)
+                                    .frame(width: 160,height: 50)
+                                    .foregroundColor(.white)
+                                    .background(
+                                        Color(hex: "1AAE0E")
+                                            .opacity(color == .light ? 1 : 0.8)
+                                    )
+                                    .cornerRadius(10)
+                                    .lineLimit(2) // 限制为单行
+                                    .minimumScaleFactor(0.5) // 最小缩放到 30%
+                                    // 折算，统计
+                                    VStack(spacing: 0) {
+                                        Button(action: {
+                                            isShowConversion = true
+                                        }, label: {
+                                            HStack {
+                                                Image(systemName: "repeat.circle.fill")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(Color(hex:"E8731E"))
+                                                    .background(.white)
+                                                    .frame(width: 20,height: 20)
+                                                    .cornerRadius(10)
+                                                Spacer().frame(width: 20)
+                                                Text("Conversion")
+                                                    .font(.footnote)
+                                                    .foregroundColor(color == .light ? .black : .white)
+                                                    .lineLimit(1) // 限制为单行
+                                                    .minimumScaleFactor(0.5) // 最小缩放到 30%
+                                                Spacer()
+                                                Text("1:7")
+                                                    .font(.footnote)
+                                                    .fontWeight(.medium)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            .padding(.vertical,6)
+                                            .padding(.horizontal,16)
+                                            .frame(maxWidth: .infinity,maxHeight: .infinity)
+                                        })
+                                        Rectangle().frame(width: 140,height: 0.5)
+                                            .padding(.leading,20)
+                                            .foregroundColor(.gray)
+                                        
+                                        Button(action: {
+                                            isShowStatistics = true
+                                        }, label: {
+                                            HStack {
+                                                Image(systemName:"chart.bar.xaxis")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(Color(hex:"135FE0"))
+                                                    .frame(width: 20,height: 20)
+                                                Spacer().frame(width: 20)
+                                                Text("Statistics")
+                                                    .font(.footnote)
+                                                    .foregroundColor(color == .light ? .black : .white)
+                                                    .lineLimit(1) // 限制为单行
+                                                    .minimumScaleFactor(0.5) // 最小缩放到 30%
+                                                Spacer()
+                                            }
+                                            .padding(.vertical,6)
+                                            .padding(.horizontal,16)
+                                            .frame(maxWidth: .infinity,maxHeight: .infinity)
+                                        })
+                                    }
+                                    .frame(width: 160,height: 80)
+                                    .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
+                                    .cornerRadius(10)
                                 }
-                                .frame(width: 160,height: 80)
-                                .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
-                                .cornerRadius(10)
+                            }
+                            .tag(0)
+                            
+                            // 数字货币、大宗商品
+                            VStack {
+                                
+                            }
+                            .tag(1)
+                        }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        .frame(height:160)
+                        // 自定义分页指示器，偏移位置
+                        HStack(spacing: 8) {
+                            ForEach(0...1, id: \.self) { index in
+                                Circle()
+                                    .fill(index == selectedIndex ? Color.gray : Color.white)
+                                    .frame(width: 8, height: 8)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+
                             }
                         }
                         Spacer().frame(height: 20)
-                        // 当前货币，收益
+                        // 当前币种，收益
                         HStack {
                             // 当前货币
                             Button(action: {
