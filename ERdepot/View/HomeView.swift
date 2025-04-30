@@ -290,9 +290,10 @@ struct HomeView: View {
                         .background(color == .light ? .black : Color(hex: "1f1f1f"))
                         .cornerRadius(10)
                         .frame(width: width * 0.95)
+                        .zIndex(1)
                         
                         // 图表
-                        VStack {
+                        VStack(spacing:0) {
                             Spacer()
                             ExchangeRateChart(dataPoints: chartPoints)
                                 .padding(.vertical,12)
@@ -320,26 +321,25 @@ struct HomeView: View {
                                     }
                                 }
                             }
+                            .padding(.horizontal,10)
+                            .padding(.bottom,10)
                         }
-                        .padding(10)
                         .frame(width: width * 0.9, height: 240)
-                        .background(
-                            ZStack{
-                                color == .light ? Color(hex: "F6F6F6") : Color(hex: "3f3f3f")
-                                
-                            }
-                        )
+                        .background(color == .light ? .white : .black)
                         .cornerRadius(10)
-                        .overlay {
-                            VStack {
-                                Rectangle()
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 10)
-                                    .foregroundColor(color == .light ? Color(hex: "F6F6F6") : Color(hex: "3f3f3f"))
-                                    .offset(y:0)
-                                Spacer()
-                            }
-                        }
+                        .shadow(radius: 2)
+                        .offset(y:-10)
+                        .zIndex(0)
+//                        .overlay {
+//                            VStack {
+//                                Rectangle()
+//                                    .frame(maxWidth: .infinity)
+//                                    .frame(height: 10)
+//                                    .foregroundColor(color == .light ? .white : .black)
+//                                    .offset(y:0)
+//                                Spacer()
+//                            }
+//                        }
                         
                         Spacer().frame(height: 15)
                         Rectangle().frame(width: 0.9 * width, height: 0.5)
@@ -666,6 +666,8 @@ struct HomeView: View {
                 .refreshable {
                     // 调用下载方法
                     exchangeRate.downloadExchangeRates()
+                    // 重新绘制图表
+                    generateHistoricalChartData(scope: selectedTime)
                 }
             }
         }

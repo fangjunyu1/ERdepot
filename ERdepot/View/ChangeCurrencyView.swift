@@ -116,9 +116,12 @@ struct ChangeCurrencyView: View {
                         .onTapGesture {
                             switch selectionType {
                             case .localCurrency:
-                                appStorage.localCurrency = currency
-                                // 修改当前外币时，重新统计历史高点
-                                appStorage.reCountingHistoricalHighs = true
+                                if appStorage.localCurrency != currency {
+                                    appStorage.localCurrency = currency
+                                    // 修改当前外币时，重新统计历史高点
+                                    print("修改当前外币时，重新统计历史高点")
+                                    appStorage.reCountingHistoricalHighs = true
+                                }
                             case .convertCurrency(let index):
                                 appStorage.convertForeignCurrency[index] = currency
                             }
@@ -139,6 +142,6 @@ struct ChangeCurrencyView: View {
 }
 
 #Preview {
-    ChangeCurrencyView(isShowChangeCurrency: .constant(true), selectionType: .convertCurrency(index: 2))
+    ChangeCurrencyView(isShowChangeCurrency: .constant(true), selectionType: .localCurrency)
         .environmentObject(AppStorageManager.shared)
 }

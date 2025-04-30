@@ -76,7 +76,6 @@ struct ProfitView: View {
             print("string计算失败")
         }
         
-        print("Core Datab保存")
         try? viewContext.save()
     }
     
