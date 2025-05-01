@@ -43,6 +43,16 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 主视图的仓库金额界面，false 为默认界面，true 为简洁界面
+    @Published var mainInterfaceWarehouseAmountStyle = false  {
+        didSet {
+            if mainInterfaceWarehouseAmountStyle != oldValue {
+                UserDefaults.standard.set(mainInterfaceWarehouseAmountStyle, forKey: "mainInterfaceWarehouseAmountStyle")
+                syncToiCloud()
+            }
+        }
+    }
+    
     @Published var listOfSupportedCurrencies:[String] = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","EUR","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"] {
         didSet {
             if listOfSupportedCurrencies != oldValue {
@@ -124,6 +134,9 @@ class AppStorageManager:ObservableObject {
     
     // 从UserDefaults加载数据
     private func loadUserDefault() {
+        
+        mainInterfaceWarehouseAmountStyle = UserDefaults.standard.bool(forKey: "mainInterfaceWarehouseAmountStyle")  // 初始化流程
+        
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
@@ -213,6 +226,7 @@ class AppStorageManager:ObservableObject {
         store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
         store.set(RequestRating, forKey: "RequestRating")
         store.set(isInAppPurchase, forKey: "isInAppPurchase")
+        store.set(localCurrency, forKey: "localCurrency")
         store.set(localCurrency, forKey: "localCurrency")
         store.synchronize() // 强制触发数据同步
     }

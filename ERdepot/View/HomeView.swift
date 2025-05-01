@@ -103,6 +103,26 @@ struct HomeView: View {
         }
     }
     
+    // 计算汇率仓库的收益
+    var calculateReturn: Double {
+        // 可计算收益的外币价值
+        var foreignCurrencyValue = 0.0
+        // 可计算收益的外币购入价值
+        var foreignCurrencyPurchasePrice = 0.0
+        for userCurrency in userForeignCurrencies {
+            if userCurrency.purchaseAmount > 0 {
+                // 叠加当前外币价值
+                // 计算公式为，外币金额 / 兑换欧元的汇率 * 本币的汇率
+                foreignCurrencyValue += userCurrency.amount / (rateDict[userCurrency.symbol ?? ""] ?? 0) * (rateDict[appStorage.localCurrency] ?? 0)
+                // 叠加可计算收益的外币购入价值
+                foreignCurrencyPurchasePrice += userCurrency.purchaseAmount
+            }
+        }
+        
+        // 计算外币的收益，购入金额 - 当前外币价值
+        return foreignCurrencyValue - foreignCurrencyPurchasePrice
+    }
+    
     func fetchLatestDate() -> Date? {
         let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
         request.resultType = .dictionaryResultType
@@ -230,69 +250,143 @@ struct HomeView: View {
                     VStack(spacing: 0) {
                         Spacer().frame(height: 10)
                         // 仓库金额模块
-                        VStack(spacing: 0) {
-                            // 仓库金额
-                            HStack {
-                                Text("Warehouse amount")
-                                    .font(.caption2)
-                                    .foregroundColor(Color(hex: "FFFFFF"))
-                                Spacer()
-                            }
-                            Spacer().frame(height: 10)
-                            // 仓库金额 $999
-                            HStack {
-                                HStack(spacing:0){
-                                    Text(currencySymbols[appStorage.localCurrency] ?? "USD")
-                                    Text("  ")
-                                    Text("\(totalAmount.0)")
-                                    // 显示小数部分（格式化为两位小数）
-                                    Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
-                                        .foregroundColor(.gray)  // 小数部分使用灰色字体
+                        
+                        if appStorage.mainInterfaceWarehouseAmountStyle {
+                            
+                             // 简洁状态的仓库金额
+                            VStack(spacing: 0) {
+                                // 仓库金额
+                                HStack {
+                                    Spacer()
+                                    Text("Warehouse amount")
+                                        .font(.caption2)
+                                        .foregroundColor(Color(hex: "FFFFFF"))
+                                    Spacer()
                                 }
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                Spacer()
-                            }
-                            Spacer().frame(height: 10)
-                            // 仓库金额各币种进度
-                            HStack(spacing:3) {
-                                if userForeignCurrencies.isEmpty {
-                                    VStack(spacing: 0) {
-                                        Text("")
-                                            .font(.footnote)
-                                            .opacity(0)
-                                        Rectangle().frame(width: width * 0.8,height: 8)
-                                            .foregroundColor(.purple)
-                                            .cornerRadius(6)
+                                Spacer().frame(height: 10)
+                                // 仓库金额 $999
+                                HStack {
+                                    Spacer()
+                                    if #available(iOS 16.0, *) {
+                                        HStack(spacing:0){
+                                            Text(currencySymbols[appStorage.localCurrency] ?? "USD")
+                                            Text("  ")
+                                            Text("\(totalAmount.0)")
+                                            // 显示小数部分（格式化为两位小数）
+                                            Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
+                                                .foregroundColor(.gray)  // 小数部分使用灰色字体
+                                        }
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    } else {
+                                        // Fallback on earlier versions
+                                        HStack(spacing:0){
+                                            Text(currencySymbols[appStorage.localCurrency] ?? "USD")
+                                            Text("  ")
+                                            Text("\(totalAmount.0)")
+                                            // 显示小数部分（格式化为两位小数）
+                                            Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
+                                                .foregroundColor(.gray)  // 小数部分使用灰色字体
+                                        }
+                                        .font(.title)
+                                        .foregroundColor(.white)
                                     }
-                                } else {
-                                    ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
-                                        if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency],rate > 0, localCurrency > 0 {
-                                            let ratio = currency.amount  / rate * localCurrency / currencyCount
-                                            let barColor = colorPalette[index % colorPalette.count]
-                                            VStack(spacing: 0) {
-                                                if ratio >= 0.05 {
-                                                    Text(symbol)
-                                                        .font(.footnote)
-                                                        .foregroundColor(Color(hex: "FFFFFF"))
-                                                } else {
-                                                    Rectangle().frame(width:1,height:15)
-                                                        .opacity(0)
+                                    Spacer()
+                                }
+                                
+                                Spacer().frame(height: 5)
+                                // 收益金额
+                                HStack {
+                                    Spacer()
+                                    HStack(spacing:0) {
+                                        Text(currencySymbols[appStorage.localCurrency] ?? "USD")
+                                        Text("  ")
+                                        Text(calculateReturn.formattedWithTwoDecimalPlaces())
+                                    }
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    Spacer()
+                                }
+                            }
+                            .padding(14)
+                            .frame(width: width * 0.95,height:110)
+                            .background(color == .light ? .black : Color(hex: "1f1f1f"))
+                            .cornerRadius(10)
+                            .zIndex(1)
+                            .onTapGesture {
+                                appStorage.mainInterfaceWarehouseAmountStyle.toggle()
+                            }
+                        } else {
+                            // 默认状态的仓库金额
+                            VStack(spacing: 0) {
+                                // 仓库金额
+                                HStack {
+                                    Text("Warehouse amount")
+                                        .font(.caption2)
+                                        .foregroundColor(Color(hex: "FFFFFF"))
+                                    Spacer()
+                                }
+                                Spacer().frame(height: 10)
+                                // 仓库金额 $999
+                                HStack {
+                                    HStack(spacing:0){
+                                        Text(currencySymbols[appStorage.localCurrency] ?? "USD")
+                                        Text("  ")
+                                        Text("\(totalAmount.0)")
+                                        // 显示小数部分（格式化为两位小数）
+                                        Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
+                                            .foregroundColor(.gray)  // 小数部分使用灰色字体
+                                    }
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                    Spacer()
+                                }
+                                Spacer().frame(height: 10)
+                                // 仓库金额各币种进度
+                                HStack(spacing:3) {
+                                    if userForeignCurrencies.isEmpty {
+                                        VStack(spacing: 0) {
+                                            Text("")
+                                                .font(.footnote)
+                                                .opacity(0)
+                                            Rectangle().frame(width: width * 0.8,height: 8)
+                                                .foregroundColor(.purple)
+                                                .cornerRadius(6)
+                                        }
+                                    } else {
+                                        ForEach(Array(userForeignCurrencies.enumerated()), id:\.0){ index,currency in
+                                            if let symbol = currency.symbol,let rate = rateDict[currency.symbol ?? ""],let localCurrency = rateDict[appStorage.localCurrency],rate > 0, localCurrency > 0 {
+                                                let ratio = currency.amount  / rate * localCurrency / currencyCount
+                                                let barColor = colorPalette[index % colorPalette.count]
+                                                VStack(spacing: 0) {
+                                                    if ratio >= 0.05 {
+                                                        Text(symbol)
+                                                            .font(.footnote)
+                                                            .foregroundColor(Color(hex: "FFFFFF"))
+                                                    } else {
+                                                        Rectangle().frame(width:1,height:15)
+                                                            .opacity(0)
+                                                    }
+                                                    Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                                        .foregroundColor(barColor)
+                                                        .cornerRadius(6)
                                                 }
-                                                Rectangle().frame(width: width * ratio * 0.8,height: 8)
-                                                    .foregroundColor(barColor)
-                                                    .cornerRadius(6)
                                             }
                                         }
                                     }
                                 }
                             }
+                            .padding(14)
+                            .frame(width: width * 0.95,height:110)
+                            .background(color == .light ? .black : Color(hex: "1f1f1f"))
+                            .cornerRadius(10)
+                            .zIndex(1)
+                            .onTapGesture {
+                                appStorage.mainInterfaceWarehouseAmountStyle.toggle()
+                            }
                         }
-                        .padding(14)
-                        .background(color == .light ? .black : Color(hex: "1f1f1f"))
-                        .cornerRadius(10)
-                        .frame(width: width * 0.95)
-                        .zIndex(1)
+                        // 结束仓库金额模块
                         
                         // 图表
                         VStack(spacing:0) {
@@ -712,6 +806,8 @@ struct HomeView: View {
             if exchangeRate.latestDate == nil {
                 exchangeRate.updateLatestDate()
             }
+            
+            let calendar = Calendar.current
             // 更新日期并更新折线图
             if calendar.isDate(Date(), inSameDayAs: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate)) {
                 let formatter = DateFormatter()

@@ -14,7 +14,6 @@ struct ERdepotApp: App {
     @StateObject var iapManager = IAPManager.shared
     @StateObject var exchangeRate = ExchangeRate.shared
     let CoreDatacontainer = CoreDataPersistenceController.shared
-    let calendar = Calendar.current
     var body: some Scene {
         WindowGroup {
             ContentView()
