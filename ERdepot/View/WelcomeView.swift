@@ -26,7 +26,7 @@ struct WelcomeView: View {
     
     var body: some View {
         GeometryReader { geo in
-            let width = geo.frame(in: .global).width * 0.95
+            let width = geo.frame(in: .local).width * 0.95
             VStack {
                 Spacer().frame(height: 50)
                 // 设置最大宽度

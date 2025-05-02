@@ -81,8 +81,8 @@ struct ProfitView: View {
     
     var body: some View {
         GeometryReader { geo in
-            let width = geo.frame(in: .global).width * 0.95
-            let height = geo.frame(in: .global).height
+            let width = geo.frame(in: .local).width * 0.95
+            let height = geo.frame(in: .local).height
             ScrollView(showsIndicators: false) {
                 VStack {
                     Spacer()

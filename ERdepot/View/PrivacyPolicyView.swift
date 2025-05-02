@@ -13,7 +13,7 @@ struct PrivacyPolicyView: View {
     @EnvironmentObject var appStorage:AppStorageManager
     var body: some View {
         GeometryReader { geo in
-            let width = geo.frame(in: .global).width * 0.9
+            let width = geo.frame(in: .local).width * 0.9
             VStack {
                 Spacer().frame(height: 50)
                 Text("Privacy Statement")

@@ -28,8 +28,13 @@ struct HomeView: View {
         }
     }
     // 分页指示器索引
+    #if DEBUG
+    // 调试环境下执行的代码
+    @State private var selectedIndex = 1
+    #else
+    // 发布环境下执行的代码（可选）
     @State private var selectedIndex = 0
-    
+    #endif
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -54,8 +59,9 @@ struct HomeView: View {
         }()
     ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
     
+    @State private var totalAmount: (Int,Double) = (0,0.0)
     // 计算总金额的计算属性
-    var totalAmount: (Int,Double) {
+    func updateTotalAmount() {
         // 获取最新的汇率数据
         let latestRates = fetchLatestRates()
         rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
@@ -73,9 +79,9 @@ struct HomeView: View {
         if total.isFinite {
             let integerPart = Int(total)
             let decimalPart = total - Double(integerPart)
-            return (integerPart,decimalPart)
+            self.totalAmount = (integerPart, decimalPart)
         } else {
-            return (0,0.0)
+            self.totalAmount = (0,0.0)
         }
     }
     
@@ -243,8 +249,8 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             GeometryReader { geo in
-                let width = geo.frame(in: .global).width * 0.95
-                let height = geo.frame(in: .global).height
+                let width = geo.frame(in: .local).width * 0.9
+                let height = geo.frame(in: .local).height
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
@@ -285,7 +291,7 @@ struct HomeView: View {
                                             Text(currencySymbols[appStorage.localCurrency] ?? "USD")
                                             Text("  ")
                                             Text("\(totalAmount.0)")
-                                            // 显示小数部分（格式化为两位小数）
+                                             // 显示小数部分（格式化为两位小数）
                                             Text(String(format: "%.2f", totalAmount.1).dropFirst(1)) // 去掉小数点符号
                                                 .foregroundColor(.gray)  // 小数部分使用灰色字体
                                         }
@@ -310,7 +316,7 @@ struct HomeView: View {
                                 }
                             }
                             .padding(14)
-                            .frame(width: width * 0.95,height:110)
+                            .frame(width: width,height:110)
                             .background(color == .light ? .black : Color(hex: "1f1f1f"))
                             .cornerRadius(10)
                             .zIndex(1)
@@ -368,7 +374,7 @@ struct HomeView: View {
                                                         Rectangle().frame(width:1,height:15)
                                                             .opacity(0)
                                                     }
-                                                    Rectangle().frame(width: width * ratio * 0.8,height: 8)
+                                                    Rectangle().frame(width: 360 * ratio * 0.8,height: 8)
                                                         .foregroundColor(barColor)
                                                         .cornerRadius(6)
                                                 }
@@ -378,7 +384,7 @@ struct HomeView: View {
                                 }
                             }
                             .padding(14)
-                            .frame(width: width * 0.95,height:110)
+                            .frame(width: width,height:110)
                             .background(color == .light ? .black : Color(hex: "1f1f1f"))
                             .cornerRadius(10)
                             .zIndex(1)
@@ -426,19 +432,9 @@ struct HomeView: View {
                         .shadow(radius: 2)
                         .offset(y:-10)
                         .zIndex(0)
-//                        .overlay {
-//                            VStack {
-//                                Rectangle()
-//                                    .frame(maxWidth: .infinity)
-//                                    .frame(height: 10)
-//                                    .foregroundColor(color == .light ? .white : .black)
-//                                    .offset(y:0)
-//                                Spacer()
-//                            }
-//                        }
                         
                         Spacer().frame(height: 15)
-                        Rectangle().frame(width: 0.9 * width, height: 0.5)
+                        Rectangle().frame(width: width, height: 0.5)
                             .foregroundColor(.gray)
                         Spacer().frame(height: 15)
                         // TabView列表：外币、更新时间、数字货币、大宗商品
@@ -601,14 +597,88 @@ struct HomeView: View {
                             }
                             .tag(0)
                             
-                            // 数字货币、大宗商品
-                            VStack {
+                            // 数字货币、大宗商品、股票指数
+                            HStack {
+                                // 数字货币、大宗商品
+                                VStack {
+                                    // 数字货币
+                                    Button(action: {
+                                        
+                                    }, label:{
+                                        HStack {
+                                            Image("DigitalCurrency")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 40,height:40)
+                                            Spacer().frame(width:20)
+                                            Text("Digital currency")
+                                        }
+                                    })
+                                    .frame(width: 160,height: 60)
+                                    .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
+                                    .cornerRadius(10)
+
+                                    // 分割线
+                                    Rectangle().frame(width: 140,height: 0.5)
+                                        .foregroundColor(.gray)
+                                    
+                                    // 大宗商品
+                                    Button(action: {
+                                        
+                                    }, label:{
+                                        Image("Commodities")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40,height:40)
+                                        Spacer().frame(width:20)
+                                        Text("Commodities")
+                                    })
+                                    .frame(width: 160,height: 60)
+                                    .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
+                                    .cornerRadius(10)
+                                }
+                                .foregroundColor(color == .light ? .black : .white)
                                 
+                                Spacer()
+                                
+                                // 股票指数
+                                Button(action: {
+                                    
+                                }, label: {
+                                    VStack {
+                                        HStack {
+                                            Image("stock")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 40,height:40)
+                                            Spacer().frame(width:20)
+                                            Text("Stock index")
+                                        }
+                                        .frame(width: 160, height: 60)
+                                        .foregroundColor(color == .light ? .black : .white)
+                                        Spacer()
+                                    }
+                                })
+                                .frame(width: 160,height: 130)
+                                .background {
+                                    Image("StockBackground")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .opacity(color == .light ? 1 : 0.5)
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.black, lineWidth: 0.5)
+                                )
+                                .cornerRadius(10)
                             }
                             .tag(1)
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        .frame(height:160)
+                        .frame(width: width, height: 150)
+                        
+                        Spacer().frame(height:10)
+                        
                         // 自定义分页指示器，偏移位置
                         HStack(spacing: 8) {
                             ForEach(0...1, id: \.self) { index in
@@ -728,7 +798,6 @@ struct HomeView: View {
                                 .contentShape(Rectangle())
                             })
                         }
-                        .frame(width: 340, height: 60)
                         Spacer()
                     }
                     .frame(width: width)
@@ -823,6 +892,8 @@ struct HomeView: View {
                 appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
                 generateHistoricalChartData(scope: selectedTime)
             }
+            
+            updateTotalAmount()
         }
     }
 }
