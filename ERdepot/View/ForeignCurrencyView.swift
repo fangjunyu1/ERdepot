@@ -8,6 +8,11 @@
 import SwiftUI
 import CoreData
 
+struct CurrencyInput: Identifiable {
+    let id: String   // symbol
+    var value: String
+}
+
 struct ForeignCurrencyView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
@@ -26,6 +31,9 @@ struct ForeignCurrencyView: View {
     ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
     
     @FocusState private var focusedField: CurrencyField?
+    
+    // CurrencyInput数组
+    @State private var inputs: [CurrencyInput] = []
     
     enum CurrencyField: Hashable {
         case symbol(String)
@@ -86,7 +94,7 @@ struct ForeignCurrencyView: View {
             let width = geo.frame(in: .local).width * 0.95
             let height = geo.frame(in: .local).height
             ScrollView(showsIndicators: false) {
-                VStack {
+                LazyVStack {
                     Spacer()
                         .frame(height: 30)
                     HStack {
@@ -189,8 +197,7 @@ struct ForeignCurrencyView: View {
                         Spacer()
                     }
                     // 除已有外币意外的所有外币
-                    ForEach(appStorage.listOfSupportedCurrencies, id: \.self) {
-                        currency in
+                    ForEach(appStorage.listOfSupportedCurrencies, id: \.self) { currency in
                         if userForeignCurrencies.first(where: { $0.symbol == currency }) == nil {
                             // 国旗列表
                             HStack {
@@ -209,9 +216,9 @@ struct ForeignCurrencyView: View {
                                 .font(.caption2)
                                 Spacer()
                                 TextField("0.0", text: Binding(get: {
-                                    inputAmounts[currency ?? ""] ?? ""
+                                    inputAmounts[currency] ?? ""
                                 }, set: { newValue in
-                                    inputAmounts[currency ?? ""] = newValue
+                                    inputAmounts[currency] = newValue
                                 }))
                                 .keyboardType(.decimalPad) // 数字小数点键盘
                                 .focused($focusedField, equals: .symbol(currency)) // 添加这一行
@@ -249,9 +256,9 @@ struct ForeignCurrencyView: View {
             for currency in userForeignCurrencies {
                 if let symbol = currency.symbol {
                     let formatter = NumberFormatter()
-                                    formatter.numberStyle = .decimal
-                                    formatter.maximumFractionDigits = 2
-                                    formatter.minimumFractionDigits = 2
+                    formatter.numberStyle = .decimal
+                    formatter.maximumFractionDigits = 2
+                    formatter.minimumFractionDigits = 2
                     inputAmounts[symbol] =  formatter.string(from: NSNumber(value: currency.amount)) ?? ""
                 }
             }

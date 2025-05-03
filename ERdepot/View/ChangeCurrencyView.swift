@@ -26,7 +26,7 @@ struct ChangeCurrencyView: View {
             let width = geo.frame(in: .local).width * 0.95
             let height = geo.frame(in: .local).height
             ScrollView(showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 Spacer()
                     .frame(height: 30)
                 HStack {
