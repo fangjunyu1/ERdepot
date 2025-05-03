@@ -8,11 +8,6 @@
 import SwiftUI
 import CoreData
 
-struct CurrencyInput: Identifiable {
-    let id: String   // symbol
-    var value: String
-}
-
 struct ForeignCurrencyView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
@@ -31,9 +26,6 @@ struct ForeignCurrencyView: View {
     ) var userForeignCurrencies: FetchedResults<UserForeignCurrency>
     
     @FocusState private var focusedField: CurrencyField?
-    
-    // CurrencyInput数组
-    @State private var inputs: [CurrencyInput] = []
     
     enum CurrencyField: Hashable {
         case symbol(String)
