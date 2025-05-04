@@ -426,7 +426,7 @@ struct HomeView: View {
                             .padding(.horizontal,10)
                             .padding(.bottom,10)
                         }
-                        .frame(width: width * 0.9, height: 240)
+                        .frame(width: width * 0.95, height: 240)
                         .background(color == .light ? .white : .black)
                         .cornerRadius(10)
                         .shadow(radius: 2)
@@ -609,9 +609,16 @@ struct HomeView: View {
                                             Image("DigitalCurrency")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 40,height:40)
+                                                .frame(width: 36,height:36)
                                             Spacer().frame(width:20)
-                                            Text("Digital currency")
+                                            VStack {
+                                                Text("Digital currency")
+                                                    .font(.footnote)
+                                                Spacer().frame(height:5)
+                                                Text("BTC  ETH")
+                                                    .font(.caption2)
+                                                    .foregroundColor(.gray)
+                                            }
                                         }
                                     })
                                     .frame(width: 160,height: 60)
@@ -629,9 +636,16 @@ struct HomeView: View {
                                         Image("Commodities")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 40,height:40)
+                                            .frame(width: 36,height:36)
                                         Spacer().frame(width:20)
-                                        Text("Commodities")
+                                        VStack {
+                                            Text("Commodities")
+                                                .font(.footnote)
+                                            Spacer().frame(height:5)
+                                            Text("Oil  Gold")
+                                                .font(.caption2)
+                                                .foregroundColor(.gray)
+                                        }
                                     })
                                     .frame(width: 160,height: 60)
                                     .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
@@ -639,7 +653,7 @@ struct HomeView: View {
                                 }
                                 .foregroundColor(color == .light ? .black : .white)
                                 
-                                Spacer()
+                                Spacer().frame(width: 16)
                                 
                                 // 股票指数
                                 Button(action: {
@@ -650,9 +664,16 @@ struct HomeView: View {
                                             Image("stock")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 40,height:40)
+                                                .frame(width: 36,height:36)
                                             Spacer().frame(width:20)
-                                            Text("Stock index")
+                                            VStack {
+                                                Text("Stock index")
+                                                    .font(.footnote)
+                                                Spacer().frame(height:5)
+                                                Text("Nasdaq 100")
+                                                    .font(.caption2)
+                                                    .foregroundColor(.gray)
+                                            }
                                         }
                                         .frame(width: 160, height: 60)
                                         .foregroundColor(color == .light ? .black : .white)
@@ -692,7 +713,6 @@ struct HomeView: View {
 
                             }
                         }
-                        Spacer().frame(height: 20)
                         // 当前币种，收益
                         HStack {
                             // 当前货币

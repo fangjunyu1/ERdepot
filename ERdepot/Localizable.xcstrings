@@ -20336,6 +20336,18 @@
         }
       }
     },
+    "Nasdaq 100" : {
+      "comment" : "1.0.4.8:纳斯达克100",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "纳斯达克100"
+          }
+        }
+      }
+    },
     "NOK" : {
       "comment" : "挪威克朗",
       "extractionState" : "manual",
@@ -21010,6 +21022,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新西蘭元"
+          }
+        }
+      }
+    },
+    "Oil  Gold" : {
+      "comment" : "1.0.4.8:石油 黄金",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "石油  黄金"
           }
         }
       }
