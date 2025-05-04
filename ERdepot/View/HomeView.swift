@@ -597,16 +597,16 @@ struct HomeView: View {
                             }
                             .tag(0)
                             
-                            // 数字货币、大宗商品、股票指数
+                            // 加密货币、大宗商品、股票指数
                             HStack {
-                                // 数字货币、大宗商品
+                                // 加密货币、大宗商品
                                 VStack {
-                                    // 数字货币
+                                    // 加密货币
                                     Button(action: {
                                         
                                     }, label:{
                                         HStack {
-                                            Image("DigitalCurrency")
+                                            Image("Cryptocurrency")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 36,height:36)

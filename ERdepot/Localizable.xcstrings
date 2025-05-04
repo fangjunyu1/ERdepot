@@ -3656,6 +3656,9 @@
         }
       }
     },
+    "BTC  ETH" : {
+
+    },
     "CAD" : {
       "comment" : "加元",
       "extractionState" : "manual",
@@ -7016,6 +7019,18 @@
         }
       }
     },
+    "Cryptocurrency" : {
+      "comment" : "1.0.4.8:加密货币",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密货币"
+          }
+        }
+      }
+    },
     "Current currency" : {
       "comment" : "当前币种",
       "extractionState" : "manual",
@@ -8397,16 +8412,7 @@
       }
     },
     "Digital currency" : {
-      "comment" : "1.0.4.8:数字货币",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "数字货币"
-          }
-        }
-      }
+
     },
     "DKK" : {
       "comment" : "丹麦克朗",

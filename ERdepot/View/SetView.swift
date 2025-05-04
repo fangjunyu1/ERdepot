@@ -241,7 +241,7 @@ struct SetView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(color == .light ? .black : .white)
                             Spacer()
-                            Text("Freepik")
+                            Text("Freepik、CoinGecko")
                                 .foregroundColor(.gray)
                         }
                     }
