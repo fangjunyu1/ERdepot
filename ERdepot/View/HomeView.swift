@@ -612,7 +612,7 @@ struct HomeView: View {
                                                 .frame(width: 36,height:36)
                                             Spacer().frame(width:20)
                                             VStack {
-                                                Text("Digital currency")
+                                                Text("Cryptocurrency")
                                                     .font(.footnote)
                                                 Spacer().frame(height:5)
                                                 Text("BTC  ETH")

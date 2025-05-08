@@ -8411,9 +8411,6 @@
         }
       }
     },
-    "Digital currency" : {
-
-    },
     "DKK" : {
       "comment" : "丹麦克朗",
       "extractionState" : "manual",
@@ -12106,6 +12103,9 @@
     },
     "Freepik" : {
       "extractionState" : "manual"
+    },
+    "Freepik、CoinGecko" : {
+
     },
     "French" : {
       "comment" : "法语",

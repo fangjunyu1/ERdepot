@@ -93,14 +93,14 @@ struct ProfitView: View {
                             isShowProfit = false
                         }, label: {
                             if #available(iOS 16.0, *) {
-                                Image(systemName: "chevron.left")
+                                Image(systemName: "chevron.down")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 24,height: 24)
                                     .fontWeight(.bold)
                                     .foregroundColor(color == .light ? .black : .white)
                             } else {
-                                Image(systemName: "chevron.left")
+                                Image(systemName: "chevron.down")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 24,height: 24)
