@@ -20,6 +20,9 @@ struct HomeView: View {
     @State private var isShowChangeCurrency = false
     @State private var isShowSet = false
     @State private var isShowProfit = false
+    @State private var isShowCryptocurrency = false
+    @State private var isShowDailyGoldPrice = false
+    @State private var isShowStockIndex = false
     @State private var chartPoints: [ExchangeRateChartPoint] = []
     @State private var refreshID = UUID() {
         didSet {
@@ -597,13 +600,13 @@ struct HomeView: View {
                             }
                             .tag(0)
                             
-                            // 加密货币、大宗商品、股票指数
+                            // 加密货币、每日金价、股票指数
                             HStack {
-                                // 加密货币、大宗商品
+                                // 加密货币、每日金价
                                 VStack {
                                     // 加密货币
                                     Button(action: {
-                                        
+                                        isShowCryptocurrency = true
                                     }, label:{
                                         HStack {
                                             Image("Cryptocurrency")
@@ -629,20 +632,20 @@ struct HomeView: View {
                                     Rectangle().frame(width: 140,height: 0.5)
                                         .foregroundColor(.gray)
                                     
-                                    // 大宗商品
+                                    // 每日金价
                                     Button(action: {
-                                        
+                                        isShowDailyGoldPrice = true
                                     }, label:{
-                                        Image("Commodities")
+                                        Image("gold")
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 36,height:36)
                                         Spacer().frame(width:20)
                                         VStack {
-                                            Text("Commodities")
+                                            Text("Daily gold price")
                                                 .font(.footnote)
                                             Spacer().frame(height:5)
-                                            Text("Oil  Gold")
+                                            Text("Gold futures")
                                                 .font(.caption2)
                                                 .foregroundColor(.gray)
                                         }
@@ -657,7 +660,7 @@ struct HomeView: View {
                                 
                                 // 股票指数
                                 Button(action: {
-                                    
+                                    isShowStockIndex = true
                                 }, label: {
                                     VStack {
                                         HStack {
@@ -872,6 +875,15 @@ struct HomeView: View {
                     .sheet(isPresented: $isShowProfit) {
                         ProfitView(isShowProfit: $isShowProfit)
                     }
+                        .sheet(isPresented: $isShowCryptocurrency) {
+                            CryptocurrencyView(isShowCryptocurrency: $isShowCryptocurrency)
+                        }
+                        .sheet(isPresented: $isShowDailyGoldPrice) {
+                            DailyGoldPriceView(bindingSheet: $isShowDailyGoldPrice)
+                        }
+                        .sheet(isPresented: $isShowStockIndex) {
+                            StockIndexView(bindingSheet: $isShowStockIndex)
+                        }
                 }
                 .refreshable {
                     // 调用下载方法

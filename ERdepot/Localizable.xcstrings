@@ -6119,18 +6119,6 @@
         }
       }
     },
-    "Commodities" : {
-      "comment" : "1.0.4.8:大宗商品",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "大宗商品"
-          }
-        }
-      }
-    },
     "Continue" : {
       "comment" : "1.0.4:继续",
       "extractionState" : "manual",
@@ -7963,6 +7951,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "捷克克朗"
+          }
+        }
+      }
+    },
+    "Daily gold price" : {
+      "comment" : "1.0.4.8:每日金价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日金价"
           }
         }
       }
@@ -12781,6 +12781,18 @@
     },
     "GitHub" : {
       "extractionState" : "manual"
+    },
+    "Gold futures" : {
+      "comment" : "1.0.4.8:黄金期货",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "黄金期货"
+          }
+        }
+      }
     },
     "Greek" : {
       "comment" : "希腊语",
@@ -21028,18 +21040,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新西蘭元"
-          }
-        }
-      }
-    },
-    "Oil  Gold" : {
-      "comment" : "1.0.4.8:石油 黄金",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "石油  黄金"
           }
         }
       }
