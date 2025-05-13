@@ -124,76 +124,83 @@ struct CryptocurrencyView: View {
                         }
                     }
                     Spacer().frame(height:20)
-                    ForEach(cryptoCurrencys) { cryptoCurrency in
-                        if let id = cryptoCurrency.id,let imageUrl = cryptoCurrency.image,let symbol  = cryptoCurrency.symbol {
-                            let marketCapRank = cryptoCurrency.marketCapRank
-                            let currentPrice = cryptoCurrency.currentPrice * (rateDict[appStorage.localCurrency] ?? 0)
-                            let priceChangePercentage24h = cryptoCurrency.priceChangePercentage24h
-                            // 国旗列表
-                            HStack {
-                                Text("\(marketCapRank)")
-                                Spacer().frame(width: 20)
-                                
-                                
-                                if let cacheDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first {
-                                    let localImageURL = cacheDirectory.appendingPathComponent("\(symbol).png")
-                                    if let data = try? Data(contentsOf: localImageURL),let image = UIImage(data:data) {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 30, height: 30)
-                                            .cornerRadius(10)
-                                            .onAppear {
-                                                print("本地缓存:\(symbol)图片")
-                                            }
-                                       
-                                    } else {
-                                        AsyncImage(url: imageUrl) { image in
-                                            image
+                    if !cryptoCurrencys.isEmpty {
+                        Image("noData")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 200, height: 200)
+                    } else {
+                        ForEach(cryptoCurrencys) { cryptoCurrency in
+                            if let id = cryptoCurrency.id,let imageUrl = cryptoCurrency.image,let symbol  = cryptoCurrency.symbol {
+                                let marketCapRank = cryptoCurrency.marketCapRank
+                                let currentPrice = cryptoCurrency.currentPrice * (rateDict[appStorage.localCurrency] ?? 0)
+                                let priceChangePercentage24h = cryptoCurrency.priceChangePercentage24h
+                                // 国旗列表
+                                HStack {
+                                    Text("\(marketCapRank)")
+                                    Spacer().frame(width: 20)
+                                    
+                                    
+                                    if let cacheDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first {
+                                        let localImageURL = cacheDirectory.appendingPathComponent("\(symbol).png")
+                                        if let data = try? Data(contentsOf: localImageURL),let image = UIImage(data:data) {
+                                            Image(uiImage: image)
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: 30, height: 30)
                                                 .cornerRadius(10)
-                                        } placeholder: {
-                                            ProgressView() // 显示加载占位符
                                                 .onAppear {
-                                                        print("使用AsyncImage加载远程图片")
-                                                    // 该图片可能未实现缓存，尝试缓存该图片
-                                                    CryptoDataManager.shared.DownloadCryptocurrencyImages(imageURL: imageUrl, imageName: symbol)
+                                                    print("本地缓存:\(symbol)图片")
                                                 }
+                                           
+                                        } else {
+                                            AsyncImage(url: imageUrl) { image in
+                                                image
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 30, height: 30)
+                                                    .cornerRadius(10)
+                                            } placeholder: {
+                                                ProgressView() // 显示加载占位符
+                                                    .onAppear {
+                                                            print("使用AsyncImage加载远程图片")
+                                                        // 该图片可能未实现缓存，尝试缓存该图片
+                                                        CryptoDataManager.shared.DownloadCryptocurrencyImages(imageURL: imageUrl, imageName: symbol)
+                                                    }
+                                            }
                                         }
                                     }
-                                }
-                                
-                                
-                                Spacer().frame(width: 20)
-                                // price_change_percentage_24h
-                                VStack(alignment: .leading,spacing:0) {
-                                    Text(symbol.uppercased())
-                                        .font(.footnote)
-                                        .fontWeight(.bold)
-                                        .frame(alignment: .center)
-                                    HStack {
-                                        Text(formatter.string(from: NSNumber(value:priceChangePercentage24h)) ?? "") + Text("%")
+                                    
+                                    
+                                    Spacer().frame(width: 20)
+                                    // price_change_percentage_24h
+                                    VStack(alignment: .leading,spacing:0) {
+                                        Text(symbol.uppercased())
+                                            .font(.footnote)
+                                            .fontWeight(.bold)
+                                            .frame(alignment: .center)
+                                        HStack {
+                                            Text(formatter.string(from: NSNumber(value:priceChangePercentage24h)) ?? "") + Text("%")
+                                        }
+                                        .padding(.horizontal,5)
+                                        .padding(.vertical,2)
+                                        .foregroundColor(.white)
+                                        .background(priceChangePercentage24h > 0 ? Color.green : Color.red)
+                                            .font(.caption2)
+                                            .cornerRadius(3)
                                     }
-                                    .padding(.horizontal,5)
-                                    .padding(.vertical,2)
-                                    .foregroundColor(.white)
-                                    .background(priceChangePercentage24h > 0 ? Color.green : Color.red)
-                                        .font(.caption2)
-                                        .cornerRadius(3)
+                                    Spacer()
+                                    HStack {
+                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
+                                        Text("\(currentPrice.formattedWithTwoDecimalPlaces())")
+                                    }
+                                    .foregroundColor(Color(hex: "333333"))
                                 }
-                                Spacer()
-                                HStack {
-                                    Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                    Text("\(currentPrice.formattedWithTwoDecimalPlaces())")
-                                }
-                                .foregroundColor(Color(hex: "333333"))
+                                .padding(.horizontal,20)
+                                .frame(width: width * 0.85,height: 50)
+                                .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                                .cornerRadius(10)
                             }
-                            .padding(.horizontal,20)
-                            .frame(width: width * 0.85,height: 50)
-                            .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
-                            .cornerRadius(10)
                         }
                     }
                     
