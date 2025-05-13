@@ -13,6 +13,9 @@
     ":" : {
 
     },
+    "%" : {
+
+    },
     "%@" : {
 
     },
@@ -6119,6 +6122,9 @@
         }
       }
     },
+    "CoinGecko" : {
+
+    },
     "Continue" : {
       "comment" : "1.0.4:继续",
       "extractionState" : "manual",
@@ -8185,6 +8191,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "丹麥語"
+          }
+        }
+      }
+    },
+    "Data source" : {
+      "comment" : "1.0.4.8:数据来源",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据来源"
           }
         }
       }
@@ -33475,6 +33493,9 @@
           }
         }
       }
+    },
+    "Yahoo Finance" : {
+
     },
     "ZAR" : {
       "comment" : "南非兰特",

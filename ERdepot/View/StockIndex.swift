@@ -64,6 +64,16 @@ struct StockIndexView: View {
                         }
                     }
                     Spacer()
+                        .frame(height: 30)
+                    VStack {
+                        HStack {
+                            Text("Data source")
+                            Text("Yahoo Finance")
+                        }
+                        .foregroundColor(.gray)
+                        .font(.caption2)
+                    }
+                    Spacer()
                         .frame(height: 20)
                 }
                 .frame(width: width * 0.85)

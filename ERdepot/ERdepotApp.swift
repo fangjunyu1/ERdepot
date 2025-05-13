@@ -14,6 +14,12 @@ struct ERdepotApp: App {
     @StateObject var iapManager = IAPManager.shared
     @StateObject var exchangeRate = ExchangeRate.shared
     let CoreDatacontainer = CoreDataPersistenceController.shared
+    
+    init() {
+        // 初始化调用加密货币的同步方法
+        CryptoDataManager.shared.updateIfNeeded(context: CoreDatacontainer.context)
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -132,6 +132,17 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 更新日期
+    @Published var CryptocurrencylastUpdateDate: Date = Date.distantPast {
+        didSet {
+            if CryptocurrencylastUpdateDate != oldValue {
+                UserDefaults.standard.set(CryptocurrencylastUpdateDate, forKey: "CryptocurrencylastUpdateDate")
+                // syncToiCloud()
+                print("修改加密货币的更新日期为:\(CryptocurrencylastUpdateDate)")
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         
@@ -172,6 +183,10 @@ class AppStorageManager:ObservableObject {
             print("未从UserDefaults获取listOfSupportedCurrencies货币数组")
             listOfSupportedCurrencies = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","EUR","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"]
         }
+        
+        // 加密货币更新日期
+        CryptocurrencylastUpdateDate = UserDefaults.standard.object(forKey: "CryptocurrencylastUpdateDate") as? Date ?? Date.distantPast
+        
     }
     
     /// 从 iCloud 读取数据

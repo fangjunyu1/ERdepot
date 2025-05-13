@@ -24,10 +24,13 @@
 		1D38D48A2DBA17F300614E81 /* extensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D38D4892DBA17F300614E81 /* extensionBundle.swift */; };
 		1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */; };
 		1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */; };
-		1D472FD12DB208590077328B /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D472FCD2DB208590077328B /* UserForeignCurrency+CoreDataClass.swift */; };
-		1D472FD22DB208590077328B /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D472FCE2DB208590077328B /* UserForeignCurrency+CoreDataProperties.swift */; };
-		1D472FD32DB208590077328B /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D472FCF2DB208590077328B /* Eurofxrefhist+CoreDataClass.swift */; };
-		1D472FD42DB208590077328B /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D472FD02DB208590077328B /* Eurofxrefhist+CoreDataProperties.swift */; };
+		1D57A0372DD182B5008628ED /* CryptoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0362DD182B1008628ED /* CryptoDataManager.swift */; };
+		1D57A04A2DD1C8AA008628ED /* CryptoCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0442DD1C8AA008628ED /* CryptoCurrency+CoreDataClass.swift */; };
+		1D57A04B2DD1C8AA008628ED /* CryptoCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0452DD1C8AA008628ED /* CryptoCurrency+CoreDataProperties.swift */; };
+		1D57A04C2DD1C8AA008628ED /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0462DD1C8AA008628ED /* Eurofxrefhist+CoreDataClass.swift */; };
+		1D57A04D2DD1C8AA008628ED /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0472DD1C8AA008628ED /* Eurofxrefhist+CoreDataProperties.swift */; };
+		1D57A04E2DD1C8AA008628ED /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0482DD1C8AA008628ED /* UserForeignCurrency+CoreDataClass.swift */; };
+		1D57A04F2DD1C8AA008628ED /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0492DD1C8AA008628ED /* UserForeignCurrency+CoreDataProperties.swift */; };
 		1D68A7952DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D68A7932DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodeld */; };
 		1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */; };
 		1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */; };
@@ -97,10 +100,13 @@
 		1D38D4892DBA17F300614E81 /* extensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionBundle.swift; sourceTree = "<group>"; };
 		1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateChartPoint.swift; sourceTree = "<group>"; };
 		1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
-		1D472FCD2DB208590077328B /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D472FCE2DB208590077328B /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1D472FCF2DB208590077328B /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D472FD02DB208590077328B /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D57A0362DD182B1008628ED /* CryptoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDataManager.swift; sourceTree = "<group>"; };
+		1D57A0442DD1C8AA008628ED /* CryptoCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D57A0452DD1C8AA008628ED /* CryptoCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D57A0462DD1C8AA008628ED /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D57A0472DD1C8AA008628ED /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D57A0482DD1C8AA008628ED /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D57A0492DD1C8AA008628ED /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1D68A7942DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExchangeRateDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1D7882882DA1F0DD0041AAF9 /* ConversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionView.swift; sourceTree = "<group>"; };
 		1D78828A2DA1F2310041AAF9 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
@@ -244,6 +250,7 @@
 				1DB52F022DAE7B66005A374E /* ExtensionDouble.swift */,
 				1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */,
 				1D38D4892DBA17F300614E81 /* extensionBundle.swift */,
+				1D57A0362DD182B1008628ED /* CryptoDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,10 +286,12 @@
 		1D93E9C02CBE57A6006E077C = {
 			isa = PBXGroup;
 			children = (
-				1D472FCD2DB208590077328B /* UserForeignCurrency+CoreDataClass.swift */,
-				1D472FCE2DB208590077328B /* UserForeignCurrency+CoreDataProperties.swift */,
-				1D472FCF2DB208590077328B /* Eurofxrefhist+CoreDataClass.swift */,
-				1D472FD02DB208590077328B /* Eurofxrefhist+CoreDataProperties.swift */,
+				1D57A0442DD1C8AA008628ED /* CryptoCurrency+CoreDataClass.swift */,
+				1D57A0452DD1C8AA008628ED /* CryptoCurrency+CoreDataProperties.swift */,
+				1D57A0462DD1C8AA008628ED /* Eurofxrefhist+CoreDataClass.swift */,
+				1D57A0472DD1C8AA008628ED /* Eurofxrefhist+CoreDataProperties.swift */,
+				1D57A0482DD1C8AA008628ED /* UserForeignCurrency+CoreDataClass.swift */,
+				1D57A0492DD1C8AA008628ED /* UserForeignCurrency+CoreDataProperties.swift */,
 				1D93E9CB2CBE57A6006E077C /* ERdepot */,
 				1D93E9DC2CBE57A8006E077C /* ERdepotTests */,
 				1D93E9E62CBE57A8006E077C /* ERdepotUITests */,
@@ -531,6 +540,12 @@
 			files = (
 				1DB52F032DAE7B66005A374E /* ExtensionDouble.swift in Sources */,
 				1D16EDA72DB618DB001B6A12 /* ExchangeRateChart.swift in Sources */,
+				1D57A04A2DD1C8AA008628ED /* CryptoCurrency+CoreDataClass.swift in Sources */,
+				1D57A04B2DD1C8AA008628ED /* CryptoCurrency+CoreDataProperties.swift in Sources */,
+				1D57A04C2DD1C8AA008628ED /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1D57A04D2DD1C8AA008628ED /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1D57A04E2DD1C8AA008628ED /* UserForeignCurrency+CoreDataClass.swift in Sources */,
+				1D57A04F2DD1C8AA008628ED /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
 				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
 				1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */,
 				1DF60D432DD058BD00CF5456 /* DailyGoldPrice.swift in Sources */,
@@ -555,10 +570,7 @@
 				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
 				1D927FB82DCC583100E96BA0 /* CryptoDTO.swift in Sources */,
 				1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */,
-				1D472FD12DB208590077328B /* UserForeignCurrency+CoreDataClass.swift in Sources */,
-				1D472FD22DB208590077328B /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
-				1D472FD32DB208590077328B /* Eurofxrefhist+CoreDataClass.swift in Sources */,
-				1D472FD42DB208590077328B /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1D57A0372DD182B5008628ED /* CryptoDataManager.swift in Sources */,
 				1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */,
 				1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */,
 			);

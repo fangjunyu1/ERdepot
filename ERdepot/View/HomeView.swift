@@ -13,6 +13,7 @@ struct HomeView: View {
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
     @EnvironmentObject var exchangeRate: ExchangeRate
+    @Environment(\.managedObjectContext) var viewContext
     @State private var selectedTime: Int = 1
     @State private var isShowForeignCurrency = false
     @State private var isShowConversion = false
@@ -52,8 +53,8 @@ struct HomeView: View {
     // 汇率字典
     @State private var rateDict: [String:Double] = [:]
     @State private var currencyCount = 0.0
+    
     // 获取 Core Data 上下文
-    @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
         fetchRequest: {
             let request = NSFetchRequest<UserForeignCurrency>(entityName: "UserForeignCurrency")
