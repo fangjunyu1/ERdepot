@@ -18,7 +18,7 @@ class CryptoDataManager: ObservableObject {
         let calendar = Calendar.current
         if calendar.isDateInToday(AppStorageManager.shared.CryptocurrencylastUpdateDate) {
             print("今天已经完成加密货币的更新，不再更新")
-//            return
+            return
         }
         
         fetchCryptoData(context: context)
