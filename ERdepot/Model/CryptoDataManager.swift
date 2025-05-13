@@ -21,7 +21,9 @@ class CryptoDataManager: ObservableObject {
             return
         }
         
+        // 调用加密数据接口
         fetchCryptoData(context: context)
+        // 更新加密数据日期
         AppStorageManager.shared.CryptocurrencylastUpdateDate = Date()
     }
     

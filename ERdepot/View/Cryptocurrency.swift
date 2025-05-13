@@ -124,7 +124,7 @@ struct CryptocurrencyView: View {
                         }
                     }
                     Spacer().frame(height:20)
-                    if !cryptoCurrencys.isEmpty {
+                    if cryptoCurrencys.isEmpty {
                         Image("noData")
                             .resizable()
                             .scaledToFill()
