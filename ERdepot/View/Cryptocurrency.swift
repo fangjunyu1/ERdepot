@@ -185,7 +185,7 @@ struct CryptocurrencyView: View {
                                         .padding(.horizontal,5)
                                         .padding(.vertical,2)
                                         .foregroundColor(.white)
-                                        .background(priceChangePercentage24h > 0 ? Color.green : Color.red)
+                                        .background(priceChangePercentage24h > 0 ? color == .light ? Color.green : Color(hex: "0B6C43") : color == .light ? Color.red : Color(hex: "D62121"))
                                             .font(.caption2)
                                             .cornerRadius(3)
                                     }
@@ -194,7 +194,8 @@ struct CryptocurrencyView: View {
                                         Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
                                         Text("\(currentPrice.formattedWithTwoDecimalPlaces())")
                                     }
-                                    .foregroundColor(Color(hex: "333333"))
+                                    .foregroundColor(color == .light ? Color(hex: "333333") : Color(hex: "cccccc"))
+                                    .font(.subheadline)
                                 }
                                 .padding(.horizontal,20)
                                 .frame(width: width * 0.85,height: 50)
