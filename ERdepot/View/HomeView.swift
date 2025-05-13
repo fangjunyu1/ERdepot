@@ -673,6 +673,7 @@ struct HomeView: View {
                                             VStack {
                                                 Text("Stock index")
                                                     .font(.footnote)
+                                                    .foregroundColor(color == .light ? .black : .white)
                                                 Spacer().frame(height:5)
                                                 Text("Nasdaq 100")
                                                     .font(.caption2)
@@ -680,16 +681,14 @@ struct HomeView: View {
                                             }
                                         }
                                         .frame(width: 160, height: 60)
-                                        .foregroundColor(color == .light ? .black : .white)
                                         Spacer()
                                     }
                                 })
                                 .frame(width: 160,height: 130)
                                 .background {
-                                    Image("StockBackground")
+                                    Image(color == .light ? "StockBackground" : "backgroundStockBackground")
                                         .resizable()
                                         .scaledToFill()
-                                        .opacity(color == .light ? 1 : 0.5)
                                 }
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
