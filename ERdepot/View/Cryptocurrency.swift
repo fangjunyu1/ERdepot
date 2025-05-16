@@ -135,7 +135,7 @@ struct CryptocurrencyView: View {
                                 let marketCapRank = cryptoCurrency.marketCapRank
                                 let currentPrice = cryptoCurrency.currentPrice * (rateDict[appStorage.localCurrency] ?? 0)
                                 let priceChangePercentage24h = cryptoCurrency.priceChangePercentage24h
-                                // 国旗列表
+                                // 列表
                                 HStack {
                                     Text("\(marketCapRank)")
                                     Spacer().frame(width: 20)

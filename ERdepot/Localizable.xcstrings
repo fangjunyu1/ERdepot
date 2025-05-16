@@ -2495,6 +2495,18 @@
         }
       }
     },
+    "Amount of income" : {
+      "comment" : "1.0.4.8：收益金额",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收益金额"
+          }
+        }
+      }
+    },
     "Arabic" : {
       "comment" : "阿拉伯语",
       "extractionState" : "manual",
@@ -33496,6 +33508,18 @@
     },
     "Yahoo Finance" : {
 
+    },
+    "Yield" : {
+      "comment" : "1.0.4.8：收益率",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收益率"
+          }
+        }
+      }
     },
     "ZAR" : {
       "comment" : "南非兰特",

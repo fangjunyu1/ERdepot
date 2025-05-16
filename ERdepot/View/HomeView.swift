@@ -489,7 +489,7 @@ struct HomeView: View {
                                     .frame(width: 160,height: 140)
                                     .background(
                                         LinearGradient(
-                                            gradient: Gradient(colors: [Color(hex: "0474FF"), color == .light ? .black : .gray]), // 渐变的颜色
+                                            gradient: Gradient(colors: [Color(hex: "0474FF"), color == .light ? .black : Color(hex: "333333")]), // 渐变的颜色
                                             startPoint: .top, // 渐变的起始点
                                             endPoint: .bottom // 渐变的结束点
                                         )
@@ -504,7 +504,7 @@ struct HomeView: View {
                                                     .resizable()
                                                     .scaledToFit()
                                                     .frame(width: 50,height: 80)
-                                                    .foregroundColor(.white)
+                                                    .foregroundColor(color == .light ? .white : Color(hex: "ddddddd"))
                                                     .offset(y:-10)
                                                     .clipped()
                                                 Spacer()
