@@ -241,7 +241,14 @@ struct SetView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(color == .light ? .black : .white)
                             Spacer()
-                            Text("Freepik、CoinGecko")
+                            VStack {
+                                HStack {
+                                    Text("Freepik")
+                                    Text("CoinGecko")
+                                }
+                                Text("Yahoo Finance")
+                            }
+                                .font(.caption2)
                                 .foregroundColor(.gray)
                         }
                     }
