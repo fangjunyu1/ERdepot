@@ -887,9 +887,16 @@ struct HomeView: View {
                 }
                 .refreshable {
                     // 调用下载方法
-                    exchangeRate.downloadExchangeRates()
-                    // 重新绘制图表
-                    generateHistoricalChartData(scope: selectedTime)
+                    exchangeRate.downloadExchangeRates() {
+                        print("将今天的日期更新到同步日期，今天不再更新汇率，除非手动更新。")
+                        appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
+                        DispatchQueue.main.async {
+                            // 重新绘制图表
+                            generateHistoricalChartData(scope: selectedTime)
+                            // 重新统计仓库金额
+                            updateTotalAmount()
+                        }
+                    }
                 }
             }
         }
@@ -917,15 +924,18 @@ struct HomeView: View {
 
                 print("今天\(formatter.string(from: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate))) 已经更新过汇率，不在更新。")
                 generateHistoricalChartData(scope: selectedTime)
+                updateTotalAmount()
             } else {
                 print("今天首次打开应用，更新汇率数据")
-                exchangeRate.downloadExchangeRates()
-                print("将今天的日期更新到同步日期，今天不再更新汇率，除非手动更新。")
-                appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
-                generateHistoricalChartData(scope: selectedTime)
+                exchangeRate.downloadExchangeRates() {
+                    print("将今天的日期更新到同步日期，今天不再更新汇率，除非手动更新。")
+                    appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
+                    DispatchQueue.main.async {
+                        generateHistoricalChartData(scope: selectedTime)
+                        updateTotalAmount()
+                    }
+                }
             }
-            
-            updateTotalAmount()
         }
     }
 }

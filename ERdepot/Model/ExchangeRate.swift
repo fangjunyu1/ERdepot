@@ -37,15 +37,16 @@ class ExchangeRate :ObservableObject {
         context = container.viewContext
     }
     
-    func downloadExchangeRates() {
+    func downloadExchangeRates(completion: @escaping () -> Void) {
         // 开始下载文件，开启同步状态
         self.isload = true
-        
         print("进入下载方法 downloadExchangeRates")
         let task = URLSession.shared.downloadTask(with: fileURL) { localURL, response, error in
             if let error = error {
                 print("下载失败: \(error)")
-                self.loadExchangeRatesFromBundle()
+                self.loadExchangeRatesFromBundle {
+                    completion()
+                }
                 return
             }
             if let localURL = localURL,let response = response,let suggestedFilename = response.suggestedFilename {
@@ -69,7 +70,9 @@ class ExchangeRate :ObservableObject {
                     print("文件已保存到：\(destinationURL)")
                     
                     // 下载完成后解压文件并处理
-                    self.processDownloadedFile(destinationURL)
+                    self.processDownloadedFile(destinationURL) {
+                        completion()
+                    }
                 } catch {
                     print("移动文件时出错：\(error)")
                 }
@@ -82,20 +85,22 @@ class ExchangeRate :ObservableObject {
     }
     
     // 无网络的情况下，从Bundle中加载文件
-    func loadExchangeRatesFromBundle() {
+    func loadExchangeRatesFromBundle(completion: @escaping () -> Void) {
         print("尝试从 Bundle 加载 eurofxref-hist 文件")
         
         if let bundleURL = Bundle.main.url(forResource: "eurofxref-hist", withExtension: "csv") {
             print("从 Bundle 找到文件，路径为：\(bundleURL)")
             // 处理CSV文件
-            self.processCSVData(bundleURL.path)
+            self.processCSVData(bundleURL.path) {
+                completion()
+            }
         } else {
             print("在 Bundle 中未找到 eurofxref-hist.csv 文件")
         }
     }
     
     // 下载新的压缩包后，从 临时文件夹 中加载文件
-    func processDownloadedFile(_ destinationURL: URL) {
+    func processDownloadedFile(_ destinationURL: URL,completion: @escaping () -> Void) {
         do {
             print("进入processDownloadedFile方法")
             
@@ -110,7 +115,9 @@ class ExchangeRate :ObservableObject {
                 print(file.lastPathComponent) // 打印文件名
                 if file.lastPathComponent == "eurofxref-hist.csv" {
                     print("进入csv判定：\(file.path)")
-                    processCSVData(file.path)
+                    processCSVData(file.path) {
+                        completion()
+                    }
                 }
             }
             
@@ -127,7 +134,7 @@ class ExchangeRate :ObservableObject {
         }
     }
     
-    func processCSVData(_ filePath: String) {
+    func processCSVData(_ filePath: String,completion: @escaping () -> Void) {
         // 读取并解析CSV文件
         let startDate = Date()
         print("开始解析CSV文件")
@@ -138,7 +145,9 @@ class ExchangeRate :ObservableObject {
             guard !lines.isEmpty else {
                 print("CSV 文件没有数据")
                 // CSV文件没有数据，同步状态改为false，结束同步动画
-                self.isload = false
+                DispatchQueue.main.async {
+                    self.isload = false
+                }
                 return
             }
             
@@ -210,8 +219,15 @@ class ExchangeRate :ObservableObject {
             
             let endDate = Date()
             print("所有汇率数据处理完成，用时:\(endDate.timeIntervalSince(startDate))秒")
-            // CSV文件没有数据，同步状态改为false，结束同步动画
-            self.isload = false
+            
+            
+            // 加载逻辑
+                DispatchQueue.main.async {
+                    // CSV文件没有数据，同步状态改为false，结束同步动画
+                    self.isload = false
+                    print("已经完成数据更新，调用闭包更新主视图数据")
+                    completion()
+                }
         } catch {
             print("读取CSV失败: \(error)")
         }
