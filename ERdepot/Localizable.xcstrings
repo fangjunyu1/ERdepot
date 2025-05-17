@@ -2495,18 +2495,6 @@
         }
       }
     },
-    "Amount of income" : {
-      "comment" : "1.0.4.8：收益金额",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "收益金额"
-          }
-        }
-      }
-    },
     "Arabic" : {
       "comment" : "阿拉伯语",
       "extractionState" : "manual",
@@ -7255,6 +7243,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "當前貨幣"
+          }
+        }
+      }
+    },
+    "Current value" : {
+      "comment" : "1.0.4.8:当前价值",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前价值"
           }
         }
       }
@@ -15568,6 +15568,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以色列謝克爾"
+          }
+        }
+      }
+    },
+    "Income" : {
+      "comment" : "1.0.4.8：收益",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收益"
           }
         }
       }

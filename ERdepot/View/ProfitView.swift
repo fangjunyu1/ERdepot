@@ -23,6 +23,8 @@ struct ProfitView: View {
     @State private var yield: [String: Double] = [:]
     // 收益金额
     @State private var amountOfIncome: [String: Double] = [:]
+    // 当前价值
+    @State private var currentValue: [String: Double] = [:]
     
     // 多个输入框的聚集
     @FocusState private var focusedField: CurrencyField?
@@ -143,6 +145,9 @@ struct ProfitView: View {
                 // 当前金额
                 let currentAmount = currency.amount / rate * localRate
                 print("当前金额为:\(currentAmount)，汇率为:\(rate)")
+                
+                currentValue[currency.symbol ?? ""] = currentAmount
+                
                 // 收益率 = （ 当前金额 - 买入金额 ）/ 买入金额
                 if buyAmount != 0 {
                     yield[symbol] = (currentAmount - buyAmount) / buyAmount
@@ -284,7 +289,7 @@ struct ProfitView: View {
                                 }
                                 .padding(.top,5)
                                 .padding(.horizontal,10)
-                                .frame(width: width * 0.75,height: 55)
+                                .frame(width: width * 0.8,height: 55)
                                 .background(Color(hex: "6C6C6C"))
                                 .cornerRadius(10)
                                 .offset(y: -15)
@@ -292,6 +297,20 @@ struct ProfitView: View {
                                 if let inputAmount = inputAmounts[symbol],!inputAmount.isEmpty {
                                     // 收益率和收益金额
                                     HStack {
+                                        // 当前价值
+                                        VStack(alignment: .center) {
+                                            Text("Current value")
+                                                .foregroundColor(Color(hex: "cccccc"))
+                                            Spacer().frame(height: 4)
+                                            HStack {
+                                                Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
+                                                Text("\((currentValue[symbol] ?? 0.0).formattedWithTwoDecimalPlaces())")
+                                            }
+                                            .foregroundColor(.white)
+                                        }
+                                        .font(.caption2)
+                                        Spacer()
+                                        // 收益率
                                         VStack(alignment: .center) {
                                             Text("Yield")
                                                 .foregroundColor(Color(hex: "cccccc"))
@@ -302,9 +321,10 @@ struct ProfitView: View {
                                             .foregroundColor(.white)
                                         }
                                         .font(.caption2)
-                                        Spacer().frame(width:30)
+                                        Spacer()
+                                        // 收益
                                         VStack(alignment: .center) {
-                                            Text("Amount of income")
+                                            Text("Income")
                                                 .foregroundColor(Color(hex: "cccccc"))
                                             Spacer().frame(height: 4)
                                             HStack {
@@ -316,8 +336,8 @@ struct ProfitView: View {
                                         .font(.caption2)
                                     }
                                     .padding(.top,5)
-                                    .padding(.horizontal,10)
-                                    .frame(width: width * 0.7,height: 55)
+                                    .padding(.horizontal,20)
+                                    .frame(width: width * 0.75,height: 55)
                                     .background(Color(hex: "1f1f1f"))
                                     .cornerRadius(10)
                                     .offset(y: -30)
