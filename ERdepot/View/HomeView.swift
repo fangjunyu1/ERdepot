@@ -14,7 +14,7 @@ struct HomeView: View {
     @EnvironmentObject var appStorage: AppStorageManager
     @EnvironmentObject var exchangeRate: ExchangeRate
     @Environment(\.managedObjectContext) var viewContext
-    @State private var selectedTime: Int = 0
+    @State private var selectedTime: Int = 1
     @State private var isShowForeignCurrency = false
     @State private var isShowConversion = false
     @State private var isShowStatistics = false
