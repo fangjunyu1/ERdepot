@@ -855,6 +855,7 @@ struct HomeView: View {
                         // refreshID = UUID()
                         print("从管理外币视图外汇，重新绘制折线图")
                         generateHistoricalChartData(scope: selectedTime)
+                        updateTotalAmount()
                     }) {
                         ForeignCurrencyView(isShowForeignCurrency: $isShowForeignCurrency)
                     }
@@ -866,6 +867,7 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $isShowChangeCurrency,onDismiss: {
                         generateHistoricalChartData(scope: selectedTime)
+                        updateTotalAmount()
                     }) {
                         ChangeCurrencyView(isShowChangeCurrency: $isShowChangeCurrency, selectionType: .localCurrency)
                     }
@@ -916,6 +918,12 @@ struct HomeView: View {
             }
             
             let calendar = Calendar.current
+            
+            
+            // 先完成折线图和总额的绘制。
+            generateHistoricalChartData(scope: selectedTime)
+            updateTotalAmount()
+            
             // 更新日期并更新折线图
             if calendar.isDate(Date(), inSameDayAs: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate)) {
                 let formatter = DateFormatter()
