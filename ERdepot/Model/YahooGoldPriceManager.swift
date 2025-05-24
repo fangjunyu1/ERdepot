@@ -12,5 +12,4 @@ class YahooGoldPriceManager: ObservableObject {
     
     private let apiURL = URL(string: "https://query1.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=1mo")!
     
-    func
 }

@@ -250,6 +250,44 @@ struct HomeView: View {
         }
     }
     
+    // 封装初始化代码
+    func loadData() async {
+        // 获取最新的汇率数据
+        var latestRates = fetchLatestRates()
+        
+        // 如果最新日期为nil，更新最新日期
+        if exchangeRate.latestDate == nil {
+            exchangeRate.updateLatestDate()
+        }
+        
+        let calendar = Calendar.current
+        
+        // 先完成折线图和总额的绘制。
+        generateHistoricalChartData(scope: selectedTime)
+        updateTotalAmount()
+        
+        // 更新日期并更新折线图
+        if calendar.isDate(Date(), inSameDayAs: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate)) {
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone(identifier: "Asia/Shanghai") // 设置为中国时间
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+            print("今天\(formatter.string(from: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate))) 已经更新过汇率，不在更新。")
+            generateHistoricalChartData(scope: selectedTime)
+            updateTotalAmount()
+        } else {
+            print("今天首次打开应用，更新汇率数据")
+            exchangeRate.downloadExchangeRates() {
+                print("将今天的日期更新到同步日期，今天不再更新汇率，除非手动更新。")
+                appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
+                DispatchQueue.main.async {
+                    generateHistoricalChartData(scope: selectedTime)
+                    updateTotalAmount()
+                }
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -904,49 +942,13 @@ struct HomeView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // 首次打开应用，调用评分
-            if !appStorage.RequestRating {
-                appStorage.RequestRating = true
-                SKStoreReviewController.requestReview()
-            }
-            // 获取最新的汇率数据
-            var latestRates = fetchLatestRates()
-            
-            // 如果最新日期为nil，更新最新日期
-            if exchangeRate.latestDate == nil {
-                exchangeRate.updateLatestDate()
-            }
-            
-            let calendar = Calendar.current
-            
-            
-            // 先完成折线图和总额的绘制。
-            generateHistoricalChartData(scope: selectedTime)
-            updateTotalAmount()
-            
-            // 更新日期并更新折线图
-            if calendar.isDate(Date(), inSameDayAs: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate)) {
-                let formatter = DateFormatter()
-                formatter.timeZone = TimeZone(identifier: "Asia/Shanghai") // 设置为中国时间
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-                print("今天\(formatter.string(from: Date(timeIntervalSince1970: appStorage.exchangeRateUpdateDate))) 已经更新过汇率，不在更新。")
-                generateHistoricalChartData(scope: selectedTime)
-                updateTotalAmount()
-            } else {
-                print("今天首次打开应用，更新汇率数据")
-                exchangeRate.downloadExchangeRates() {
-                    print("将今天的日期更新到同步日期，今天不再更新汇率，除非手动更新。")
-                    appStorage.exchangeRateUpdateDate = Date().timeIntervalSince1970
-                    DispatchQueue.main.async {
-                        generateHistoricalChartData(scope: selectedTime)
-                        updateTotalAmount()
-                    }
-                }
+            Task {
+                await loadData()
             }
         }
     }
 }
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

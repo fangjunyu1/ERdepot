@@ -10,24 +10,28 @@ import CoreData
 
 class CryptoDataManager: ObservableObject {
     static let shared = CryptoDataManager()
-    private init() {}
-    
-    private let apiURL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=50&page=1")!
-    
-    func updateIfNeeded(context: NSManagedObjectContext) {
+    private init() {
+        print("进入 CryptoDataManager 加密货币方法")
+        // 初始化调用加密货币的同步方法
         let calendar = Calendar.current
         if calendar.isDateInToday(AppStorageManager.shared.CryptocurrencylastUpdateDate) {
             print("今天已经完成加密货币的更新，不再更新")
             return
+        } else {
+            print("调用加密数据接口")
+            // 调用加密数据接口
+            fetchCryptoData()
+            // 更新加密数据日期
+            AppStorageManager.shared.CryptocurrencylastUpdateDate = Date()
+            print("更新日期:\(AppStorageManager.shared.CryptocurrencylastUpdateDate)")
         }
         
-        // 调用加密数据接口
-        fetchCryptoData(context: context)
-        // 更新加密数据日期
-        AppStorageManager.shared.CryptocurrencylastUpdateDate = Date()
     }
     
-    func fetchCryptoData(context: NSManagedObjectContext) {
+    private let apiURL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=50&page=1")!
+    
+    func fetchCryptoData() {
+        let context = CoreDataPersistenceController.shared.context
         let task = URLSession.shared.dataTask(with: apiURL) {data, response, error in
             
             // 检查是否有错误
