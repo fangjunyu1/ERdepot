@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(YahooGoldPricePoint)
+
 public class YahooGoldPricePoint: NSManagedObject {
 
 }

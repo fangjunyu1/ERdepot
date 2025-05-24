@@ -1601,9 +1601,6 @@
         }
       }
     },
-    "711.33" : {
-
-    },
     "Acknowledgements" : {
       "comment" : "1.0.4:鸣谢",
       "extractionState" : "manual",
@@ -6139,6 +6136,18 @@
     },
     "CoinGecko" : {
 
+    },
+    "COMEX" : {
+      "comment" : "1.0.4.8:纽约商品交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "纽约商品交易所"
+          }
+        }
+      }
     },
     "Continue" : {
       "comment" : "1.0.4:继续",

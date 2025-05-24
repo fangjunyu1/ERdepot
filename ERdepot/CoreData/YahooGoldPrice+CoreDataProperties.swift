@@ -16,14 +16,14 @@ extension YahooGoldPrice {
         return NSFetchRequest<YahooGoldPrice>(entityName: "YahooGoldPrice")
     }
 
-    @NSManaged public var fullExchangeName: String?
-    @NSManaged public var updateTime: Date?
-    @NSManaged public var regularMarketPrice: Double
+    @NSManaged public var chartPreviousClose: Double
     @NSManaged public var fiftyTwoWeekHigh: Double
     @NSManaged public var fiftyTwoWeekLow: Double
+    @NSManaged public var fullExchangeName: String?
     @NSManaged public var regularMarketDayHigh: Double
     @NSManaged public var regularMarketDayLow: Double
-    @NSManaged public var chartPreviousClose: Double
+    @NSManaged public var regularMarketPrice: Double
+    @NSManaged public var updateTime: Date?
 
 }
 

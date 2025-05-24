@@ -253,7 +253,8 @@ struct HomeView: View {
     // 封装初始化代码
     func loadData() async {
         // 获取最新的汇率数据
-        var latestRates = fetchLatestRates()
+        let latestRates = fetchLatestRates()
+        rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
         
         // 如果最新日期为nil，更新最新日期
         if exchangeRate.latestDate == nil {
@@ -950,8 +951,9 @@ struct HomeView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        Group {
+        return Group {
             HomeView()
             HomeView()
                 .preferredColorScheme(.dark)
@@ -961,5 +963,6 @@ struct ContentView_Previews: PreviewProvider {
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
+        .environmentObject(YahooGoldPriceManager.shared)
     }
 }

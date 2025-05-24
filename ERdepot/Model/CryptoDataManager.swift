@@ -30,8 +30,10 @@ class CryptoDataManager: ObservableObject {
     
     private let apiURL = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=50&page=1")!
     
+    
     func fetchCryptoData() {
         let context = CoreDataPersistenceController.shared.context
+        
         let task = URLSession.shared.dataTask(with: apiURL) {data, response, error in
             
             // 检查是否有错误

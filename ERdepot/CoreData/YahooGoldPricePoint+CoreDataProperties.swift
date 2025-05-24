@@ -16,11 +16,11 @@ extension YahooGoldPricePoint {
         return NSFetchRequest<YahooGoldPricePoint>(entityName: "YahooGoldPricePoint")
     }
 
-    @NSManaged public var time: Date?
-    @NSManaged public var open: Double
-    @NSManaged public var low: Double
     @NSManaged public var close: Double
     @NSManaged public var high: Double
+    @NSManaged public var low: Double
+    @NSManaged public var open: Double
+    @NSManaged public var time: Date?
     @NSManaged public var volume: Double
 
 }

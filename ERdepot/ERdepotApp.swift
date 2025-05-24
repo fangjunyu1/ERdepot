@@ -15,6 +15,7 @@ struct ERdepotApp: App {
     @StateObject var iapManager = IAPManager.shared
     @StateObject var exchangeRate = ExchangeRate.shared
     @StateObject var cryptoData = CryptoDataManager.shared
+    @StateObject var yahooGoldPriceManager = YahooGoldPriceManager.shared
     let CoreDatacontainer = CoreDataPersistenceController.shared
 
     init() {

@@ -12,7 +12,7 @@ struct YahooGoldPriceModel: Codable {
 }
 
 struct YahooGoldPriceChart: Codable {
-    let resuklt: [YahooGoldPriceResult]
+    let result: [YahooGoldPriceResult?]
 }
 
 struct YahooGoldPriceResult: Codable {
@@ -30,6 +30,16 @@ struct YahooGoldPriceMeta: Codable {
     let regularMarketDayHigh: Double    // 今日最高价
     let regularMarketDayLow: Double     // 今日最低价
     let chartPreviousClose:Double   // 前一交易日收盘价
+    enum CodingKeys: String, CodingKey {
+        case fullExchangeName
+        case updateTime = "regularMarketTime"
+        case regularMarketPrice
+        case fiftyTwoWeekHigh
+        case fiftyTwoWeekLow
+        case regularMarketDayHigh
+        case regularMarketDayLow
+        case chartPreviousClose
+    }
 }
 
 struct YahooGoldPriceIndicators: Codable {
