@@ -19,6 +19,7 @@ struct DailyGoldPriceView: View {
     @FetchRequest(
         fetchRequest: {
             let request = NSFetchRequest<YahooGoldPrice>(entityName: "YahooGoldPrice")
+            request.sortDescriptors = [NSSortDescriptor(key: "updateTime", ascending: false)]
             return request
         }()
     ) var goldPrices: FetchedResults<YahooGoldPrice>
