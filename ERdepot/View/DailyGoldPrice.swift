@@ -15,9 +15,12 @@ struct DailyGoldPriceView: View {
     @EnvironmentObject var appStorage: AppStorageManager
     @Binding var bindingSheet: Bool
     // 查询 Core Data 中 Yahoo 黄金的数据条件
+    
     @FetchRequest(
-        entity: YahooGoldPrice.entity(),
-        sortDescriptors: []
+        fetchRequest: {
+            let request = NSFetchRequest<YahooGoldPrice>(entityName: "YahooGoldPrice")
+            return request
+        }()
     ) var goldPrices: FetchedResults<YahooGoldPrice>
     
     // 汇率字典
