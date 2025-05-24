@@ -21,7 +21,7 @@ class AppStorageManager:ObservableObject {
         observeiCloudChanges()
         
         // 监听应用进入后台事件
-        observeAppLifecycle()
+//        observeAppLifecycle()
     }
     
     // 完成初始化流程，true表示完成，false表示未完成，完成后打开应用会直接进入主视图。
@@ -38,7 +38,9 @@ class AppStorageManager:ObservableObject {
         didSet {
             if localCurrency != oldValue {
                 UserDefaults.standard.set(localCurrency, forKey: "localCurrency")
-                syncToiCloud()
+                let store = NSUbiquitousKeyValueStore.default
+                store.set(localCurrency, forKey: "localCurrency")
+                store.synchronize() // 强制触发数据同步
             }
         }
     }
@@ -48,7 +50,10 @@ class AppStorageManager:ObservableObject {
         didSet {
             if mainInterfaceWarehouseAmountStyle != oldValue {
                 UserDefaults.standard.set(mainInterfaceWarehouseAmountStyle, forKey: "mainInterfaceWarehouseAmountStyle")
-                syncToiCloud()
+                
+                let store = NSUbiquitousKeyValueStore.default
+                store.set(mainInterfaceWarehouseAmountStyle, forKey: "mainInterfaceWarehouseAmountStyle")
+                store.synchronize() // 强制触发数据同步
             }
         }
     }
@@ -56,8 +61,11 @@ class AppStorageManager:ObservableObject {
     @Published var listOfSupportedCurrencies:[String] = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","EUR","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"] {
         didSet {
             if listOfSupportedCurrencies != oldValue {
-                UserDefaults.standard.set(listOfSupportedCurrencies, forKey: "isInit")
-                syncToiCloud()
+                UserDefaults.standard.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
+                
+                let store = NSUbiquitousKeyValueStore.default
+                store.set(mainInterfaceWarehouseAmountStyle, forKey: "mainInterfaceWarehouseAmountStyle")
+                store.synchronize() // 强制触发数据同步
             }
         }
     }
@@ -67,7 +75,10 @@ class AppStorageManager:ObservableObject {
         didSet {
             if RequestRating != oldValue {
                 UserDefaults.standard.set(RequestRating, forKey: "RequestRating")
-                syncToiCloud()
+                
+                let store = NSUbiquitousKeyValueStore.default
+                store.set(RequestRating, forKey: "RequestRating")
+                store.synchronize() // 强制触发数据同步
             }
         }
     }
@@ -77,7 +88,10 @@ class AppStorageManager:ObservableObject {
         didSet {
             if isInAppPurchase != oldValue {
                 UserDefaults.standard.set(isInAppPurchase, forKey: "isInAppPurchase")
-                syncToiCloud()
+                
+                let store = NSUbiquitousKeyValueStore.default
+                store.set(isInAppPurchase, forKey: "isInAppPurchase")
+                store.synchronize() // 强制触发数据同步
             }
         }
     }
@@ -87,6 +101,7 @@ class AppStorageManager:ObservableObject {
         didSet {
             if reCountingHistoricalHighs != oldValue {
                 UserDefaults.standard.set(reCountingHistoricalHighs, forKey: "reCountingHistoricalHighs")
+                // 计算本地属性，不同步iCloud
                 // syncToiCloud()
             }
         }
@@ -97,6 +112,7 @@ class AppStorageManager:ObservableObject {
         didSet {
             if historicalTime != oldValue {
                 UserDefaults.standard.set(historicalTime, forKey: "historicalTime")
+                // 计算本地属性，不同步iCloud
                 // syncToiCloud()
             }
         }
@@ -107,6 +123,7 @@ class AppStorageManager:ObservableObject {
         didSet {
             if historicalHigh != oldValue {
                 UserDefaults.standard.set(historicalHigh, forKey: "historicalHigh")
+                // 计算本地属性，不同步iCloud
                 // syncToiCloud()
             }
         }
@@ -117,6 +134,7 @@ class AppStorageManager:ObservableObject {
         didSet {
             if convertForeignCurrency != oldValue {
                 UserDefaults.standard.set(convertForeignCurrency, forKey: "convertForeignCurrency")
+                // 计算本地属性，不同步iCloud
                 // syncToiCloud()
             }
         }
@@ -127,22 +145,42 @@ class AppStorageManager:ObservableObject {
         didSet {
             if exchangeRateUpdateDate != oldValue {
                 UserDefaults.standard.set(exchangeRateUpdateDate, forKey: "exchangeRateUpdateDate")
+                // 计算本地属性，不同步iCloud
                 // syncToiCloud()
             }
         }
     }
     
-    // 更新日期
+    // 加密货币更新日期
     @Published var CryptocurrencylastUpdateDate: Date = Date.distantPast {
         didSet {
             if CryptocurrencylastUpdateDate != oldValue {
                 UserDefaults.standard.set(CryptocurrencylastUpdateDate, forKey: "CryptocurrencylastUpdateDate")
                 // syncToiCloud()
+                // 计算本地属性，不同步iCloud
                 print("修改加密货币的更新日期为:\(CryptocurrencylastUpdateDate)")
             }
         }
     }
     
+    // 金价单位
+    @Published var GoldPriceUnit: String = "per gram" {
+        didSet {
+            if GoldPriceUnit != oldValue {
+                UserDefaults.standard.set(GoldPriceUnit, forKey: "GoldPriceUnit")
+                // 计算本地属性，不同步iCloud
+            }
+        }
+    }
+    
+    // 金价更新时间
+    @Published var GoldlastUpdateDate: Date = Date.distantPast {
+        didSet {
+            if GoldlastUpdateDate != oldValue {
+                UserDefaults.standard.set(GoldlastUpdateDate, forKey: "GoldlastUpdateDate")
+            }
+        }
+    }
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         
@@ -187,6 +225,10 @@ class AppStorageManager:ObservableObject {
         // 加密货币更新日期
         CryptocurrencylastUpdateDate = UserDefaults.standard.object(forKey: "CryptocurrencylastUpdateDate") as? Date ?? Date.distantPast
         
+        GoldPriceUnit = UserDefaults.standard.string(forKey: "GoldPriceUnit") ??  "per gram" // 金价单位
+        
+        // 金价更新日期
+        GoldlastUpdateDate = UserDefaults.standard.object(forKey: "GoldlastUpdateDate") as? Date ?? Date.distantPast
     }
     
     /// 从 iCloud 读取数据
@@ -230,21 +272,27 @@ class AppStorageManager:ObservableObject {
             store.set(localCurrency, forKey: "localCurrency")
         }
         
+        if let storedGoldPriceUnit = store.string(forKey: "GoldPriceUnit") {
+            GoldPriceUnit = storedGoldPriceUnit
+        } else {
+            store.set(GoldPriceUnit, forKey: "GoldPriceUnit")
+        }
+        
         print("完成 loadFromiCloud 方法的读取")
         store.synchronize() // 强制触发数据同步
     }
     
     /// 数据变化时，**同步到 iCloud**
-    private func syncToiCloud() {
-        let store = NSUbiquitousKeyValueStore.default
-        //        store.set(isInit, forKey: "isInit")
-        store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
-        store.set(RequestRating, forKey: "RequestRating")
-        store.set(isInAppPurchase, forKey: "isInAppPurchase")
-        store.set(localCurrency, forKey: "localCurrency")
-        store.set(localCurrency, forKey: "localCurrency")
-        store.synchronize() // 强制触发数据同步
-    }
+//    private func syncToiCloud() {
+//        let store = NSUbiquitousKeyValueStore.default
+//        //        store.set(isInit, forKey: "isInit")
+//        store.set(listOfSupportedCurrencies, forKey: "listOfSupportedCurrencies")
+//        store.set(RequestRating, forKey: "RequestRating")
+//        store.set(isInAppPurchase, forKey: "isInAppPurchase")
+//        store.set(localCurrency, forKey: "localCurrency")
+//        store.set(localCurrency, forKey: "localCurrency")
+//        store.synchronize() // 强制触发数据同步
+//    }
     
     /// 监听 iCloud 变化，同步到本地
     private func observeiCloudChanges() {
@@ -265,20 +313,20 @@ class AppStorageManager:ObservableObject {
     }
     
     /// 监听应用生命周期事件
-    private func observeAppLifecycle() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(appWillResignActive),
-            name: UIApplication.willResignActiveNotification,
-            object: nil
-        )
-    }
+//    private func observeAppLifecycle() {
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(appWillResignActive),
+//            name: UIApplication.willResignActiveNotification,
+//            object: nil
+//        )
+//    }
     
     /// 当应用进入后台时，将数据同步到 iCloud
-    @objc private func appWillResignActive() {
-        print("应用进入后台，将本地数据同步到iCloud")
-        syncToiCloud()
-    }
+//    @objc private func appWillResignActive() {
+//        print("应用进入后台，将本地数据同步到iCloud")
+//        syncToiCloud()
+//    }
     
     /// 防止内存泄漏
     deinit {

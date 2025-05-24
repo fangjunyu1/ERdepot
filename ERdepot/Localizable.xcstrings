@@ -3662,6 +3662,18 @@
     "BTC  ETH" : {
 
     },
+    "CAC 40" : {
+      "comment" : "1.0.4.8:法国 CAC 40",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法国 CAC 40"
+          }
+        }
+      }
+    },
     "CAD" : {
       "comment" : "加元",
       "extractionState" : "manual",
@@ -8441,6 +8453,18 @@
         }
       }
     },
+    "DAX" : {
+      "comment" : "1.0.4.8:德国 DAX",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "德国 DAX"
+          }
+        }
+      }
+    },
     "DKK" : {
       "comment" : "丹麦克朗",
       "extractionState" : "manual",
@@ -8665,6 +8689,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "丹麥克朗"
+          }
+        }
+      }
+    },
+    "Dow Jones Industrial Average" : {
+      "comment" : "1.0.4.8:道琼斯工业平均",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "道琼斯工业平均"
           }
         }
       }
@@ -10327,6 +10363,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "歐洲中央銀行"
+          }
+        }
+      }
+    },
+    "Exchange name" : {
+      "comment" : "1.0.4.8:交易所名称",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易所名称"
           }
         }
       }
@@ -12356,6 +12404,18 @@
         }
       }
     },
+    "FTSE 100" : {
+      "comment" : "1.0.4.8:英国富时 100",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英国富时 100"
+          }
+        }
+      }
+    },
     "GBP" : {
       "comment" : "英镑",
       "extractionState" : "manual",
@@ -13039,6 +13099,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "希臘語"
+          }
+        }
+      }
+    },
+    "Hang Seng Index" : {
+      "comment" : "1.0.4.8:恒生指数",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恒生指数"
           }
         }
       }
@@ -19463,6 +19535,18 @@
         }
       }
     },
+    "Market time" : {
+      "comment" : "1.0.4.8:市场时间",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "市场时间"
+          }
+        }
+      }
+    },
     "MOP" : {
       "comment" : "澳门元",
       "extractionState" : "manual",
@@ -20401,6 +20485,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "纳斯达克100"
+          }
+        }
+      }
+    },
+    "Nikkei 225" : {
+      "comment" : "1.0.4.8:日经 225",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日经 225"
           }
         }
       }
@@ -21749,6 +21845,78 @@
         }
       }
     },
+    "Past year's highest price" : {
+      "comment" : "1.0.4.8:过去一年最高价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "过去一年最高价"
+          }
+        }
+      }
+    },
+    "Past year's lowest price" : {
+      "comment" : "1.0.4.8:过去一年最低价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "过去一年最低价"
+          }
+        }
+      }
+    },
+    "per gram" : {
+      "comment" : "1.0.4.8:克",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每克"
+          }
+        }
+      }
+    },
+    "per kilogram" : {
+      "comment" : "1.0.4.8:千克",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每千克"
+          }
+        }
+      }
+    },
+    "per ounce" : {
+      "comment" : "1.0.4.8:盎司",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每盎司"
+          }
+        }
+      }
+    },
+    "per tola" : {
+      "comment" : "1.0.4.8:托拉",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每托拉"
+          }
+        }
+      }
+    },
     "PHP" : {
       "comment" : "1.0.4:菲律宾比索",
       "extractionState" : "manual",
@@ -22885,6 +23053,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "葡萄牙語"
+          }
+        }
+      }
+    },
+    "Previous day's closing price" : {
+      "comment" : "1.0.4.8:前日收盘价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前日收盘价"
           }
         }
       }
@@ -25163,6 +25343,18 @@
         }
       }
     },
+    "S&P 500" : {
+      "comment" : "1.0.4.8:标普 500",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "标普 500"
+          }
+        }
+      }
+    },
     "SAR" : {
       "comment" : "沙特里亚尔",
       "extractionState" : "manual",
@@ -26065,6 +26257,30 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "新加坡元"
+          }
+        }
+      }
+    },
+    "Shanghai Composite Index" : {
+      "comment" : "1.0.4.8:上证指数",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上证指数"
+          }
+        }
+      }
+    },
+    "Shenzhen Component Index" : {
+      "comment" : "1.0.4.8:深证成指",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深证成指"
           }
         }
       }
@@ -29905,6 +30121,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本應用程式中的匯率數據來自互聯網。"
+          }
+        }
+      }
+    },
+    "Today's highest price" : {
+      "comment" : "1.0.4.8:今日最高价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日最高价"
+          }
+        }
+      }
+    },
+    "Today's lowest price" : {
+      "comment" : "1.0.4.8:今日最低价",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日最低价"
           }
         }
       }

@@ -45,7 +45,7 @@ struct DailyGoldPriceView: View {
                         Spacer()
                     }
                     Spacer().frame(height: 24)
-                    // 外币
+                    // 每日金价
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Daily gold price")
@@ -64,6 +64,35 @@ struct DailyGoldPriceView: View {
                         }
                     }
                     Spacer()
+                        .frame(height: 20)
+                    VStack(alignment: .leading) {
+                        Text(LocalizedStringKey(appStorage.GoldPriceUnit))
+                            .foregroundColor(.gray)
+                            .font(.caption2)
+                        Spacer().frame(height: 5)
+                        HStack {
+                            Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
+                                .fontWeight(.medium)
+                            Text("711.33")
+                                .fontWeight(.bold)
+                        }
+                        .font(.largeTitle)
+                    }
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    
+                    HStack {
+                        Spacer()
+                    }
+                    .padding(.horizontal,20)
+                    .frame(width: width * 0.85,height: 50)
+                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .cornerRadius(10)
+                    
+                    
+                    Spacer()
                         .frame(height: 30)
                     VStack {
                         HStack {
@@ -72,7 +101,15 @@ struct DailyGoldPriceView: View {
                         }
                         .foregroundColor(.gray)
                         .font(.caption2)
+                        Spacer().frame(height: 5)
+                        HStack {
+                            Text("Update time")
+                            Text(appStorage.GoldlastUpdateDate,format: Date.FormatStyle.dateTime)
+                        }
                     }
+                    .foregroundColor(.gray)
+                    .font(.caption2)
+                    
                     Spacer()
                         .frame(height: 20)
                 }
@@ -83,7 +120,12 @@ struct DailyGoldPriceView: View {
     }
 }
 
+
 #Preview {
+    // 清理必须放在 return 之前！
+//        if let bundleID = Bundle.main.bundleIdentifier {
+//            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+//        }
     DailyGoldPriceView(bindingSheet: .constant(true))
         .environmentObject(AppStorageManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer

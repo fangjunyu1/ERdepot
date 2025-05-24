@@ -42,4 +42,22 @@
         <attribute name="reamark" optional="YES" attributeType="String"/>
         <attribute name="symbol" attributeType="String"/>
     </entity>
+    <entity name="YahooGoldPrice" representedClassName=".YahooGoldPrice" syncable="YES">
+        <attribute name="chartPreviousClose" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fiftyTwoWeekHigh" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fiftyTwoWeekLow" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fullExchangeName" optional="YES" attributeType="String"/>
+        <attribute name="regularMarketDayHigh" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="regularMarketDayLow" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="regularMarketPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="updateTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="YahooGoldPricePoint" representedClassName=".YahooGoldPricePoint" syncable="YES">
+        <attribute name="close" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="high" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="low" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="volume" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
 </model>
