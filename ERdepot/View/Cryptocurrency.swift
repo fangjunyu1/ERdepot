@@ -129,6 +129,25 @@ struct CryptocurrencyView: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 200, height: 200)
+                        Spacer()
+                            .frame(height:20)
+                        Text("The data may not be available or the data source may not support the current network environment, resulting in a failure in obtaining data.")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                        
+                        Spacer().frame(height:20)
+                        Button(action: {
+                            
+                        },label: {
+                            Text("Display historical data")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .padding(.vertical,10)
+                                .padding(.horizontal,14)
+                                .background(Color(hex: "373737"))
+                                .cornerRadius(3)
+                        })
                     } else {
                         ForEach(cryptoCurrencys) { cryptoCurrency in
                             if let id = cryptoCurrency.id,let imageUrl = cryptoCurrency.image,let symbol  = cryptoCurrency.symbol {
@@ -203,23 +222,22 @@ struct CryptocurrencyView: View {
                                 .cornerRadius(10)
                             }
                         }
-                    }
-                    
-                    Spacer()
-                        .frame(height: 30)
-                    VStack {
-                        HStack {
-                            Text("Data source")
-                            Text("CoinGecko")
+                        Spacer()
+                            .frame(height: 30)
+                        VStack {
+                            HStack {
+                                Text("Data source")
+                                Text("CoinGecko")
+                            }
+                            Spacer().frame(height: 5)
+                            HStack {
+                                Text("Update time")
+                                Text(appStorage.CryptocurrencylastUpdateDate,format: Date.FormatStyle.dateTime)
+                            }
                         }
-                        Spacer().frame(height: 5)
-                        HStack {
-                            Text("Update time")
-                            Text(appStorage.CryptocurrencylastUpdateDate,format: Date.FormatStyle.dateTime)
-                        }
+                        .foregroundColor(.gray)
+                        .font(.caption2)
                     }
-                    .foregroundColor(.gray)
-                    .font(.caption2)
                     Spacer()
                         .frame(height: 20)
                 }

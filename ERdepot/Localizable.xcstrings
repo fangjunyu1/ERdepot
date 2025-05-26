@@ -8477,6 +8477,18 @@
         }
       }
     },
+    "Display historical data" : {
+      "comment" : "1.0.4.8:显示历史数据",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示历史数据"
+          }
+        }
+      }
+    },
     "DKK" : {
       "comment" : "丹麦克朗",
       "extractionState" : "manual",
@@ -29689,6 +29701,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "泰銖"
+          }
+        }
+      }
+    },
+    "The data may not be available or the data source may not support the current network environment, resulting in a failure in obtaining data." : {
+      "comment" : "1.0.4.8:可能未联网或数据源不支持当前网络环境，导致获取数据失败。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可能未联网或数据源不支持当前网络环境，导致获取数据失败。"
           }
         }
       }

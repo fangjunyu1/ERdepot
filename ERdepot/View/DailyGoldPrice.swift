@@ -18,11 +18,13 @@ struct DailyGoldPriceView: View {
     
     @FetchRequest(
         fetchRequest: {
-            let request = NSFetchRequest<YahooGoldPrice>(entityName: "YahooGoldPrice")
+            let request = NSFetchRequest<Yahoo>(entityName: "Yahoo")
+            // 筛选 Yahoo 中黄金的数据
+            request.predicate = NSPredicate(format: "symbol == %@", "Gold")
             request.sortDescriptors = [NSSortDescriptor(key: "updateTime", ascending: false)]
             return request
         }()
-    ) var goldPrices: FetchedResults<YahooGoldPrice>
+    ) var goldPrices: FetchedResults<Yahoo>
     
     // 汇率字典
     @State private var rateDict: [String:Double] = [:]
@@ -43,7 +45,7 @@ struct DailyGoldPriceView: View {
     }
     
     let calendar = Calendar.current
-                        
+    
     var formatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -140,6 +142,25 @@ struct DailyGoldPriceView: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 200, height: 200)
+                        Spacer()
+                            .frame(height:20)
+                        Text("The data may not be available or the data source may not support the current network environment, resulting in a failure in obtaining data.")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                        
+                        Spacer().frame(height:20)
+                        Button(action: {
+                            
+                        },label: {
+                            Text("Display historical data")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .padding(.vertical,10)
+                                .padding(.horizontal,14)
+                                .background(Color(hex: "373737"))
+                                .cornerRadius(3)
+                        })
                     } else {
                         
                         // 每克黄金价格
@@ -189,7 +210,7 @@ struct DailyGoldPriceView: View {
                                     Text("Today's highest price")
                                     Spacer()
                                     let convertedPriceDayHigh = convertGoldPrice(goldPrices.first?.regularMarketDayHigh ?? 0.0)
-                                    HStack {
+                                    HStack(spacing:3) {
                                         Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
                                         Text("\(convertedPriceDayHigh.formattedWithTwoDecimalPlaces())")
                                     }
@@ -205,7 +226,7 @@ struct DailyGoldPriceView: View {
                                     Text("Today's lowest price")
                                     Spacer()
                                     let convertedPriceDayLow = convertGoldPrice(goldPrices.first?.regularMarketDayLow ?? 0.0)
-                                    HStack {
+                                    HStack(spacing:3) {
                                         Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
                                         Text("\(convertedPriceDayLow.formattedWithTwoDecimalPlaces())")
                                     }
@@ -221,7 +242,7 @@ struct DailyGoldPriceView: View {
                                     Text("Previous day's closing price")
                                     Spacer()
                                     let convertedPricePrevious = convertGoldPrice(goldPrices.first?.chartPreviousClose ?? 0.0)
-                                    HStack {
+                                    HStack(spacing:3) {
                                         Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
                                         Text("\(convertedPricePrevious.formattedWithTwoDecimalPlaces())")
                                     }
@@ -235,83 +256,80 @@ struct DailyGoldPriceView: View {
                         .frame(width: width * 0.85)
                         .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
                         .cornerRadius(10)
-                    }
-                    
-                    Spacer().frame(height:10)
-                    
-                    // 过去一年最高价，过去一年最低价
-                    VStack(spacing:0) {
-                        Group {
-                            // 过去一年最高价
-                            HStack {
-                                Text("Past year's highest price")
-                                Spacer()
-                                let convertedPriceYearHigh = convertGoldPrice(goldPrices.first?.fiftyTwoWeekHigh ?? 0.0)
+                        
+                        Spacer().frame(height:10)
+                        
+                        // 过去一年最高价，过去一年最低价
+                        VStack(spacing:0) {
+                            Group {
+                                // 过去一年最高价
                                 HStack {
-                                    Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                    Text("\(convertedPriceYearHigh.formattedWithTwoDecimalPlaces())")
+                                    Text("Past year's highest price")
+                                    Spacer()
+                                    let convertedPriceYearHigh = convertGoldPrice(goldPrices.first?.fiftyTwoWeekHigh ?? 0.0)
+                                    HStack(spacing:3) {
+                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
+                                        Text("\(convertedPriceYearHigh.formattedWithTwoDecimalPlaces())")
+                                    }
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
                                 }
+                                .frame(height: 50)
+                                
+                                Divider()
+                                
+                                // 过去一年最低价
+                                HStack {
+                                    Text("Past year's lowest price")
+                                    Spacer()
+                                    let convertedPriceYearLow = convertGoldPrice(goldPrices.first?.fiftyTwoWeekLow ?? 0.0)
+                                    HStack(spacing:3) {
+                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
+                                        Text("\(convertedPriceYearLow.formattedWithTwoDecimalPlaces())")
+                                    }
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                                }
+                                .frame(height: 50)
+                            }
+                            .padding(.horizontal,20)
+                        }
+                        .frame(width: width * 0.85)
+                        .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                        .cornerRadius(10)
+                        
+                        Spacer().frame(height:10)
+                        
+                        // 交易所名称
+                        HStack {
+                            Text("Exchange name")
+                            Spacer()
+                            Text(LocalizedStringKey(goldPrices.first?.fullExchangeName ?? "--"))
                                 .font(.footnote)
                                 .foregroundColor(.gray)
-                            }
-                            .frame(height: 50)
-                            
-                            Divider()
-                            
-                            // 过去一年最低价
-                            HStack {
-                                Text("Past year's lowest price")
-                                Spacer()
-                                let convertedPriceYearLow = convertGoldPrice(goldPrices.first?.fiftyTwoWeekLow ?? 0.0)
-                                HStack {
-                                    Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                    Text("\(convertedPriceYearLow.formattedWithTwoDecimalPlaces())")
-                                }
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                            }
-                            .frame(height: 50)
                         }
                         .padding(.horizontal,20)
-                    }
-                    .frame(width: width * 0.85)
-                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
-                    .cornerRadius(10)
-                    
-                    Spacer().frame(height:10)
-                    
-                    // 交易所名称
-                    HStack {
-                        Text("Exchange name")
+                        .frame(width: width * 0.85,height: 50)
+                        .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+                        .cornerRadius(10)
                         Spacer()
-                        Text(LocalizedStringKey(goldPrices.first?.fullExchangeName ?? "--"))
-                            .font(.footnote)
+                            .frame(height: 30)
+                        VStack {
+                            HStack {
+                                Text("Data source")
+                                Text("Yahoo Finance")
+                            }
                             .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal,20)
-                    .frame(width: width * 0.85,height: 50)
-                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                    .cornerRadius(10)
-                    
-                    Spacer()
-                        .frame(height: 30)
-                    
-                    VStack {
-                        HStack {
-                            Text("Data source")
-                            Text("Yahoo Finance")
+                            .font(.caption2)
+                            Spacer().frame(height: 5)
+                            HStack {
+                                Text("Update time")
+                                Text(appStorage.YahooLastUpdateDate,format: Date.FormatStyle.dateTime)
+                            }
                         }
                         .foregroundColor(.gray)
                         .font(.caption2)
-                        Spacer().frame(height: 5)
-                        HStack {
-                            Text("Update time")
-                            Text(appStorage.GoldlastUpdateDate,format: Date.FormatStyle.dateTime)
-                        }
                     }
-                    .foregroundColor(.gray)
-                    .font(.caption2)
                     
                     Spacer()
                         .frame(height: 20)
@@ -330,12 +348,12 @@ struct DailyGoldPriceView: View {
 
 #Preview {
     // 清理必须放在 return 之前！
-//        if let bundleID = Bundle.main.bundleIdentifier {
-//            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-//        }
-    @StateObject var yahooGoldPriceManager = YahooGoldPriceManager.shared
+    //        if let bundleID = Bundle.main.bundleIdentifier {
+    //            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+    //        }
+    @StateObject var yahooGManager = YahooManager.shared
     DailyGoldPriceView(bindingSheet: .constant(true))
         .environmentObject(AppStorageManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
-        .environmentObject(yahooGoldPriceManager)
+        .environmentObject(yahooGManager)
 }

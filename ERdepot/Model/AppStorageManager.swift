@@ -173,14 +173,15 @@ class AppStorageManager:ObservableObject {
         }
     }
     
-    // 金价更新时间
-    @Published var GoldlastUpdateDate: Date = Date.distantPast {
+    // Yahoo数据更新时间
+    @Published var YahooLastUpdateDate: Date = Date.distantPast {
         didSet {
-            if GoldlastUpdateDate != oldValue {
-                UserDefaults.standard.set(GoldlastUpdateDate, forKey: "GoldlastUpdateDate")
+            if YahooLastUpdateDate != oldValue {
+                UserDefaults.standard.set(YahooLastUpdateDate, forKey: "YahooLastUpdateDate")
             }
         }
     }
+    
     // 从UserDefaults加载数据
     private func loadUserDefault() {
         
@@ -227,8 +228,8 @@ class AppStorageManager:ObservableObject {
         
         GoldPriceUnit = UserDefaults.standard.string(forKey: "GoldPriceUnit") ??  "per gram" // 金价单位
         
-        // 金价更新日期
-        GoldlastUpdateDate = UserDefaults.standard.object(forKey: "GoldlastUpdateDate") as? Date ?? Date.distantPast
+        // Yahoo 数据更新日期
+        YahooLastUpdateDate = UserDefaults.standard.object(forKey: "YahooLastUpdateDate") as? Date ?? Date.distantPast
     }
     
     /// 从 iCloud 读取数据

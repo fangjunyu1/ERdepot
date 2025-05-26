@@ -2,7 +2,7 @@
 //  Eurofxrefhist+CoreDataClass.swift
 //  ERdepot
 //
-//  Created by 方君宇 on 2025/5/24.
+//  Created by 方君宇 on 2025/5/25.
 //
 //
 

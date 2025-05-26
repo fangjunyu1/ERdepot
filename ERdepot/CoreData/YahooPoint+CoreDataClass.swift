@@ -1,5 +1,5 @@
 //
-//  UserForeignCurrency+CoreDataClass.swift
+//  YahooPoint+CoreDataClass.swift
 //  ERdepot
 //
 //  Created by 方君宇 on 2025/5/25.
@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 
-public class UserForeignCurrency: NSManagedObject {
+public class YahooPoint: NSManagedObject {
 
 }

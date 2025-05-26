@@ -963,6 +963,6 @@ struct ContentView_Previews: PreviewProvider {
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
-        .environmentObject(YahooGoldPriceManager.shared)
+        .environmentObject(YahooManager.shared)
     }
 }

@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct YahooGoldPriceModel: Codable {
-    let chart: YahooGoldPriceChart
+struct YahooModel: Codable {
+    let chart: YahooChart
 }
 
-struct YahooGoldPriceChart: Codable {
-    let result: [YahooGoldPriceResult?]
+struct YahooChart: Codable {
+    let result: [YahooResult?]
 }
 
-struct YahooGoldPriceResult: Codable {
-    let meta: YahooGoldPriceMeta
-    let timestamp: [Int]
-    let indicators: YahooGoldPriceIndicators
+struct YahooResult: Codable {
+    let meta: YahooMeta
+    let timestamp: [Date?]
+    let indicators: YahooIndicators
 }
 
-struct YahooGoldPriceMeta: Codable {
+struct YahooMeta: Codable {
     let fullExchangeName: String    // 交易所名称
     let updateTime: Date    // 更新日期
     let regularMarketPrice: Double  // 当前价格
@@ -42,11 +42,11 @@ struct YahooGoldPriceMeta: Codable {
     }
 }
 
-struct YahooGoldPriceIndicators: Codable {
-    let quote: [YahooGoldPriceQuote]
+struct YahooIndicators: Codable {
+    let quote: [YahooQuote]
 }
 
-struct YahooGoldPriceQuote: Codable {
+struct YahooQuote: Codable {
     let open: [Double?]
     let low: [Double?]
     let close: [Double?]

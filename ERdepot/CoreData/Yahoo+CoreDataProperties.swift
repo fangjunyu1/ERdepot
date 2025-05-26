@@ -1,8 +1,8 @@
 //
-//  YahooGoldPrice+CoreDataProperties.swift
+//  Yahoo+CoreDataProperties.swift
 //  ERdepot
 //
-//  Created by 方君宇 on 2025/5/24.
+//  Created by 方君宇 on 2025/5/25.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension YahooGoldPrice {
+extension Yahoo {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<YahooGoldPrice> {
-        return NSFetchRequest<YahooGoldPrice>(entityName: "YahooGoldPrice")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Yahoo> {
+        return NSFetchRequest<Yahoo>(entityName: "Yahoo")
     }
 
     @NSManaged public var chartPreviousClose: Double
@@ -23,10 +23,11 @@ extension YahooGoldPrice {
     @NSManaged public var regularMarketDayHigh: Double
     @NSManaged public var regularMarketDayLow: Double
     @NSManaged public var regularMarketPrice: Double
+    @NSManaged public var symbol: String?
     @NSManaged public var updateTime: Date?
 
 }
 
-extension YahooGoldPrice : Identifiable {
+extension Yahoo : Identifiable {
 
 }

@@ -13,16 +13,6 @@
 		1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */; };
 		1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */; };
 		1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */; };
-		1D0E31132DE215C90025382E /* CryptoCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E31092DE215C90025382E /* CryptoCurrency+CoreDataClass.swift */; };
-		1D0E31142DE215C90025382E /* CryptoCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310A2DE215C90025382E /* CryptoCurrency+CoreDataProperties.swift */; };
-		1D0E31152DE215C90025382E /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310B2DE215C90025382E /* Eurofxrefhist+CoreDataClass.swift */; };
-		1D0E31162DE215C90025382E /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310C2DE215C90025382E /* Eurofxrefhist+CoreDataProperties.swift */; };
-		1D0E31172DE215C90025382E /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310D2DE215C90025382E /* UserForeignCurrency+CoreDataClass.swift */; };
-		1D0E31182DE215C90025382E /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310E2DE215C90025382E /* UserForeignCurrency+CoreDataProperties.swift */; };
-		1D0E31192DE215C90025382E /* YahooGoldPrice+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E310F2DE215C90025382E /* YahooGoldPrice+CoreDataClass.swift */; };
-		1D0E311A2DE215C90025382E /* YahooGoldPrice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E31102DE215C90025382E /* YahooGoldPrice+CoreDataProperties.swift */; };
-		1D0E311B2DE215C90025382E /* YahooGoldPricePoint+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E31112DE215C90025382E /* YahooGoldPricePoint+CoreDataClass.swift */; };
-		1D0E311C2DE215C90025382E /* YahooGoldPricePoint+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0E31122DE215C90025382E /* YahooGoldPricePoint+CoreDataProperties.swift */; };
 		1D0FA6DB2D22513A00ABF5F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D0FA6D92D22513A00ABF5F6 /* InfoPlist.strings */; };
 		1D16EDA72DB618DB001B6A12 /* ExchangeRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D16EDA62DB618DB001B6A12 /* ExchangeRateChart.swift */; };
 		1D1AE4912DAE185F00642709 /* currencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1AE4902DAE185F00642709 /* currencySymbol.swift */; };
@@ -30,11 +20,21 @@
 		1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1BABEB2CBF5EB000FDA031 /* Color.swift */; };
 		1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */; };
 		1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */; };
-		1D2DE88C2DE1A24800C0BE7E /* YahooGoldPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DE88B2DE1A24400C0BE7E /* YahooGoldPriceModel.swift */; };
-		1D2DE8952DE1A5EB00C0BE7E /* YahooGoldPriceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DE8942DE1A5E600C0BE7E /* YahooGoldPriceManager.swift */; };
+		1D2DE88C2DE1A24800C0BE7E /* YahooModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DE88B2DE1A24400C0BE7E /* YahooModel.swift */; };
+		1D2DE8952DE1A5EB00C0BE7E /* YahooManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DE8942DE1A5E600C0BE7E /* YahooManager.swift */; };
 		1D38D4882DB9E9A600614E81 /* eurofxref-hist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1D38D4872DB9E9A600614E81 /* eurofxref-hist.csv */; };
 		1D38D48A2DBA17F300614E81 /* extensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D38D4892DBA17F300614E81 /* extensionBundle.swift */; };
 		1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */; };
+		1D3C57E02DE32F8300E87673 /* CryptoCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57D62DE32F8300E87673 /* CryptoCurrency+CoreDataClass.swift */; };
+		1D3C57E12DE32F8300E87673 /* CryptoCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57D72DE32F8300E87673 /* CryptoCurrency+CoreDataProperties.swift */; };
+		1D3C57E22DE32F8300E87673 /* Eurofxrefhist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57D82DE32F8300E87673 /* Eurofxrefhist+CoreDataClass.swift */; };
+		1D3C57E32DE32F8300E87673 /* Eurofxrefhist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57D92DE32F8300E87673 /* Eurofxrefhist+CoreDataProperties.swift */; };
+		1D3C57E42DE32F8300E87673 /* UserForeignCurrency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DA2DE32F8300E87673 /* UserForeignCurrency+CoreDataClass.swift */; };
+		1D3C57E52DE32F8300E87673 /* UserForeignCurrency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DB2DE32F8300E87673 /* UserForeignCurrency+CoreDataProperties.swift */; };
+		1D3C57E62DE32F8300E87673 /* Yahoo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DC2DE32F8300E87673 /* Yahoo+CoreDataClass.swift */; };
+		1D3C57E72DE32F8300E87673 /* Yahoo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DD2DE32F8300E87673 /* Yahoo+CoreDataProperties.swift */; };
+		1D3C57E82DE32F8300E87673 /* YahooPoint+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DE2DE32F8300E87673 /* YahooPoint+CoreDataClass.swift */; };
+		1D3C57E92DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3C57DF2DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift */; };
 		1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */; };
 		1D57A0372DD182B5008628ED /* CryptoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57A0362DD182B1008628ED /* CryptoDataManager.swift */; };
 		1D68A7952DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D68A7932DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodeld */; };
@@ -90,16 +90,6 @@
 		1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		1D0E31092DE215C90025382E /* CryptoCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D0E310A2DE215C90025382E /* CryptoCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1D0E310B2DE215C90025382E /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D0E310C2DE215C90025382E /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1D0E310D2DE215C90025382E /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D0E310E2DE215C90025382E /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1D0E310F2DE215C90025382E /* YahooGoldPrice+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooGoldPrice+CoreDataClass.swift"; path = "ERdepot/CoreData/YahooGoldPrice+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D0E31102DE215C90025382E /* YahooGoldPrice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooGoldPrice+CoreDataProperties.swift"; path = "ERdepot/CoreData/YahooGoldPrice+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1D0E31112DE215C90025382E /* YahooGoldPricePoint+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooGoldPricePoint+CoreDataClass.swift"; path = "ERdepot/CoreData/YahooGoldPricePoint+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1D0E31122DE215C90025382E /* YahooGoldPricePoint+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooGoldPricePoint+CoreDataProperties.swift"; path = "ERdepot/CoreData/YahooGoldPricePoint+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1D0FA6DA2D22513A00ABF5F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DC2D22517500ABF5F6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DD2D22517600ABF5F6 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -112,11 +102,21 @@
 		1D1BABEB2CBF5EB000FDA031 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		1D2097802DAAAAA400307A3D /* CoreDataPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceController.swift; sourceTree = "<group>"; };
 		1D263AFC2DA103CB00112259 /* ForeignCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeignCurrencyView.swift; sourceTree = "<group>"; };
-		1D2DE88B2DE1A24400C0BE7E /* YahooGoldPriceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooGoldPriceModel.swift; sourceTree = "<group>"; };
-		1D2DE8942DE1A5E600C0BE7E /* YahooGoldPriceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooGoldPriceManager.swift; sourceTree = "<group>"; };
+		1D2DE88B2DE1A24400C0BE7E /* YahooModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooModel.swift; sourceTree = "<group>"; };
+		1D2DE8942DE1A5E600C0BE7E /* YahooManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooManager.swift; sourceTree = "<group>"; };
 		1D38D4872DB9E9A600614E81 /* eurofxref-hist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "eurofxref-hist.csv"; sourceTree = "<group>"; };
 		1D38D4892DBA17F300614E81 /* extensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionBundle.swift; sourceTree = "<group>"; };
 		1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateChartPoint.swift; sourceTree = "<group>"; };
+		1D3C57D62DE32F8300E87673 /* CryptoCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D3C57D72DE32F8300E87673 /* CryptoCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CryptoCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/CryptoCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D3C57D82DE32F8300E87673 /* Eurofxrefhist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataClass.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D3C57D92DE32F8300E87673 /* Eurofxrefhist+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Eurofxrefhist+CoreDataProperties.swift"; path = "ERdepot/CoreData/Eurofxrefhist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D3C57DA2DE32F8300E87673 /* UserForeignCurrency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataClass.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D3C57DB2DE32F8300E87673 /* UserForeignCurrency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserForeignCurrency+CoreDataProperties.swift"; path = "ERdepot/CoreData/UserForeignCurrency+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D3C57DC2DE32F8300E87673 /* Yahoo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Yahoo+CoreDataClass.swift"; path = "ERdepot/CoreData/Yahoo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D3C57DD2DE32F8300E87673 /* Yahoo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Yahoo+CoreDataProperties.swift"; path = "ERdepot/CoreData/Yahoo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1D3C57DE2DE32F8300E87673 /* YahooPoint+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooPoint+CoreDataClass.swift"; path = "ERdepot/CoreData/YahooPoint+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1D3C57DF2DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "YahooPoint+CoreDataProperties.swift"; path = "ERdepot/CoreData/YahooPoint+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1D4535F92DA2B4FD001BFD9A /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
 		1D57A0362DD182B1008628ED /* CryptoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDataManager.swift; sourceTree = "<group>"; };
 		1D68A7942DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExchangeRateDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -250,8 +250,8 @@
 		1D2F73582D92F57000FC73BA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1D2DE8942DE1A5E600C0BE7E /* YahooGoldPriceManager.swift */,
-				1D2DE88B2DE1A24400C0BE7E /* YahooGoldPriceModel.swift */,
+				1D2DE8942DE1A5E600C0BE7E /* YahooManager.swift */,
+				1D2DE88B2DE1A24400C0BE7E /* YahooModel.swift */,
 				1D927FB72DCC583000E96BA0 /* CryptoDTO.swift */,
 				1D1BABEB2CBF5EB000FDA031 /* Color.swift */,
 				1D68A7932DBE677C002B3DA0 /* ExchangeRateDataModel.xcdatamodeld */,
@@ -300,16 +300,16 @@
 		1D93E9C02CBE57A6006E077C = {
 			isa = PBXGroup;
 			children = (
-				1D0E31092DE215C90025382E /* CryptoCurrency+CoreDataClass.swift */,
-				1D0E310A2DE215C90025382E /* CryptoCurrency+CoreDataProperties.swift */,
-				1D0E310B2DE215C90025382E /* Eurofxrefhist+CoreDataClass.swift */,
-				1D0E310C2DE215C90025382E /* Eurofxrefhist+CoreDataProperties.swift */,
-				1D0E310D2DE215C90025382E /* UserForeignCurrency+CoreDataClass.swift */,
-				1D0E310E2DE215C90025382E /* UserForeignCurrency+CoreDataProperties.swift */,
-				1D0E310F2DE215C90025382E /* YahooGoldPrice+CoreDataClass.swift */,
-				1D0E31102DE215C90025382E /* YahooGoldPrice+CoreDataProperties.swift */,
-				1D0E31112DE215C90025382E /* YahooGoldPricePoint+CoreDataClass.swift */,
-				1D0E31122DE215C90025382E /* YahooGoldPricePoint+CoreDataProperties.swift */,
+				1D3C57D62DE32F8300E87673 /* CryptoCurrency+CoreDataClass.swift */,
+				1D3C57D72DE32F8300E87673 /* CryptoCurrency+CoreDataProperties.swift */,
+				1D3C57D82DE32F8300E87673 /* Eurofxrefhist+CoreDataClass.swift */,
+				1D3C57D92DE32F8300E87673 /* Eurofxrefhist+CoreDataProperties.swift */,
+				1D3C57DA2DE32F8300E87673 /* UserForeignCurrency+CoreDataClass.swift */,
+				1D3C57DB2DE32F8300E87673 /* UserForeignCurrency+CoreDataProperties.swift */,
+				1D3C57DC2DE32F8300E87673 /* Yahoo+CoreDataClass.swift */,
+				1D3C57DD2DE32F8300E87673 /* Yahoo+CoreDataProperties.swift */,
+				1D3C57DE2DE32F8300E87673 /* YahooPoint+CoreDataClass.swift */,
+				1D3C57DF2DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift */,
 				1D93E9CB2CBE57A6006E077C /* ERdepot */,
 				1D93E9DC2CBE57A8006E077C /* ERdepotTests */,
 				1D93E9E62CBE57A8006E077C /* ERdepotUITests */,
@@ -558,7 +558,7 @@
 			files = (
 				1DB52F032DAE7B66005A374E /* ExtensionDouble.swift in Sources */,
 				1D16EDA72DB618DB001B6A12 /* ExchangeRateChart.swift in Sources */,
-				1D2DE88C2DE1A24800C0BE7E /* YahooGoldPriceModel.swift in Sources */,
+				1D2DE88C2DE1A24800C0BE7E /* YahooModel.swift in Sources */,
 				1D78828B2DA1F2310041AAF9 /* StatisticsView.swift in Sources */,
 				1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */,
 				1DF60D432DD058BD00CF5456 /* DailyGoldPrice.swift in Sources */,
@@ -569,23 +569,13 @@
 				1DF60D412DD057D500CF5456 /* Cryptocurrency.swift in Sources */,
 				1D1AE4912DAE185F00642709 /* currencySymbol.swift in Sources */,
 				1D263AFD2DA103CB00112259 /* ForeignCurrencyView.swift in Sources */,
-				1D2DE8952DE1A5EB00C0BE7E /* YahooGoldPriceManager.swift in Sources */,
+				1D2DE8952DE1A5EB00C0BE7E /* YahooManager.swift in Sources */,
 				1D7882932DA20B880041AAF9 /* IAPManager.swift in Sources */,
 				1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */,
 				1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */,
 				1D38D48A2DBA17F300614E81 /* extensionBundle.swift in Sources */,
 				1D06A0582D9A472C00A7E6A0 /* WelcomeView.swift in Sources */,
 				1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */,
-				1D0E31132DE215C90025382E /* CryptoCurrency+CoreDataClass.swift in Sources */,
-				1D0E31142DE215C90025382E /* CryptoCurrency+CoreDataProperties.swift in Sources */,
-				1D0E31152DE215C90025382E /* Eurofxrefhist+CoreDataClass.swift in Sources */,
-				1D0E31162DE215C90025382E /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
-				1D0E31172DE215C90025382E /* UserForeignCurrency+CoreDataClass.swift in Sources */,
-				1D0E31182DE215C90025382E /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
-				1D0E31192DE215C90025382E /* YahooGoldPrice+CoreDataClass.swift in Sources */,
-				1D0E311A2DE215C90025382E /* YahooGoldPrice+CoreDataProperties.swift in Sources */,
-				1D0E311B2DE215C90025382E /* YahooGoldPricePoint+CoreDataClass.swift in Sources */,
-				1D0E311C2DE215C90025382E /* YahooGoldPricePoint+CoreDataProperties.swift in Sources */,
 				1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */,
 				1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */,
 				1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */,
@@ -594,6 +584,16 @@
 				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
 				1D927FB82DCC583100E96BA0 /* CryptoDTO.swift in Sources */,
 				1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */,
+				1D3C57E02DE32F8300E87673 /* CryptoCurrency+CoreDataClass.swift in Sources */,
+				1D3C57E12DE32F8300E87673 /* CryptoCurrency+CoreDataProperties.swift in Sources */,
+				1D3C57E22DE32F8300E87673 /* Eurofxrefhist+CoreDataClass.swift in Sources */,
+				1D3C57E32DE32F8300E87673 /* Eurofxrefhist+CoreDataProperties.swift in Sources */,
+				1D3C57E42DE32F8300E87673 /* UserForeignCurrency+CoreDataClass.swift in Sources */,
+				1D3C57E52DE32F8300E87673 /* UserForeignCurrency+CoreDataProperties.swift in Sources */,
+				1D3C57E62DE32F8300E87673 /* Yahoo+CoreDataClass.swift in Sources */,
+				1D3C57E72DE32F8300E87673 /* Yahoo+CoreDataProperties.swift in Sources */,
+				1D3C57E82DE32F8300E87673 /* YahooPoint+CoreDataClass.swift in Sources */,
+				1D3C57E92DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift in Sources */,
 				1D57A0372DD182B5008628ED /* CryptoDataManager.swift in Sources */,
 				1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */,
 				1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */,
