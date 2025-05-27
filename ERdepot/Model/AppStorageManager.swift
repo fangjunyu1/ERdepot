@@ -183,7 +183,7 @@ class AppStorageManager:ObservableObject {
     }
     
     // 从UserDefaults加载数据
-    private func loadUserDefault() {
+    final private func loadUserDefault() {
         
         mainInterfaceWarehouseAmountStyle = UserDefaults.standard.bool(forKey: "mainInterfaceWarehouseAmountStyle")  // 初始化流程
         
@@ -233,7 +233,7 @@ class AppStorageManager:ObservableObject {
     }
     
     /// 从 iCloud 读取数据
-    private func loadFromiCloud() {
+    final private func loadFromiCloud() {
         let store = NSUbiquitousKeyValueStore.default
         print("从iCloud读取数据")
         
@@ -296,7 +296,7 @@ class AppStorageManager:ObservableObject {
 //    }
     
     /// 监听 iCloud 变化，同步到本地
-    private func observeiCloudChanges() {
+    final private func observeiCloudChanges() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(iCloudDidUpdate),

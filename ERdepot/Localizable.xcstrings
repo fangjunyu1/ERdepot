@@ -33806,6 +33806,18 @@
         }
       }
     },
+    "You need to add foreign currencies to set costs and view revenue in the corresponding foreign currencies." : {
+      "comment" : "1.0.4.8:需要添加外币，才能设置对应外币的成本并查看收益。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要添加外币，才能设置对应外币的成本并查看收益。"
+          }
+        }
+      }
+    },
     "ZAR" : {
       "comment" : "南非兰特",
       "extractionState" : "manual",

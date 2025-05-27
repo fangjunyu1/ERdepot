@@ -86,6 +86,13 @@ struct DailyGoldPriceView: View {
         }
     }
     
+    var amplitude: Double {
+        let current = goldPrices.first?.regularMarketPrice ?? 0
+        let previous = goldPrices.first?.chartPreviousClose ?? 0
+        let change = (current - previous) / previous * 100
+        return change.isFinite ? change : 0
+    }
+    
     var body: some View {
         GeometryReader { geo in
             let width = geo.frame(in: .local).width * 0.95
@@ -162,7 +169,6 @@ struct DailyGoldPriceView: View {
                                 .cornerRadius(3)
                         })
                     } else {
-                        
                         // 每克黄金价格
                         VStack(alignment: .leading) {
                             Text(LocalizedStringKey(appStorage.GoldPriceUnit))
@@ -180,6 +186,18 @@ struct DailyGoldPriceView: View {
                                     Text("\(convertedPrice.formattedWithTwoDecimalPlaces())")
                                         .fontWeight(.bold)
                                 }
+                                HStack {
+                                    Image(systemName: amplitude > 1 ?  "arrow.up" : "arrow.down")
+                                        .font(.caption2)
+                                    Text("\(amplitude.formattedWithTwoDecimalPlaces())%")
+                                        .font(.caption2)
+                                        .fontWeight(.bold)
+                                }
+                                .foregroundColor(.white)
+                                .padding(.vertical,5)
+                                .padding(.horizontal,8)
+                                .background(amplitude > 1 ? Color(hex: "9D0000") : Color(hex: "01946B"))
+                                .cornerRadius(3)
                             }
                             .font(.largeTitle)
                         }

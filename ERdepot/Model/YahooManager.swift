@@ -9,6 +9,9 @@ import CoreData
 
 class YahooManager: ObservableObject {
     static let shared = YahooManager()
+    private let viewContext = CoreDataPersistenceController.shared.context
+    private let backgroundContext = CoreDataPersistenceController.shared.backgroundContext
+    
     private init() {
         print("YahooManager 初始化方法，所在线程：\(Thread.current)")
         
@@ -27,8 +30,30 @@ class YahooManager: ObservableObject {
             fetchYahooData()
         }
         #endif
+        
+        NotificationCenter.default.addObserver(
+            forName: .NSManagedObjectContextDidSave,
+            object: nil,
+            queue: .main
+        ) {[weak self] notification in
+            // 只对 backgroundContext 发出的保存通知进行合并
+            print("进入 NotificationCenter 监听方法")
+            guard let context = notification.object as? NSManagedObjectContext,
+                  context != self?.viewContext else {
+                print("当前上下文不是 NSManagedObjectContext 类型或者属于前台上下文，退出监听")
+                return
+            }
+            print("尝试将后台上下文合并到前台上下文")
+            self?.viewContext.perform {
+                self?.viewContext.mergeChanges(fromContextDidSave: notification)
+            }
+        }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     // Yahoo 数据接口，获取最近1个月的数据，按日分隔。
     private let YahooApiURLArray:[String:URL] = [
         // yahoo 黄金接口
@@ -56,9 +81,8 @@ class YahooManager: ObservableObject {
     ]
     
     /// 获取 Yahoo 黄金数据
-    func fetchYahooData() {
+    final func fetchYahooData() {
         print("进入到fetchYahooData方法，所在线程：\(Thread.current)")
-        let context = CoreDataPersistenceController.shared.backgroundContext
         
         // 遍历 Yahoo数据数组 创建数据任务
         for (urlName,url) in YahooApiURLArray {
@@ -80,13 +104,14 @@ class YahooManager: ObservableObject {
                         print("返回的是 HTML 页面，非 JSON：\n\(htmlString)")
                         return
                     } else {
-                        print("获取的数据为\(String(data: data, encoding: .utf8) ?? "")")
+                        print("成功获取响应 Yahoo 的数据")
+                        // print("获取的数据为\(String(data: data, encoding: .utf8) ?? "")")
                     }
                     
                     // 将数据解析为字符串（例如 JSON）
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .secondsSince1970
-                    context.perform {
+                    self.backgroundContext.perform {
                         do {
                             print("使用JSONDecoder解码，所在线程:\(Thread.current)")
                             /// 解码获取的 Yahoo 数据
@@ -102,7 +127,7 @@ class YahooManager: ObservableObject {
                             // 设置 Yahoo 数据的过滤条件
                             fetchRequest.predicate = NSPredicate(format: "symbol == %@", urlName)
                             // 获取 Core Data 中 Yahoo 的数据
-                            let results = try context.fetch(fetchRequest)
+                            let results = try self.backgroundContext.fetch(fetchRequest)
                             // 如果 Core Data中没有数据
                             if let existing = results.first {
                                 // 更新已存在记录
@@ -115,10 +140,10 @@ class YahooManager: ObservableObject {
                                 existing.regularMarketDayHigh = goldDataFirst.regularMarketDayHigh
                                 existing.regularMarketDayLow = goldDataFirst.regularMarketDayLow
                                 existing.chartPreviousClose = goldDataFirst.chartPreviousClose
-                                print("\(urlName),更新一条新的数据")
+                                // print("\(urlName),更新一条新的数据")
                             } else {
                                 // 插入新记录
-                                let newYahooGoldPrice = Yahoo(context: context)
+                                let newYahooGoldPrice = Yahoo(context: self.backgroundContext)
                                 newYahooGoldPrice.symbol = urlName
                                 newYahooGoldPrice.updateTime = goldDataFirst.updateTime
                                 newYahooGoldPrice.fullExchangeName = goldDataFirst.fullExchangeName
@@ -128,12 +153,12 @@ class YahooManager: ObservableObject {
                                 newYahooGoldPrice.regularMarketDayHigh = goldDataFirst.regularMarketDayHigh
                                 newYahooGoldPrice.regularMarketDayLow = goldDataFirst.regularMarketDayLow
                                 newYahooGoldPrice.chartPreviousClose = goldDataFirst.chartPreviousClose
-                                print("\(urlName),插入一条新的数据")
+                                // print("\(urlName),插入一条新的数据")
                             }
                             
                             print("保存插入的 \(urlName) 数据")
                             print("保存 Yahoo 数据（非图表数据），所在线程:\(Thread.current)")
-                            try context.save()
+                            try self.backgroundContext.save()
                             
                             /// 获取的 Yahoo 图表数据
                             guard let goldPointDataFirst = goldData.chart.result.first! else {
@@ -148,16 +173,15 @@ class YahooManager: ObservableObject {
                             fetchPointRequest.predicate = NSPredicate(format: "symbol == %@", urlName)
                             
                             // 获取 Core Data 中 Yahoo 的（图表）数据
-                            let pointResults = try context.fetch(fetchPointRequest)
+                            let pointResults = try self.backgroundContext.fetch(fetchPointRequest)
                             print("在\(urlName)中，共删除\(pointResults.count) 条历史数据")
                             
-                            pointResults.forEach { context.delete($0) }
+                            pointResults.forEach { self.backgroundContext.delete($0) }
                             
                             // 保存删除的数据
-                            try context.save()
+                            try self.backgroundContext.save()
                             
                             print("开始进入到 Core Data 图表插入代码")
-                            // 如果 Core Data中没有数据
                             
                             func safeDouble(_ value: Double?) -> Double {
                                 guard let v = value, v.isFinite else {
@@ -168,7 +192,7 @@ class YahooManager: ObservableObject {
                                             }
                                             return 0.0
                                 }
-                                print("v:\(v)")
+                                // print("v:\(v)")
                                 return v
                             }
                             
@@ -181,13 +205,13 @@ class YahooManager: ObservableObject {
                                 let opens = goldPoint.open
                                 let volumes = goldPoint.volume
                                 
-                                print("本次插入的数据为:\(goldPointDataFirst)")
-                                print("timestamps最大长度: \(timestamps.count)")
-                                print("opens最大长度: \(opens.count)")
-                                print("highs最大长度: \(highs.count)")
-                                print("lows最大长度: \(lows.count)")
-                                print("closes最大长度: \(closes.count)")
-                                print("volumes最大长度: \(volumes.count)")
+//                                print("本次插入的数据为:\(goldPointDataFirst)")
+//                                print("timestamps最大长度: \(timestamps.count)")
+//                                print("opens最大长度: \(opens.count)")
+//                                print("highs最大长度: \(highs.count)")
+//                                print("lows最大长度: \(lows.count)")
+//                                print("closes最大长度: \(closes.count)")
+//                                print("volumes最大长度: \(volumes.count)")
                                 
                                 /// 获取 Yahoo 图表数据的条目
                                 let count = min(
@@ -201,7 +225,7 @@ class YahooManager: ObservableObject {
                                 // 插入新记录
                                 for i in 0..<count {
                                     print("创建 YahooPoint 对象")
-                                    let newYahooGoldPrice = YahooPoint(context: context)
+                                    let newYahooGoldPrice = YahooPoint(context: self.backgroundContext)
                                     print("创建 YahooPoint 对象完成")
                                     print("最新的一条数据，symbol:\(urlName),timestamp:\(goldPointDataFirst.timestamp[i]),close:\(goldPoint.close[i] ?? 0.0),hight:\(goldPoint.high[i] ?? 0.0),low:\(goldPoint.low[i] ?? 0.0),open:\(goldPoint.open[i] ?? 0.0),volume:\(goldPoint.volume[i] ?? 0.0)")
                                     /// print("创建 YahooPoint 对象,urlName:\(urlName)")
@@ -215,9 +239,9 @@ class YahooManager: ObservableObject {
                                 }
                                 
                                 print("保存 Yahoo 数据（图表数据），所在线程:\(Thread.current)")
-                                try context.save()
+                                try self.backgroundContext.save()
                                 
-                                let newResults = try context.fetch(fetchPointRequest) // 再 fetch 一次
+                                let newResults = try self.backgroundContext.fetch(fetchPointRequest) // 再 fetch 一次
                                 print("将最新的 Yahoo 图表数据插入 Core Data 中。")
                                 print("当前 Yahoo 图表数据共有 \(newResults.count) 条数据")
                             }
@@ -227,7 +251,6 @@ class YahooManager: ObservableObject {
                                 AppStorageManager.shared.YahooLastUpdateDate = Date()
                                 print("Yahoo 更新日期:\(AppStorageManager.shared.YahooLastUpdateDate)")
                             }
-                            
                         } catch DecodingError.keyNotFound(let key, let context) {
                             print("---1---")
                             print("Key '\(key)' not found:", context.debugDescription)
