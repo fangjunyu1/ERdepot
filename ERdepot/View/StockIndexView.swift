@@ -1,5 +1,5 @@
 //
-//  DailyGoldPrice.swift
+//  StockIndex.swift
 //  ERdepot
 //
 //  Created by 方君宇 on 2025/5/11.
@@ -8,41 +8,42 @@
 import SwiftUI
 import CoreData
 
-struct DailyGoldPriceView: View {
+struct StockIndexView: View {
     // 通过 @Environment 读取 viewContext
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) var color
     @EnvironmentObject var appStorage: AppStorageManager
     @Binding var bindingSheet: Bool
-    // 查询 Core Data 中 Yahoo 黄金的数据条件
+    
+    // 当前股市指数
+    @State private var stockMarket:String = "GSPC" {
+        didSet {
+            print("修改股票指数列表，当前股票指数列表为：\(oldValue)")
+        }
+    }
+    // 股票指数列表
+    var stockMarketList:[String:String] = [
+        "GSPC":"S&P 500",
+        "NDX":"Nasdaq 100",
+        "DJI":"Dow Jones Industrial Average",
+        "N225":"Nikkei 225",
+        "HSI":"Hang Seng Index",
+        "FTSE":"FTSE 100",
+        "GDAXI":"DAX",
+        "FCHI":"CAC 40",
+        "SS":"Shanghai Composite Index",
+        "SZ":"Shenzhen Component Index"
+    ]
     
     @FetchRequest(
         fetchRequest: {
             let request = NSFetchRequest<Yahoo>(entityName: "Yahoo")
             // 筛选 Yahoo 中黄金的数据
-            request.predicate = NSPredicate(format: "symbol == %@", "Gold")
+            request.predicate = NSPredicate(format: "symbol == %@", "GSPC")
             request.sortDescriptors = [NSSortDescriptor(key: "updateTime", ascending: false)]
             return request
         }()
-    ) var goldPrices: FetchedResults<Yahoo>
-    
-    // 汇率字典
-    @State private var rateDict: [String:Double] = [:]
-    // 获取最新的汇率数据
-    func convertGoldPrice(_ num: Double) -> Double {
-        let goldPrice = num
-        if appStorage.GoldPriceUnit == "per gram" {
-            return goldPrice / 31.1035 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per kilogram" {
-            return goldPrice / 31103.5 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per ounce" {
-            return goldPrice / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per tola" {
-            return goldPrice / 2.6675 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else {
-            return goldPrice
-        }
-    }
+    ) var stockMarkets: FetchedResults<Yahoo>
     
     let calendar = Calendar.current
     
@@ -53,42 +54,9 @@ struct DailyGoldPriceView: View {
         return formatter
     }
     
-    func fetchLatestDate() -> Date? {
-        let request = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
-        request.resultType = .dictionaryResultType
-        request.propertiesToFetch = ["date"]
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        request.fetchLimit = 1
-        
-        do {
-            if let result = try viewContext.fetch(request).first,
-               let latestDate = result["date"] as? Date {
-                return latestDate
-            }
-        } catch {
-            print("Error fetching latest date: \(error)")
-        }
-        return nil
-    }
-    
-    func fetchLatestRates() -> [Eurofxrefhist] {
-        guard let latestDate = fetchLatestDate() else { return [] }
-        
-        let request = NSFetchRequest<Eurofxrefhist>(entityName: "Eurofxrefhist")
-        request.predicate = NSPredicate(format: "date == %@", latestDate as NSDate)
-        request.sortDescriptors = [NSSortDescriptor(key: "symbol", ascending: true)]
-        
-        do {
-            return try viewContext.fetch(request)
-        } catch {
-            print("Error fetching latest rates: \(error)")
-            return []
-        }
-    }
-    
     var amplitude: Double {
-        let current = goldPrices.first?.regularMarketPrice ?? 0
-        let previous = goldPrices.first?.chartPreviousClose ?? 0
+        let current = stockMarkets.first?.regularMarketPrice ?? 0
+        let previous = stockMarkets.first?.chartPreviousClose ?? 0
         let change = (current - previous) / previous * 100
         return change.isFinite ? change : 0
     }
@@ -124,27 +92,42 @@ struct DailyGoldPriceView: View {
                         Spacer()
                     }
                     Spacer().frame(height: 24)
-                    // 每日金价
+                    // 股市指数
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Daily gold price")
+                            Text("Stock index")
                                 .font(.title)
                                 .fontWeight(.bold)
-                            Spacer().frame(height: 10)
-                            Text("Gold futures")
-                                .foregroundColor(.gray)
+                            Spacer().frame(height: 14)
+                            Menu {
+                                ForEach(stockMarketList.sorted(by: { $0.value < $1.value }).filter{ $0.key != stockMarket}, id: \.key) { key,value in
+                                    Button(LocalizedStringKey(value)) {
+                                        stockMarket = key
+                                    }
+                                }
+                            } label: {
+                                Text(LocalizedStringKey(stockMarketList[stockMarket] ?? ""))
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical,5)
+                                    .padding(.horizontal,14)
+                                    .background(Color(hex: "333333"))
+                                    .cornerRadius(4)
+                            }
                         }
                         Spacer()
                         VStack {
-                            Image("gold")
+                            Image("stock")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 70)
                         }
                     }
+                    
                     Spacer()
                         .frame(height: 20)
-                    if goldPrices.isEmpty {
+                    
+                    if stockMarkets.isEmpty {
                         Image("noData")
                             .resizable()
                             .scaledToFill()
@@ -157,35 +140,29 @@ struct DailyGoldPriceView: View {
                             .multilineTextAlignment(.center)
                         
                         Spacer().frame(height:20)
-                        Button(action: {
-                            
-                        },label: {
-                            Text("Display historical data")
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .padding(.vertical,10)
-                                .padding(.horizontal,14)
-                                .background(Color(hex: "373737"))
-                                .cornerRadius(3)
-                        })
+                        
+                        // 隐藏“显示历史数据”按钮
+//                        Button(action: {
+//                            
+//                        },label: {
+//                            Text("Display historical data")
+//                                .font(.subheadline)
+//                                .foregroundColor(.white)
+//                                .padding(.vertical,10)
+//                                .padding(.horizontal,14)
+//                                .background(Color(hex: "373737"))
+//                                .cornerRadius(3)
+//                        })
                     } else {
-                        // 每克黄金价格
-                        VStack(alignment: .leading) {
-                            Text(LocalizedStringKey(appStorage.GoldPriceUnit))
-                                .foregroundColor(.gray)
-                                .font(.caption2)
-                            Spacer().frame(height: 5)
-                            HStack {
-                                Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                    .fontWeight(.medium)
-                                let convertedPrice = convertGoldPrice(goldPrices.first?.regularMarketPrice ?? 0)
-                                if convertedPrice == 0 {
-                                    Text("--")
-                                        .fontWeight(.bold)
-                                } else {
-                                    Text("\(convertedPrice.formattedWithTwoDecimalPlaces())")
-                                        .fontWeight(.bold)
-                                }
+                        // 股票指数
+                        HStack {
+                            let stockMarketNum = stockMarkets.first?.regularMarketPrice ?? 0
+                            if stockMarketNum == 0 {
+                                Text("--")
+                                    .fontWeight(.bold)
+                            } else {
+                                Text("\(stockMarketNum.formattedWithTwoDecimalPlaces())")
+                                    .fontWeight(.bold)
                                 HStack {
                                     Image(systemName: amplitude > 1 ?  "arrow.up" : "arrow.down")
                                         .font(.caption2)
@@ -199,16 +176,14 @@ struct DailyGoldPriceView: View {
                                 .background(amplitude > 1 ? Color(hex: "9D0000") : Color(hex: "01946B"))
                                 .cornerRadius(3)
                             }
-                            .font(.largeTitle)
                         }
-                        Spacer()
-                            .frame(height: 20)
+                        .font(.largeTitle)
                         
                         // 市场时间
                         HStack {
                             Text("Market time")
                             Spacer()
-                            Text("\(formatter.string(from: goldPrices.first?.updateTime ?? Date.distantPast))")
+                            Text("\(formatter.string(from: stockMarkets.first?.updateTime ?? Date.distantPast))")
                                 .font(.footnote)
                                 .foregroundColor(.gray)
                         }
@@ -227,13 +202,10 @@ struct DailyGoldPriceView: View {
                                 HStack {
                                     Text("Today's highest price")
                                     Spacer()
-                                    let convertedPriceDayHigh = convertGoldPrice(goldPrices.first?.regularMarketDayHigh ?? 0.0)
-                                    HStack(spacing:3) {
-                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                        Text("\(convertedPriceDayHigh.formattedWithTwoDecimalPlaces())")
-                                    }
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    let StockIndexDayHigh: Double = stockMarkets.first?.regularMarketDayHigh ?? 0.0
+                                    Text("\(StockIndexDayHigh.formattedWithTwoDecimalPlaces())")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                                 .frame(height: 50)
                                 
@@ -243,13 +215,10 @@ struct DailyGoldPriceView: View {
                                 HStack {
                                     Text("Today's lowest price")
                                     Spacer()
-                                    let convertedPriceDayLow = convertGoldPrice(goldPrices.first?.regularMarketDayLow ?? 0.0)
-                                    HStack(spacing:3) {
-                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                        Text("\(convertedPriceDayLow.formattedWithTwoDecimalPlaces())")
-                                    }
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    let StockIndexDayLow: Double = stockMarkets.first?.regularMarketDayLow ?? 0.0
+                                    Text("\(StockIndexDayLow.formattedWithTwoDecimalPlaces())")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                                 .frame(height: 50)
                                 
@@ -259,13 +228,10 @@ struct DailyGoldPriceView: View {
                                 HStack {
                                     Text("Previous day's closing price")
                                     Spacer()
-                                    let convertedPricePrevious = convertGoldPrice(goldPrices.first?.chartPreviousClose ?? 0.0)
-                                    HStack(spacing:3) {
-                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                        Text("\(convertedPricePrevious.formattedWithTwoDecimalPlaces())")
-                                    }
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    let StockIndexPrevious: Double = stockMarkets.first?.chartPreviousClose ?? 0.0
+                                    Text("\(StockIndexPrevious.formattedWithTwoDecimalPlaces())")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                                 .frame(height: 50)
                             }
@@ -284,13 +250,10 @@ struct DailyGoldPriceView: View {
                                 HStack {
                                     Text("Past year's highest price")
                                     Spacer()
-                                    let convertedPriceYearHigh = convertGoldPrice(goldPrices.first?.fiftyTwoWeekHigh ?? 0.0)
-                                    HStack(spacing:3) {
-                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                        Text("\(convertedPriceYearHigh.formattedWithTwoDecimalPlaces())")
-                                    }
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    let StockIndexYearHigh: Double = stockMarkets.first?.fiftyTwoWeekHigh ?? 0.0
+                                    Text("\(StockIndexYearHigh.formattedWithTwoDecimalPlaces())")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                                 .frame(height: 50)
                                 
@@ -300,13 +263,10 @@ struct DailyGoldPriceView: View {
                                 HStack {
                                     Text("Past year's lowest price")
                                     Spacer()
-                                    let convertedPriceYearLow = convertGoldPrice(goldPrices.first?.fiftyTwoWeekLow ?? 0.0)
-                                    HStack(spacing:3) {
-                                        Text("\(currencySymbols[appStorage.localCurrency] ?? "$")")
-                                        Text("\(convertedPriceYearLow.formattedWithTwoDecimalPlaces())")
-                                    }
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                                    let StockIndexYearHigh: Double = stockMarkets.first?.fiftyTwoWeekLow ?? 0.0
+                                    Text("\(StockIndexYearHigh.formattedWithTwoDecimalPlaces())")
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
                                 }
                                 .frame(height: 50)
                             }
@@ -322,7 +282,7 @@ struct DailyGoldPriceView: View {
                         HStack {
                             Text("Exchange name")
                             Spacer()
-                            Text(LocalizedStringKey(goldPrices.first?.fullExchangeName ?? "--"))
+                            Text(LocalizedStringKey(stockMarkets.first?.fullExchangeName ?? "--"))
                                 .font(.footnote)
                                 .foregroundColor(.gray)
                         }
@@ -348,30 +308,17 @@ struct DailyGoldPriceView: View {
                         .foregroundColor(.gray)
                         .font(.caption2)
                     }
-                    
-                    Spacer()
-                        .frame(height: 20)
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .onAppear {
-            let latestRates = fetchLatestRates()
-            rateDict = Dictionary(uniqueKeysWithValues: latestRates.map { ($0.symbol ?? "", $0.rate) })
-        }
     }
 }
 
-
 #Preview {
-    // 清理必须放在 return 之前！
-    //        if let bundleID = Bundle.main.bundleIdentifier {
-    //            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-    //        }
-    @StateObject var yahooGManager = YahooManager.shared
-    DailyGoldPriceView(bindingSheet: .constant(true))
+    StockIndexView(bindingSheet: .constant(true))
         .environmentObject(AppStorageManager.shared)
         .environment(\.managedObjectContext, CoreDataPersistenceController.shared.context) // 加载 NSPersistentContainer
-        .environmentObject(yahooGManager)
+        .environmentObject(YahooManager.shared)
 }

@@ -224,10 +224,10 @@ class YahooManager: ObservableObject {
                                 )
                                 // 插入新记录
                                 for i in 0..<count {
-                                    print("创建 YahooPoint 对象")
+                                    // print("创建 YahooPoint 对象")
                                     let newYahooGoldPrice = YahooPoint(context: self.backgroundContext)
-                                    print("创建 YahooPoint 对象完成")
-                                    print("最新的一条数据，symbol:\(urlName),timestamp:\(goldPointDataFirst.timestamp[i]),close:\(goldPoint.close[i] ?? 0.0),hight:\(goldPoint.high[i] ?? 0.0),low:\(goldPoint.low[i] ?? 0.0),open:\(goldPoint.open[i] ?? 0.0),volume:\(goldPoint.volume[i] ?? 0.0)")
+                                    // print("创建 YahooPoint 对象完成")
+                                    // print("最新的一条数据，symbol:\(urlName),timestamp:\(goldPointDataFirst.timestamp[i]),close:\(goldPoint.close[i] ?? 0.0),hight:\(goldPoint.high[i] ?? 0.0),low:\(goldPoint.low[i] ?? 0.0),open:\(goldPoint.open[i] ?? 0.0),volume:\(goldPoint.volume[i] ?? 0.0)")
                                     /// print("创建 YahooPoint 对象,urlName:\(urlName)")
                                     newYahooGoldPrice.symbol = urlName
                                     newYahooGoldPrice.time = timestamps[i]

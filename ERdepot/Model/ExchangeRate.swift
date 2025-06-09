@@ -115,9 +115,8 @@ class ExchangeRate :ObservableObject {
                 print(file.lastPathComponent) // 打印文件名
                 if file.lastPathComponent == "eurofxref-hist.csv" {
                     print("进入csv判定：\(file.path)")
-                    processCSVData(file.path) {
-                        completion()
-                    }
+                    // 不调用 processCSVData 的闭包，不更新
+                    processCSVData(file.path) {}
                 }
             }
             

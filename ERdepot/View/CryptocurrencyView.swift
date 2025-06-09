@@ -137,17 +137,19 @@ struct CryptocurrencyView: View {
                             .multilineTextAlignment(.center)
                         
                         Spacer().frame(height:20)
-                        Button(action: {
-                            
-                        },label: {
-                            Text("Display historical data")
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .padding(.vertical,10)
-                                .padding(.horizontal,14)
-                                .background(Color(hex: "373737"))
-                                .cornerRadius(3)
-                        })
+                        
+                        // 隐藏“显示历史数据”按钮
+//                        Button(action: {
+//                            
+//                        },label: {
+//                            Text("Display historical data")
+//                                .font(.subheadline)
+//                                .foregroundColor(.white)
+//                                .padding(.vertical,10)
+//                                .padding(.horizontal,14)
+//                                .background(Color(hex: "373737"))
+//                                .cornerRadius(3)
+//                        })
                     } else {
                         ForEach(cryptoCurrencys) { cryptoCurrency in
                             if let id = cryptoCurrency.id,let imageUrl = cryptoCurrency.image,let symbol  = cryptoCurrency.symbol {
