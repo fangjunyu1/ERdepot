@@ -15,10 +15,6 @@ class YahooManager: ObservableObject {
     private init() {
         print("YahooManager 初始化方法，所在线程：\(Thread.current)")
         
-        #if DEBUG
-        print("调试环境，调用Yahoo数据")
-        fetchYahooData()
-        #else
         let calendar = Calendar.current
         
         // 初始化调用 Yahoo 的同步方法
@@ -29,7 +25,6 @@ class YahooManager: ObservableObject {
             print("调用 Yahoo 数据接口")
             fetchYahooData()
         }
-        #endif
         
         NotificationCenter.default.addObserver(
             forName: .NSManagedObjectContextDidSave,

@@ -177,12 +177,16 @@ class IAPManager:ObservableObject {
     }
     // 保存购买状态到用户偏好设置或其他存储位置
     func savePurchasedState(for productID: String) {
-        AppStorageManager.shared.isInAppPurchase = true // 设置 AppStorageManager 的内购标识为 true
+        DispatchQueue.main.async {
+            AppStorageManager.shared.isInAppPurchase = true // 设置 AppStorageManager 的内购标识为 true
+        }
         print("保存购买状态: \(productID)")
     }
     // 移除内购状态
     func removePurchasedState(for productID: String) {
-        AppStorageManager.shared.isInAppPurchase = false    // 设置 AppStorageManager 的内购标识为 false
+        DispatchQueue.main.async {
+            AppStorageManager.shared.isInAppPurchase = false    // 设置 AppStorageManager 的内购标识为 false
+        }
         print("已移除购买状态: \(productID)")
     }
     
