@@ -19,6 +19,7 @@ struct StockIndexView: View {
     @State private var stockMarket:String = "GSPC" {
         didSet {
             print("修改股票指数列表，当前股票指数列表为：\(oldValue)")
+            fetchData()
         }
     }
     // 股票指数列表
@@ -301,9 +302,6 @@ struct StockIndexView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .onAppear(perform: fetchData)
-                    .onChange(of: stockMarket) { _ in
-                        fetchData()
-                    }
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
