@@ -120,59 +120,59 @@ struct StatisticsView: View {
     }
     
     // 轮训汇率的所有日期
-    private func CalculatingHistoricalHighs() {
-        
-        // 查询状态改为 true
-        queryHistoricalHighs = true
-        print("查询状态改为\(queryHistoricalHighs)")
-        
-        // 用户所有外币
-        var UserCurrency: [UserForeignCurrency] = []
-        // 获取用户所有外币
-        UserCurrency = fetchListOfForeignCurrencies()
-        
-        // 获取所有金额的外币
-        // 获取所有汇率的日期，去重
-        let rateDate = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
-        rateDate.resultType = .dictionaryResultType
-        // 获取汇率的 date 字段
-        rateDate.propertiesToFetch = ["date"]
-        // 将获取到的汇率数据去重
-        rateDate.returnsDistinctResults = true
-        rateDate.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-        
-        backgroundContext.perform {
-            
-            do {
-                print("开始调用 CalculatingHistoricalHighs 获取时间的方法")
-                let startDate = Date()
-                
-                let rateDateresults = try backgroundContext.fetch(rateDate)
-                // 遍历所有的汇率日期
-                for rate in rateDateresults {
-                    // 从字典中提取出 date 字段并确保它是 Date 类型
-                    if let rateDate = rate["date"] as? Date {
-                        let rateRequest =
-                        // 调用 CalculateForeignCurrencyAmounts 方法，并传递正确的 Date 类型
-                        CalculateForeignCurrencyAmounts(date: rateDate,userCurrencies: UserCurrency)
-                    } else {
-                        print("无法获取日期，跳过该条记录")
-                    }
-                }
-                print("结束 CalculatingHistoricalHighs 方法的调用，用时:\(Date().timeIntervalSince(startDate))秒")
-                DispatchQueue.main.async {
-                    queryHistoricalHighs = false
-                    print("查询状态改为\(queryHistoricalHighs)")
-                    appStorage.reCountingHistoricalHighs = false
-                    print("完成历史时间和高点的查询，改为\(queryHistoricalHighs)")
-                }
-            } catch {
-                print("未获取到全部时间")
-            }
-            
-            
-        }
-    }
+//    private func CalculatingHistoricalHighs() {
+//        
+//        // 查询状态改为 true
+//        queryHistoricalHighs = true
+//        print("查询状态改为\(queryHistoricalHighs)")
+//        
+//        // 用户所有外币
+//        var UserCurrency: [UserForeignCurrency] = []
+//        // 获取用户所有外币
+//        UserCurrency = fetchListOfForeignCurrencies()
+//        
+//        // 获取所有金额的外币
+//        // 获取所有汇率的日期，去重
+//        let rateDate = NSFetchRequest<NSDictionary>(entityName: "Eurofxrefhist")
+//        rateDate.resultType = .dictionaryResultType
+//        // 获取汇率的 date 字段
+//        rateDate.propertiesToFetch = ["date"]
+//        // 将获取到的汇率数据去重
+//        rateDate.returnsDistinctResults = true
+//        rateDate.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+//        
+//        backgroundContext.perform {
+//            
+//            do {
+//                print("开始调用 CalculatingHistoricalHighs 获取时间的方法")
+//                let startDate = Date()
+//                
+//                let rateDateresults = try backgroundContext.fetch(rateDate)
+//                // 遍历所有的汇率日期
+//                for rate in rateDateresults {
+//                    // 从字典中提取出 date 字段并确保它是 Date 类型
+//                    if let rateDate = rate["date"] as? Date {
+//                        let rateRequest =
+//                        // 调用 CalculateForeignCurrencyAmounts 方法，并传递正确的 Date 类型
+//                        CalculateForeignCurrencyAmounts(date: rateDate,userCurrencies: UserCurrency)
+//                    } else {
+//                        print("无法获取日期，跳过该条记录")
+//                    }
+//                }
+//                print("结束 CalculatingHistoricalHighs 方法的调用，用时:\(Date().timeIntervalSince(startDate))秒")
+//                DispatchQueue.main.async {
+//                    queryHistoricalHighs = false
+//                    print("查询状态改为\(queryHistoricalHighs)")
+//                    appStorage.reCountingHistoricalHighs = false
+//                    print("完成历史时间和高点的查询，改为\(queryHistoricalHighs)")
+//                }
+//            } catch {
+//                print("未获取到全部时间")
+//            }
+//            
+//            
+//        }
+//    }
     
     func CalculateForeignCurrencyAmounts(date: Date, userCurrencies: [UserForeignCurrency]) {
         
@@ -321,40 +321,40 @@ struct StatisticsView: View {
                     Spacer().frame(height: 20)
                     
                     // 历史时间和历史高点
-                    VStack(spacing: 0) {
-                        Group {
-                            // 历史时间
-                            HStack(spacing:0) {
-                                Text("HistoricalTime")
-                                Spacer()
-                                if queryHistoricalHighs {
-                                    ProgressView("").offset(y:6).padding(.trailing,5)
-                                }
-                                Text(formattedDate(Date(timeIntervalSince1970: appStorage.historicalTime)))
-                                
-                            }
-                            .frame(height: 50)
-                            Divider()
-                            
-                            // 历史高点
-                            HStack(spacing:0) {
-                                Text("HistoricalHighs")
-                                Spacer()
-                                if queryHistoricalHighs {
-                                    ProgressView("").offset(y:6).padding(.trailing,5)
-                                }
-                                Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
-                                Spacer().frame(width: 8)
-                                Text(appStorage.historicalHigh.formattedWithTwoDecimalPlaces())
-                            }
-                            .frame(height: 50)
-                        }
-                        .padding(.horizontal,20)
-                    }
-                    .frame(width: width * 0.85)
-                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                    .cornerRadius(10)
+//                    VStack(spacing: 0) {
+//                        Group {
+//                            // 历史时间
+//                            HStack(spacing:0) {
+//                                Text("HistoricalTime")
+//                                Spacer()
+//                                if queryHistoricalHighs {
+//                                    ProgressView("").offset(y:6).padding(.trailing,5)
+//                                }
+//                                Text(formattedDate(Date(timeIntervalSince1970: appStorage.historicalTime)))
+//                                
+//                            }
+//                            .frame(height: 50)
+//                            Divider()
+//                            
+//                            // 历史高点
+//                            HStack(spacing:0) {
+//                                Text("HistoricalHighs")
+//                                Spacer()
+//                                if queryHistoricalHighs {
+//                                    ProgressView("").offset(y:6).padding(.trailing,5)
+//                                }
+//                                Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
+//                                Spacer().frame(width: 8)
+//                                Text(appStorage.historicalHigh.formattedWithTwoDecimalPlaces())
+//                            }
+//                            .frame(height: 50)
+//                        }
+//                        .padding(.horizontal,20)
+//                    }
+//                    .frame(width: width * 0.85)
+//                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
+//                    .transition(.move(edge: .top).combined(with: .opacity))
+//                    .cornerRadius(10)
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -366,10 +366,10 @@ struct StatisticsView: View {
             // 调用称成本金额
             CalculateCosts()
             // 当需要计算历史最高点时，调用对应方法
-            if appStorage.reCountingHistoricalHighs {
-                // 计算历史高点和历史时间
-                CalculatingHistoricalHighs()
-            }
+//            if appStorage.reCountingHistoricalHighs {
+//                // 计算历史高点和历史时间
+//                CalculatingHistoricalHighs()
+//            }
         }
     }
 }
