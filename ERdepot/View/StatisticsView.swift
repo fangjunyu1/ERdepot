@@ -321,40 +321,7 @@ struct StatisticsView: View {
                     Spacer().frame(height: 20)
                     
                     // 历史时间和历史高点
-//                    VStack(spacing: 0) {
-//                        Group {
-//                            // 历史时间
-//                            HStack(spacing:0) {
-//                                Text("HistoricalTime")
-//                                Spacer()
-//                                if queryHistoricalHighs {
-//                                    ProgressView("").offset(y:6).padding(.trailing,5)
-//                                }
-//                                Text(formattedDate(Date(timeIntervalSince1970: appStorage.historicalTime)))
-//                                
-//                            }
-//                            .frame(height: 50)
-//                            Divider()
-//                            
-//                            // 历史高点
-//                            HStack(spacing:0) {
-//                                Text("HistoricalHighs")
-//                                Spacer()
-//                                if queryHistoricalHighs {
-//                                    ProgressView("").offset(y:6).padding(.trailing,5)
-//                                }
-//                                Text("\(currencySymbols[appStorage.localCurrency] ?? "")")
-//                                Spacer().frame(width: 8)
-//                                Text(appStorage.historicalHigh.formattedWithTwoDecimalPlaces())
-//                            }
-//                            .frame(height: 50)
-//                        }
-//                        .padding(.horizontal,20)
-//                    }
-//                    .frame(width: width * 0.85)
-//                    .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
-//                    .transition(.move(edge: .top).combined(with: .opacity))
-//                    .cornerRadius(10)
+//                    VStack(spacing: 0) g(10)
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
