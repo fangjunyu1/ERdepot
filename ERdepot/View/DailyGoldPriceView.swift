@@ -336,7 +336,7 @@ struct DailyGoldPriceView: View {
                             .frame(height: 30)
                         VStack {
                             HStack {
-                                Text("Data source")
+                                Text("Data sources")
                                 Text("Yahoo Finance")
                             }
                             .foregroundColor(.gray)

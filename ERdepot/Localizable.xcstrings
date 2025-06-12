@@ -7049,6 +7049,18 @@
         }
       }
     },
+    "Cryptocurrency from CoinGecko" : {
+      "comment" : "1.0.4.8:加密货币来源于CoinGecko",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密货币来源于CoinGecko"
+          }
+        }
+      }
+    },
     "Current currency" : {
       "comment" : "当前币种",
       "extractionState" : "manual",
@@ -8009,6 +8021,30 @@
         }
       }
     },
+    "Daily gold prices and stock indices are sourced from Yahoo Finance" : {
+      "comment" : "1.0.4.8:每日金价、股票指数都来源于Yahoo Finance",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日金价、股票指数都来源于Yahoo Finance"
+          }
+        }
+      }
+    },
+    "Daily gold prices, stock indices" : {
+      "comment" : "1.0.4.8:每日金价、股票指数",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日金价、股票指数"
+          }
+        }
+      }
+    },
     "Danish" : {
       "comment" : "丹麦语",
       "extractionState" : "manual",
@@ -8227,18 +8263,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "丹麥語"
-          }
-        }
-      }
-    },
-    "Data source" : {
-      "comment" : "1.0.4.8:数据来源",
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "数据来源"
           }
         }
       }
@@ -10391,6 +10415,78 @@
         }
       }
     },
+    "Every 10 seconds" : {
+      "comment" : "1.0.4.8:每10秒",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每10秒"
+          }
+        }
+      }
+    },
+    "Every 30 seconds" : {
+      "comment" : "1.0.4.8:每30秒",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每30秒"
+          }
+        }
+      }
+    },
+    "Every day" : {
+      "comment" : "1.0.4.8:每天",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天"
+          }
+        }
+      }
+    },
+    "Every hour" : {
+      "comment" : "1.0.4.8:每小时",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每小时"
+          }
+        }
+      }
+    },
+    "Every minute" : {
+      "comment" : "1.0.4.8:每分钟",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每分钟"
+          }
+        }
+      }
+    },
+    "Every time you open the app" : {
+      "comment" : "1.0.4.8:每次打开应用",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每次打开应用"
+          }
+        }
+      }
+    },
     "Exchange name" : {
       "comment" : "1.0.4.8:交易所名称",
       "extractionState" : "manual",
@@ -11981,6 +12077,18 @@
         }
       }
     },
+    "Foreign exchange data comes from the European Central Bank" : {
+      "comment" : "1.0.4.8:外汇数据来源于欧洲中央银行",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外汇数据来源于欧洲中央银行"
+          }
+        }
+      }
+    },
     "Foreign exchange reserves" : {
       "comment" : "外汇储备",
       "extractionState" : "manual",
@@ -12199,6 +12307,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "外匯儲備"
+          }
+        }
+      }
+    },
+    "Forex Data" : {
+      "comment" : "1.0.4.8:外汇数据",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外汇数据"
           }
         }
       }
@@ -12901,6 +13021,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "黄金期货"
+          }
+        }
+      }
+    },
+    "Gold price unit" : {
+      "comment" : "1.0.4.8:金价单位",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金价单位"
           }
         }
       }
@@ -16141,6 +16273,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "印度盧比"
+          }
+        }
+      }
+    },
+    "Interface link" : {
+      "comment" : "1.0.4.8:接口链接",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "接口链接"
           }
         }
       }
@@ -19567,6 +19711,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "市场时间"
+          }
+        }
+      }
+    },
+    "Minimal mode hides \"Cryptocurrency\", \"Daily Gold Price\" and \"Stock Index\", and only retains foreign exchange rate information. It is suitable for users with blocked networks or who only use foreign exchange information." : {
+      "comment" : "1.0.4.8:极简模式会隐藏“加密货币”、“每日金价”和“股票指数”，仅保留外币汇率信息，适用于网络受阻或只使用外汇信息的用户。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "极简模式会隐藏“加密货币”、“每日金价”和“股票指数”，仅保留外币汇率信息，适用于网络受阻或只使用外汇信息的用户。"
+          }
+        }
+      }
+    },
+    "Minimalist mode" : {
+      "comment" : "1.0.4.8:极简模式",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "极简模式"
           }
         }
       }
@@ -27023,6 +27191,18 @@
         }
       }
     },
+    "Some of the data for this project comes from the European Central Bank (ECB), CoinGecko and Yahoo Finance. Thanks to these platforms for their long-term selfless sharing of public data, helping developers and users easily access reliable financial information." : {
+      "comment" : "1.0.4.8:本项目部分数据来源于欧洲中央银行（ECB）、CoinGecko 以及 Yahoo Finance。感谢这些平台长期以来对公开数据的无私共享，帮助开发者与用户轻松访问可靠的金融信息。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本项目部分数据来源于欧洲中央银行（ECB）、CoinGecko 以及 Yahoo Finance。感谢这些平台长期以来对公开数据的无私共享，帮助开发者与用户轻松访问可靠的金融信息。"
+          }
+        }
+      }
+    },
     "Spanish" : {
       "comment" : "西班牙语",
       "extractionState" : "manual",
@@ -31343,6 +31523,18 @@
         }
       }
     },
+    "Update frequency" : {
+      "comment" : "1.0.4.8:更新频率",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新频率"
+          }
+        }
+      }
+    },
     "update the language configuration" : {
       "comment" : "更新语言配置",
       "extractionState" : "manual",
@@ -33565,6 +33757,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "網頁"
+          }
+        }
+      }
+    },
+    "Website link" : {
+      "comment" : "1.0.4.8:网站链接",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网站链接"
           }
         }
       }
