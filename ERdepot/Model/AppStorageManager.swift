@@ -182,11 +182,21 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 极简模式
+    @Published var MinimalistMode = false {
+        didSet {
+            if MinimalistMode != oldValue {
+                UserDefaults.standard.set(MinimalistMode, forKey: "MinimalistMode")
+                // 计算本地属性，不同步iCloud
+                // syncToiCloud()
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     final private func loadUserDefault() {
         
         mainInterfaceWarehouseAmountStyle = UserDefaults.standard.bool(forKey: "mainInterfaceWarehouseAmountStyle")  // 初始化流程
-        
         isInit = UserDefaults.standard.bool(forKey: "isInit")  // 初始化流程
         RequestRating = UserDefaults.standard.bool(forKey: "RequestRating") // 请求评分
         isInAppPurchase = UserDefaults.standard.bool(forKey: "isInAppPurchase") // 内购标识
@@ -230,6 +240,8 @@ class AppStorageManager:ObservableObject {
         
         // Yahoo 数据更新日期
         YahooLastUpdateDate = UserDefaults.standard.object(forKey: "YahooLastUpdateDate") as? Date ?? Date.distantPast
+        
+        MinimalistMode = UserDefaults.standard.bool(forKey: "MinimalistMode")  // 极简模式
     }
     
     /// 从 iCloud 读取数据

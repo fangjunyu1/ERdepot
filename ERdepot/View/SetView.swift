@@ -254,9 +254,9 @@ struct SetView: View {
                                     .foregroundColor(color == .light ? .black : .white)
                                 Spacer()
                                 Toggle("", isOn: Binding(get: {
-                                    false
-                                }, set: { _ in
-                                    
+                                    appStorage.MinimalistMode
+                                }, set: { newValue in
+                                    appStorage.MinimalistMode = newValue
                                 }))
                             }
                             

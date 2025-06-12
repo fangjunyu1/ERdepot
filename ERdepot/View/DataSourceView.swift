@@ -20,7 +20,7 @@ struct DataSourceView: View {
                 ScrollView(showsIndicators: false) {
                     
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 10)
                     
                     // 标题
                     HStack {
@@ -41,7 +41,9 @@ struct DataSourceView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         Text("Foreign exchange data comes from the European Central Bank")
+                            .font(.footnote)
                             .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
                         Image("ecu")
                             .resizable()
                             .scaledToFit()
@@ -60,7 +62,7 @@ struct DataSourceView: View {
                     }
                     
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 50)
                     
                     // 加密货币
                     VStack(spacing: 16) {
@@ -68,7 +70,9 @@ struct DataSourceView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         Text("Cryptocurrency from CoinGecko")
+                            .font(.footnote)
                             .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
                         Image("CoinGecko")
                             .resizable()
                             .scaledToFit()
@@ -88,7 +92,7 @@ struct DataSourceView: View {
                     }
                     
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 50)
                     
                     // 每日金价、股票指数
                     VStack(spacing: 16) {
@@ -96,6 +100,7 @@ struct DataSourceView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         Text("Daily gold prices and stock indices are sourced from Yahoo Finance")
+                            .font(.footnote)
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                         Image("YahooFinance")

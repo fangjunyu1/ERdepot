@@ -31,14 +31,10 @@ struct HomeView: View {
             print("refreshID:\(oldValue)")
         }
     }
+    
     // 分页指示器索引
-    #if DEBUG
-    // 调试环境下执行的代码
-    @State private var selectedIndex = 1
-    #else
-    // 发布环境下执行的代码（可选）
     @State private var selectedIndex = 0
-    #endif
+    
     let timeRange: [String] = ["1 Week","1 Month","3 Months","6 Months", "1 Year","5 Years","10 Years","All"]
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -640,102 +636,104 @@ struct HomeView: View {
                             }
                             .tag(0)
                             
-                            // 加密货币、每日金价、股票指数
-                            HStack {
-                                // 加密货币、每日金价
-                                VStack {
-                                    // 加密货币
-                                    Button(action: {
-                                        isShowCryptocurrency = true
-                                    }, label:{
-                                        HStack {
-                                            Image("Cryptocurrency")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 36,height:36)
-                                            Spacer().frame(width:20)
-                                            VStack {
-                                                Text("Cryptocurrency")
-                                                    .font(.footnote)
-                                                Spacer().frame(height:5)
-                                                Text("BTC  ETH")
-                                                    .font(.caption2)
-                                                    .foregroundColor(.gray)
-                                            }
-                                        }
-                                    })
-                                    .frame(width: 160,height: 60)
-                                    .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
-                                    .cornerRadius(10)
-
-                                    // 分割线
-                                    Rectangle().frame(width: 140,height: 0.5)
-                                        .foregroundColor(.gray)
-                                    
-                                    // 每日金价
-                                    Button(action: {
-                                        isShowDailyGoldPrice = true
-                                    }, label:{
-                                        Image("gold")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 36,height:36)
-                                        Spacer().frame(width:20)
-                                        VStack {
-                                            Text("Daily gold price")
-                                                .font(.footnote)
-                                            Spacer().frame(height:5)
-                                            Text("Gold futures")
-                                                .font(.caption2)
-                                                .foregroundColor(.gray)
-                                        }
-                                    })
-                                    .frame(width: 160,height: 60)
-                                    .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
-                                    .cornerRadius(10)
-                                }
-                                .foregroundColor(color == .light ? .black : .white)
-                                
-                                Spacer().frame(width: 16)
-                                
-                                // 股票指数
-                                Button(action: {
-                                    isShowStockIndex = true
-                                }, label: {
+                            if !appStorage.MinimalistMode {
+                                // 加密货币、每日金价、股票指数
+                                HStack {
+                                    // 加密货币、每日金价
                                     VStack {
-                                        HStack {
-                                            Image("stock")
+                                        // 加密货币
+                                        Button(action: {
+                                            isShowCryptocurrency = true
+                                        }, label:{
+                                            HStack {
+                                                Image("Cryptocurrency")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 36,height:36)
+                                                Spacer().frame(width:20)
+                                                VStack {
+                                                    Text("Cryptocurrency")
+                                                        .font(.footnote)
+                                                    Spacer().frame(height:5)
+                                                    Text("BTC  ETH")
+                                                        .font(.caption2)
+                                                        .foregroundColor(.gray)
+                                                }
+                                            }
+                                        })
+                                        .frame(width: 160,height: 60)
+                                        .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
+                                        .cornerRadius(10)
+
+                                        // 分割线
+                                        Rectangle().frame(width: 140,height: 0.5)
+                                            .foregroundColor(.gray)
+                                        
+                                        // 每日金价
+                                        Button(action: {
+                                            isShowDailyGoldPrice = true
+                                        }, label:{
+                                            Image("gold")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 36,height:36)
                                             Spacer().frame(width:20)
                                             VStack {
-                                                Text("Stock index")
+                                                Text("Daily gold price")
                                                     .font(.footnote)
-                                                    .foregroundColor(color == .light ? .black : .white)
                                                 Spacer().frame(height:5)
-                                                Text("Nasdaq 100")
+                                                Text("Gold futures")
                                                     .font(.caption2)
                                                     .foregroundColor(.gray)
                                             }
-                                        }
-                                        .frame(width: 160, height: 60)
-                                        Spacer()
+                                        })
+                                        .frame(width: 160,height: 60)
+                                        .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
+                                        .cornerRadius(10)
                                     }
-                                })
-                                .frame(width: 160,height: 130)
-                                .background {
-                                    Image(color == .light ? "StockBackground" : "backgroundStockBackground")
-                                        .resizable()
-                                        .scaledToFill()
+                                    .foregroundColor(color == .light ? .black : .white)
+                                    
+                                    Spacer().frame(width: 16)
+                                    
+                                    // 股票指数
+                                    Button(action: {
+                                        isShowStockIndex = true
+                                    }, label: {
+                                        VStack {
+                                            HStack {
+                                                Image("stock")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 36,height:36)
+                                                Spacer().frame(width:20)
+                                                VStack {
+                                                    Text("Stock index")
+                                                        .font(.footnote)
+                                                        .foregroundColor(color == .light ? .black : .white)
+                                                    Spacer().frame(height:5)
+                                                    Text("Nasdaq 100")
+                                                        .font(.caption2)
+                                                        .foregroundColor(.gray)
+                                                }
+                                            }
+                                            .frame(width: 160, height: 60)
+                                            Spacer()
+                                        }
+                                    })
+                                    .frame(width: 160,height: 130)
+                                    .background {
+                                        Image(color == .light ? "StockBackground" : "backgroundStockBackground")
+                                            .resizable()
+                                            .scaledToFill()
+                                    }
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.black, lineWidth: 0.5)
+                                    )
+                                    .cornerRadius(10)
                                 }
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.black, lineWidth: 0.5)
-                                )
-                                .cornerRadius(10)
+                                .tag(1)
                             }
-                            .tag(1)
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                         .frame(width: width, height: 150)
@@ -743,18 +741,21 @@ struct HomeView: View {
                         Spacer().frame(height:10)
                         
                         // 自定义分页指示器，偏移位置
-                        HStack(spacing: 8) {
-                            ForEach(0...1, id: \.self) { index in
-                                Circle()
-                                    .fill(index == selectedIndex ? Color.gray : Color.white)
-                                    .frame(width: 8, height: 8)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.gray, lineWidth: 1)
-                                    )
+                        if !appStorage.MinimalistMode {
+                            HStack(spacing: 8) {
+                                ForEach(0...1, id: \.self) { index in
+                                    Circle()
+                                        .fill(index == selectedIndex ? Color.gray : Color.white)
+                                        .frame(width: 8, height: 8)
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.gray, lineWidth: 1)
+                                        )
 
+                                }
                             }
                         }
+                        
                         // 当前币种，收益
                         HStack {
                             // 当前货币
