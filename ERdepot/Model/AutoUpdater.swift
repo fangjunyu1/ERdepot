@@ -28,9 +28,10 @@ class AutoUpdater: ObservableObject {
         print("当前设定的更新频率为: \(appStorage.updateFrequency.rawValue)，对应间隔: \(interval) 秒")
         
         // 启动定时器
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: interval > 60 ? 60 : 1, repeats: true) { _ in
             self.fetchIfNeeded()
         }
+        
     }
     
     func stopTimer() {
