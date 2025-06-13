@@ -31,13 +31,13 @@ struct DailyGoldPriceView: View {
     // 获取最新的汇率数据
     func convertGoldPrice(_ num: Double) -> Double {
         let goldPrice = num
-        if appStorage.GoldPriceUnit == "per gram" {
+        if appStorage.GoldPriceUnit == .perGram {
             return goldPrice / 31.1035 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per kilogram" {
-            return goldPrice / 31103.5 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per ounce" {
+        } else if appStorage.GoldPriceUnit == .perKilogram {
+            return goldPrice / 31.1035 * 1000 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
+        } else if appStorage.GoldPriceUnit == .perOunce {
             return goldPrice / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
-        } else if appStorage.GoldPriceUnit == "per tola" {
+        } else if appStorage.GoldPriceUnit == .perTola {
             return goldPrice / 2.6675 / (rateDict["USD"] ?? 1) * (rateDict[appStorage.localCurrency] ?? 1)
         } else {
             return goldPrice
@@ -173,7 +173,7 @@ struct DailyGoldPriceView: View {
                     } else {
                         // 每克黄金价格
                         VStack(alignment: .leading) {
-                            Text(LocalizedStringKey(appStorage.GoldPriceUnit))
+                            Text(LocalizedStringKey(appStorage.GoldPriceUnit.rawValue))
                                 .foregroundColor(.gray)
                                 .font(.caption2)
                             Spacer().frame(height: 5)

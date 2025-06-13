@@ -49,6 +49,7 @@
 		1D7882912DA1FA9F0041AAF9 /* ProfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */; };
 		1D7882932DA20B880041AAF9 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7882922DA20B880041AAF9 /* IAPManager.swift */; };
 		1D807D592CC3495B0078DD91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D807D582CC3495B0078DD91 /* MessageUI.framework */; };
+		1D8F57D22DFB22FA002B45B0 /* AutoUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8F57D12DFB22F8002B45B0 /* AutoUpdater.swift */; };
 		1D927FB82DCC583100E96BA0 /* CryptoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D927FB72DCC583000E96BA0 /* CryptoDTO.swift */; };
 		1D927FBA2DCC586A00E96BA0 /* CryptoJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 1D927FB92DCC586A00E96BA0 /* CryptoJSON.json */; };
 		1D93E9CD2CBE57A6006E077C /* ERdepotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93E9CC2CBE57A6006E077C /* ERdepotApp.swift */; };
@@ -135,6 +136,7 @@
 		1D7882902DA1FA9F0041AAF9 /* ProfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitView.swift; sourceTree = "<group>"; };
 		1D7882922DA20B880041AAF9 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		1D807D582CC3495B0078DD91 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1D8F57D12DFB22F8002B45B0 /* AutoUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoUpdater.swift; sourceTree = "<group>"; };
 		1D927FB72DCC583000E96BA0 /* CryptoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDTO.swift; sourceTree = "<group>"; };
 		1D927FB92DCC586A00E96BA0 /* CryptoJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CryptoJSON.json; sourceTree = "<group>"; };
 		1D92F7502D05B5A7001E24F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				1D3AE1A52DB74C34006C48E0 /* ExchangeRateChartPoint.swift */,
 				1D38D4892DBA17F300614E81 /* extensionBundle.swift */,
 				1D57A0362DD182B1008628ED /* CryptoDataManager.swift */,
+				1D8F57D12DFB22F8002B45B0 /* AutoUpdater.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				1D06A0582D9A472C00A7E6A0 /* WelcomeView.swift in Sources */,
 				1DD84DD52CC74DD300C55178 /* LottieView.swift in Sources */,
 				1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */,
+				1D8F57D22DFB22FA002B45B0 /* AutoUpdater.swift in Sources */,
 				1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */,
 				1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */,
 				1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */,

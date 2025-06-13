@@ -7,9 +7,21 @@
 
 import SwiftUI
 
+enum GoldPriceUnitEnum: String, CaseIterable, Identifiable {
+    case perGram = "per gram"
+    case perKilogram = "per kilogram"
+    case perOunce = "per ounce"
+    case perTola = "per tola"
+    
+    var id: String { self.rawValue }
+}
+
+
 struct GoldPriceUnitView: View {
     @Environment(\.colorScheme) var color
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var appStorage: AppStorageManager
+    
     var body: some View {
         
         NavigationView {
@@ -20,7 +32,7 @@ struct GoldPriceUnitView: View {
                 VStack {
                     
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 10)
                     
                     // 标题
                     HStack {
@@ -32,9 +44,32 @@ struct GoldPriceUnitView: View {
                         Spacer()
                     }
                     
+                    Spacer()
+                        .frame(height: 30)
                     
-                    
-                    
+                    VStack {
+                        ForEach(GoldPriceUnitEnum.allCases) { item in
+                            Button(action: {
+                                appStorage.GoldPriceUnit = item
+                            },label: {
+                                HStack {
+                                    Text(LocalizedStringKey(item.rawValue)).foregroundColor(color == .light ? .black : .white)
+                                    Spacer()
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(color == .light ? Color(hex: "0742D2") : .white)
+                                        .opacity(item == appStorage.GoldPriceUnit ? 1: 0)
+                                }
+                                .frame(height:24)
+                            })
+                            if item != GoldPriceUnitEnum.perTola {
+                                Divider()
+                            }
+                        }
+                    }
+                    .padding(.vertical,10)
+                    .padding(.horizontal,10)
+                    .background(color == .light ? .white : Color(hex: "2f2f2f"))
+                    .cornerRadius(10)
                     
                     Spacer()
                 }

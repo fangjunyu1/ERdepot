@@ -21,9 +21,6 @@ class CryptoDataManager: ObservableObject {
             print("调用加密数据接口")
             // 调用加密数据接口
             fetchCryptoData()
-            // 更新加密数据日期
-            AppStorageManager.shared.CryptocurrencylastUpdateDate = Date()
-            print("更新日期:\(AppStorageManager.shared.CryptocurrencylastUpdateDate)")
         }
         
     }
@@ -133,7 +130,13 @@ class CryptoDataManager: ObservableObject {
                     }
                     
                     // 从字典中取出 id：
-                    let arrayIDs = Set(decoded.map {$0.id })
+                    let arrayIDs = Set(decoded.compactMap { $0.id })
+                    
+                    for coin in decoded {
+                        if coin.id == nil {
+                            print("⚠️ 发现 coin.id 为 nil：\(coin)")
+                        }
+                    }
                     
                     // 从字典中筛选出不在 Core Data 中的对象：
                     let extraObjects = existingDict.filter { !arrayIDs.contains($0.key ?? "")}
@@ -145,6 +148,11 @@ class CryptoDataManager: ObservableObject {
                         try context.save()  // 删除后保存
                     } catch {
                         print("Error deleting task: \(error.localizedDescription)")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        AppStorageManager.shared.CryptocurrencylastUpdateDate = Date()
+                        print("加密货币更新日期:\(AppStorageManager.shared.CryptocurrencylastUpdateDate)")
                     }
                     
                 } catch DecodingError.keyNotFound(let key, let context) {

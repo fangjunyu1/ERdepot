@@ -221,13 +221,17 @@ class ExchangeRate :ObservableObject {
             
             
             // 加载逻辑
-                DispatchQueue.main.async {
-                    // CSV文件没有数据，同步状态改为false，结束同步动画
-                    self.isload = false
-                    print("已经完成数据更新，调用闭包更新主视图数据")
-                    completion()
-                }
+            DispatchQueue.main.async {
+                // CSV文件没有数据，同步状态改为false，结束同步动画
+                self.isload = false
+                print("已经完成数据更新，调用闭包更新主视图数据")
+                completion()
+            }
         } catch {
+            DispatchQueue.main.async {
+                // 读取CSV文件失败，同步状态改为false，结束同步动画
+                self.isload = false
+            }
             print("读取CSV失败: \(error)")
         }
     }

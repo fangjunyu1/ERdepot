@@ -163,15 +163,7 @@ class AppStorageManager:ObservableObject {
         }
     }
     
-    // 金价单位
-    @Published var GoldPriceUnit: String = "per gram" {
-        didSet {
-            if GoldPriceUnit != oldValue {
-                UserDefaults.standard.set(GoldPriceUnit, forKey: "GoldPriceUnit")
-                // 计算本地属性，不同步iCloud
-            }
-        }
-    }
+    
     
     // Yahoo数据更新时间
     @Published var YahooLastUpdateDate: Date = Date.distantPast {
@@ -189,6 +181,28 @@ class AppStorageManager:ObservableObject {
                 UserDefaults.standard.set(MinimalistMode, forKey: "MinimalistMode")
                 // 计算本地属性，不同步iCloud
                 // syncToiCloud()
+            }
+        }
+    }
+    
+    // 更新频率
+    @Published var updateFrequency: UpdateFrequency = .everyDay {
+        didSet {
+            if updateFrequency != oldValue {
+                print("当前更新频率修改为:\(updateFrequency)")
+                UserDefaults.standard.set(updateFrequency.rawValue, forKey: "UpdateFrequency")
+                // 计算本地属性，不同步iCloud
+            }
+        }
+    }
+    
+    // 金价单位
+    @Published var GoldPriceUnit: GoldPriceUnitEnum = .perGram {
+        didSet {
+            if GoldPriceUnit != oldValue {
+                print("当前金价单位修改为:\(updateFrequency)")
+                UserDefaults.standard.set(GoldPriceUnit.rawValue, forKey: "GoldPriceUnit")
+                // 计算本地属性，不同步iCloud
             }
         }
     }
@@ -233,15 +247,20 @@ class AppStorageManager:ObservableObject {
             listOfSupportedCurrencies = ["USD","JPY","BGN","CYP","CZK","DKK","EEK","EUR","GBP","HUF","LTL","LVL","MTL","PLN","ROL","RON","SEK","SIT","SKK","CHF","ISK","NOK","HRK","RUB","TRL","TRY","AUD","BRL","CAD","CNY","HKD","IDR","ILS","INR","KRW","MXN","MYR","NZD","PHP","SGD","THB","ZAR"]
         }
         
+        
         // 加密货币更新日期
         CryptocurrencylastUpdateDate = UserDefaults.standard.object(forKey: "CryptocurrencylastUpdateDate") as? Date ?? Date.distantPast
-        
-        GoldPriceUnit = UserDefaults.standard.string(forKey: "GoldPriceUnit") ??  "per gram" // 金价单位
         
         // Yahoo 数据更新日期
         YahooLastUpdateDate = UserDefaults.standard.object(forKey: "YahooLastUpdateDate") as? Date ?? Date.distantPast
         
         MinimalistMode = UserDefaults.standard.bool(forKey: "MinimalistMode")  // 极简模式
+        
+        let raw = UserDefaults.standard.string(forKey: "UpdateFrequency")
+        updateFrequency = UpdateFrequency(rawValue: raw ?? "Every day") ?? .everyDay // 更新频率
+        
+        let goldPer = UserDefaults.standard.string(forKey: "GoldPriceUnit")
+        GoldPriceUnit = GoldPriceUnitEnum(rawValue: goldPer ?? "per gram") ?? .perGram // 金价单位
     }
     
     /// 从 iCloud 读取数据
@@ -285,11 +304,6 @@ class AppStorageManager:ObservableObject {
             store.set(localCurrency, forKey: "localCurrency")
         }
         
-        if let storedGoldPriceUnit = store.string(forKey: "GoldPriceUnit") {
-            GoldPriceUnit = storedGoldPriceUnit
-        } else {
-            store.set(GoldPriceUnit, forKey: "GoldPriceUnit")
-        }
         
         print("完成 loadFromiCloud 方法的读取")
         store.synchronize() // 强制触发数据同步

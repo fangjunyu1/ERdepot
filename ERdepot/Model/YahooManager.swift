@@ -25,28 +25,6 @@ class YahooManager: ObservableObject {
             print("调用 Yahoo 数据接口")
             fetchYahooData()
         }
-        
-        NotificationCenter.default.addObserver(
-            forName: .NSManagedObjectContextDidSave,
-            object: nil,
-            queue: .main
-        ) {[weak self] notification in
-            // 只对 backgroundContext 发出的保存通知进行合并
-            print("进入 NotificationCenter 监听方法")
-            guard let context = notification.object as? NSManagedObjectContext,
-                  context != self?.viewContext else {
-                print("当前上下文不是 NSManagedObjectContext 类型或者属于前台上下文，退出监听")
-                return
-            }
-            print("尝试将后台上下文合并到前台上下文")
-            self?.viewContext.perform {
-                self?.viewContext.mergeChanges(fromContextDidSave: notification)
-            }
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     // Yahoo 数据接口，获取最近1个月的数据，按日分隔。
@@ -97,6 +75,7 @@ class YahooManager: ObservableObject {
                     if let htmlString = String(data: data, encoding: .utf8),
                        htmlString.contains("<html") {
                         print("返回的是 HTML 页面，非 JSON：\n\(htmlString)")
+                        // print("返回的是 HTML 页面，非 JSON：\n\(htmlString)")
                         return
                     } else {
                         print("成功获取响应 Yahoo 的数据")

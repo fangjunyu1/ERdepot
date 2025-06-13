@@ -22577,6 +22577,18 @@
         }
       }
     },
+    "Please note: The data of cryptocurrencies, daily gold prices and stock indices support setting the update frequency; while the foreign exchange rate data comes from the European Central Bank, which is non-real-time information and the update frequency cannot be adjusted." : {
+      "comment" : "1.0.4.8:请注意：加密货币、每日金价与股票指数的数据支持设定更新频率；而外汇汇率数据来源于欧洲中央银行，属于非实时信息，更新频率无法调整。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请注意：加密货币、每日金价与股票指数的数据支持设定更新频率；而外汇汇率数据来源于欧洲中央银行，属于非实时信息，更新频率无法调整。"
+          }
+        }
+      }
+    },
     "PLN" : {
       "comment" : "波兰兹罗提",
       "extractionState" : "manual",
@@ -26473,6 +26485,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "深证成指"
+          }
+        }
+      }
+    },
+    "Since this application uses a free and open interface, a low update frequency may be judged as abnormal behavior, resulting in limited interface access. It is recommended to set the update frequency to once a minute or higher to maintain a stable connection." : {
+      "comment" : "1.0.4.8:由于本应用使用的是免费开放接口，更新频率过低可能会被判定为异常行为，导致接口访问受限。建议将更新频率设置为每分钟一次或更高，以保持连接稳定。",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由于本应用使用的是免费开放接口，更新频率过低可能会被判定为异常行为，导致接口访问受限。建议将更新频率设置为每分钟一次或更高，以保持连接稳定。"
           }
         }
       }
