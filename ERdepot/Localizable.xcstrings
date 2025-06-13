@@ -8513,6 +8513,18 @@
         }
       }
     },
+    "DJI" : {
+      "comment" : "1.0.4.8:道琼斯公司",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "道琼斯公司"
+          }
+        }
+      }
+    },
     "DKK" : {
       "comment" : "丹麦克朗",
       "extractionState" : "manual",
@@ -12560,6 +12572,18 @@
         }
       }
     },
+    "FTSE Index" : {
+      "comment" : "1.0.4.8:富时集团",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "富时集团"
+          }
+        }
+      }
+    },
     "GBP" : {
       "comment" : "英镑",
       "extractionState" : "manual",
@@ -14383,6 +14407,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "港元"
+          }
+        }
+      }
+    },
+    "HKSE" : {
+      "comment" : "1.0.4.8:香港联合交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "香港联合交易所"
           }
         }
       }
@@ -20681,6 +20717,18 @@
         }
       }
     },
+    "Nasdaq GIDS" : {
+      "comment" : "1.0.4.8：Nasdaq 交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nasdaq 交易所"
+          }
+        }
+      }
+    },
     "Nikkei 225" : {
       "comment" : "1.0.4.8:日经 225",
       "extractionState" : "manual",
@@ -21815,6 +21863,18 @@
         }
       }
     },
+    "Osaka" : {
+      "comment" : "1.0.4.8:大阪交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大阪交易所"
+          }
+        }
+      }
+    },
     "Others" : {
       "comment" : "1.0.4:其他",
       "extractionState" : "manual",
@@ -22033,6 +22093,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "其他"
+          }
+        }
+      }
+    },
+    "Paris" : {
+      "comment" : "1.0.4.8:巴黎证券交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "巴黎证券交易所"
           }
         }
       }
@@ -26465,6 +26537,18 @@
         }
       }
     },
+    "Shanghai" : {
+      "comment" : "1.0.4.8:上海证券交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上海证券交易所"
+          }
+        }
+      }
+    },
     "Shanghai Composite Index" : {
       "comment" : "1.0.4.8:上证指数",
       "extractionState" : "manual",
@@ -26473,6 +26557,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "上证指数"
+          }
+        }
+      }
+    },
+    "Shenzhen" : {
+      "comment" : "1.0.4.8:深圳证券交易所",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深圳证券交易所"
           }
         }
       }
@@ -27211,6 +27307,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "斯洛伐克語"
+          }
+        }
+      }
+    },
+    "SNP" : {
+      "comment" : "1.0.4.8:Standard & Poor’s",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard & Poor’s"
           }
         }
       }
@@ -34015,6 +34123,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "歡迎"
+          }
+        }
+      }
+    },
+    "XETRA" : {
+      "comment" : "1.0.4.8:法兰克福电子交易平台",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法兰克福电子交易平台"
           }
         }
       }
