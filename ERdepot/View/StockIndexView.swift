@@ -16,25 +16,25 @@ struct StockIndexView: View {
     @Binding var bindingSheet: Bool
     
     // 当前股市指数
-    @State private var stockMarket:String = "GSPC" {
+    @State private var stockMarket:stockMarketEnum = .GSPC {
         didSet {
             print("修改股票指数列表，当前股票指数列表为：\(oldValue)")
             fetchData()
         }
     }
     // 股票指数列表
-    var stockMarketList:[String:String] = [
-        "GSPC":"S&P 500",
-        "NDX":"Nasdaq 100",
-        "DJI":"Dow Jones Industrial Average",
-        "N225":"Nikkei 225",
-        "HSI":"Hang Seng Index",
-        "FTSE":"FTSE 100",
-        "GDAXI":"DAX",
-        "FCHI":"CAC 40",
-        "SS":"Shanghai Composite Index",
-        "SZ":"Shenzhen Component Index"
-    ]
+    //    var stockMarketList:[String:String] = [
+    //        "GSPC":"S&P 500",
+    //        "NDX":"Nasdaq 100",
+    //        "DJI":"Dow Jones Industrial Average",
+    //        "N225":"Nikkei 225",
+    //        "HSI":"Hang Seng Index",
+    //        "FTSE":"FTSE 100",
+    //        "GDAXI":"DAX",
+    //        "FCHI":"CAC 40",
+    //        "SS":"Shanghai Composite Index",
+    //        "SZ":"Shenzhen Component Index"
+    //    ]
     
     @State private var stockMarkets: [Yahoo] = []
     
@@ -56,7 +56,7 @@ struct StockIndexView: View {
     
     func fetchData() {
         let request: NSFetchRequest<Yahoo> = Yahoo.fetchRequest()
-        request.predicate = NSPredicate(format: "symbol == %@", stockMarket)
+        request.predicate = NSPredicate(format: "symbol == %@", stockMarket.caseName)
         request.sortDescriptors = [NSSortDescriptor(key: "updateTime", ascending: false)]
         do {
             stockMarkets = try viewContext.fetch(request)
@@ -104,13 +104,14 @@ struct StockIndexView: View {
                                 .fontWeight(.bold)
                             Spacer().frame(height: 14)
                             Menu {
-                                ForEach(stockMarketList.sorted(by: { $0.value < $1.value }).filter{ $0.key != stockMarket}, id: \.key) { key,value in
-                                    Button(LocalizedStringKey(value)) {
-                                        stockMarket = key
+                                ForEach(stockMarketEnum.allCases.filter{ $0 != stockMarket}) { stock in
+                                    Button(LocalizedStringKey(stock.rawValue)) {
+                                        stockMarket = stock
                                     }
                                 }
+                                
                             } label: {
-                                Text(LocalizedStringKey(stockMarketList[stockMarket] ?? ""))
+                                Text(LocalizedStringKey(stockMarket.rawValue))
                                     .font(.subheadline)
                                     .foregroundColor(.white)
                                     .padding(.vertical,5)
@@ -305,6 +306,9 @@ struct StockIndexView: View {
                 }
                 .frame(width: width * 0.85)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onAppear {
+                    stockMarket = appStorage.stockMarket
+                }
             }
         }
     }

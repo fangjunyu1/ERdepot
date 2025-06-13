@@ -207,6 +207,17 @@ class AppStorageManager:ObservableObject {
         }
     }
     
+    // 股票指数
+    @Published var stockMarket: stockMarketEnum = .GSPC {
+        didSet {
+            if stockMarket != oldValue {
+                print("当前股票指数修改为:\(stockMarket)")
+                UserDefaults.standard.set(stockMarket.rawValue, forKey: "stockMarket")
+                // 计算本地属性，不同步iCloud
+            }
+        }
+    }
+    
     // 从UserDefaults加载数据
     final private func loadUserDefault() {
         
@@ -261,6 +272,9 @@ class AppStorageManager:ObservableObject {
         
         let goldPer = UserDefaults.standard.string(forKey: "GoldPriceUnit")
         GoldPriceUnit = GoldPriceUnitEnum(rawValue: goldPer ?? "per gram") ?? .perGram // 金价单位
+        
+        let stock = UserDefaults.standard.string(forKey: "stockMarket")
+        stockMarket = stockMarketEnum(rawValue: stock ?? "S&P 500") ?? .GSPC // 金价单位
     }
     
     /// 从 iCloud 读取数据

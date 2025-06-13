@@ -1,23 +1,33 @@
 //
-//  GoldPriceUnitView.swift
+//  StockIndexSelection.swift
 //  ERdepot
 //
-//  Created by 方君宇 on 2025/6/11.
+//  Created by 方君宇 on 2025/6/13.
 //
 
 import SwiftUI
 
-enum GoldPriceUnitEnum: String, CaseIterable, Identifiable {
-    case perGram = "per gram"
-    case perKilogram = "per kilogram"
-    case perOunce = "per ounce"
-    case perTola = "per tola"
+enum stockMarketEnum: String, CaseIterable, Identifiable {
+    case GSPC = "S&P 500"
+    case NDX = "Nasdaq 100"
+    case DJI = "Dow Jones Industrial Average"
+    case N225 = "Nikkei 225"
+    case HSI = "Hang Seng Index"
+    case FTSE = "FTSE 100"
+    case GDAXI = "DAX"
+    case FCHI = "CAC 40"
+    case SS = "Shanghai Composite Index"
+    case SZ = "Shenzhen Component Index"
     
     var id: String { self.rawValue }
+    
+    var caseName: String {
+        return String(describing: self)
+    }
 }
 
 
-struct GoldPriceUnitView: View {
+struct StockIndexSelectionView: View {
     @Environment(\.colorScheme) var color
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var appStorage: AppStorageManager
@@ -37,7 +47,7 @@ struct GoldPriceUnitView: View {
                     // 标题
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Gold price unit")
+                            Text("Stock index")
                                 .font(.title)
                                 .fontWeight(.bold)
                         }
@@ -48,20 +58,20 @@ struct GoldPriceUnitView: View {
                         .frame(height: 30)
                     
                     VStack {
-                        ForEach(GoldPriceUnitEnum.allCases) { item in
+                        ForEach(stockMarketEnum.allCases) { item in
                             Button(action: {
-                                appStorage.GoldPriceUnit = item
+                                appStorage.stockMarket = item
                             },label: {
                                 HStack {
                                     Text(LocalizedStringKey(item.rawValue)).foregroundColor(color == .light ? .black : .white)
                                     Spacer()
                                     Image(systemName: "checkmark")
                                         .foregroundColor(color == .light ? Color(hex: "0742D2") : .white)
-                                        .opacity(item == appStorage.GoldPriceUnit ? 1: 0)
+                                        .opacity(item == appStorage.stockMarket ? 1: 0)
                                 }
                                 .frame(height:24)
                             })
-                            if item != GoldPriceUnitEnum.perTola {
+                            if item != stockMarketEnum.SZ {
                                 Divider()
                             }
                         }
@@ -83,8 +93,9 @@ struct GoldPriceUnitView: View {
 }
 
 #Preview {
-    GoldPriceUnitView()
+    StockIndexSelectionView()
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
     //        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
 }
+

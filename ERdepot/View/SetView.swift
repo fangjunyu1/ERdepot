@@ -316,6 +316,33 @@ struct SetView: View {
                                         .foregroundColor(.gray)
                                 }
                             })
+                            Divider()
+                                .padding(.leading,50)
+                            
+                            // 股票指数
+                            NavigationLink(destination: {
+                                StockIndexSelectionView()
+                            }, label: {
+                                HStack {
+                                    ZStack {
+                                        Rectangle()
+                                            .foregroundColor(Color(hex: "8B23E9"))
+                                            .frame(width: 35, height: 35)
+                                            .cornerRadius(10)
+                                        Image(systemName: "chart.line.uptrend.xyaxis")
+                                            .foregroundColor(.white)
+                                    }
+                                    Spacer().frame(width: 14)
+                                    Text("Stock index")
+                                        .fontWeight(.medium)
+                                        .foregroundColor(color == .light ? .black : .white)
+                                    Spacer()
+                                    Text(LocalizedStringKey(appStorage.stockMarket.rawValue))
+                                        .foregroundColor(.gray)
+                                    Image(systemName:"chevron.right")
+                                        .foregroundColor(.gray)
+                                }
+                            })
                         }
                         .padding(.vertical,10)
                         .padding(.horizontal,14)

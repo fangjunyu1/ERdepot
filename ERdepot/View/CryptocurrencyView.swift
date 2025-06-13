@@ -157,7 +157,7 @@ struct CryptocurrencyView: View {
                                 let currentPrice = cryptoCurrency.currentPrice * (rateDict[appStorage.localCurrency] ?? 0)
                                 let priceChangePercentage24h = cryptoCurrency.priceChangePercentage24h
                                 // 列表
-                                LazyHStack {
+                                HStack {
                                     Text("\(marketCapRank)")
                                     Spacer().frame(width: 20)
                                     

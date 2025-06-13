@@ -29,7 +29,7 @@ struct ContentView: View {
 //        UserDefaults.standard.removePersistentDomain(forName: bundleID)
 //    }
     return ContentView()
-        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+        // .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)
@@ -41,7 +41,7 @@ struct ContentView: View {
         UserDefaults.standard.removePersistentDomain(forName: bundleID)
     }
     return ContentView()
-        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+        // .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)

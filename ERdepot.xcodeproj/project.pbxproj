@@ -13,6 +13,7 @@
 		1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */; };
 		1D06A05D2D9A50C700A7E6A0 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */; };
 		1D06A05F2D9A50DB00A7E6A0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */; };
+		1D0A4FED2DFBC6220058BCD5 /* StockIndexSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A4FEC2DFBC61B0058BCD5 /* StockIndexSelection.swift */; };
 		1D0FA6DB2D22513A00ABF5F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D0FA6D92D22513A00ABF5F6 /* InfoPlist.strings */; };
 		1D16EDA72DB618DB001B6A12 /* ExchangeRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D16EDA62DB618DB001B6A12 /* ExchangeRateChart.swift */; };
 		1D196C282DF7AC7600614D3A /* SingleStockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D196C272DF7AC7500614D3A /* SingleStockView.swift */; };
@@ -95,6 +96,7 @@
 		1D06A05A2D9A47CA00A7E6A0 /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		1D06A05C2D9A50C700A7E6A0 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		1D06A05E2D9A50DB00A7E6A0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1D0A4FEC2DFBC61B0058BCD5 /* StockIndexSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockIndexSelection.swift; sourceTree = "<group>"; };
 		1D0FA6DA2D22513A00ABF5F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DC2D22517500ABF5F6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D0FA6DD2D22517600ABF5F6 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				1D5302192DF9BF9D000C1FA8 /* DataSourceView.swift */,
 				1D53021B2DF9C324000C1FA8 /* UpdateFrequencyView.swift */,
 				1D53021D2DF9C334000C1FA8 /* GoldPriceUnitView.swift */,
+				1D0A4FEC2DFBC61B0058BCD5 /* StockIndexSelection.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				1D3C57E92DE32F8300E87673 /* YahooPoint+CoreDataProperties.swift in Sources */,
 				1D53021C2DF9C32A000C1FA8 /* UpdateFrequencyView.swift in Sources */,
 				1D57A0372DD182B5008628ED /* CryptoDataManager.swift in Sources */,
+				1D0A4FED2DFBC6220058BCD5 /* StockIndexSelection.swift in Sources */,
 				1D2097812DAAAAA400307A3D /* CoreDataPersistenceController.swift in Sources */,
 				1D3AE1A62DB74C34006C48E0 /* ExchangeRateChartPoint.swift in Sources */,
 			);
