@@ -711,7 +711,7 @@ struct HomeView: View {
                                                         .font(.footnote)
                                                         .foregroundColor(color == .light ? .black : .white)
                                                     Spacer().frame(height:5)
-                                                    Text("Nasdaq 100")
+                                                    Text(LocalizedStringKey(appStorage.stockMarket.rawValue))
                                                         .font(.caption2)
                                                         .foregroundColor(.gray)
                                                 }
