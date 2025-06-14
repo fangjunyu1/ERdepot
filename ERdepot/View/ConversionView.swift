@@ -243,7 +243,7 @@ struct ConversionView: View {
                             .cornerRadius(5)
                             .scaleEffect(scale)
                         }
-                        .frame(width: width * 0.85,height: 70)
+                        .frame(width: width * 0.9,height: 70)
                         
                         Spacer().frame(height: 20)
                         
@@ -292,7 +292,7 @@ struct ConversionView: View {
                     }
                     Spacer().frame(height: 200)
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .onAppear {

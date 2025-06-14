@@ -59,6 +59,8 @@ struct ChangeCurrencyView: View {
                         Text("Change Currency")
                             .font(.title)
                             .fontWeight(.bold)
+                            .lineLimit(1) // 限制为单行
+                            .minimumScaleFactor(0.5) // 最小缩放到 30%
                         Spacer().frame(height: 10)
                         Text("Change the current currency.")
                             .foregroundColor(.gray)

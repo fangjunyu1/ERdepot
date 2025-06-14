@@ -659,6 +659,8 @@ struct HomeView: View {
                                                         .font(.caption2)
                                                         .foregroundColor(.gray)
                                                 }
+                                                .lineLimit(2) // 限制为单行
+                                                .minimumScaleFactor(0.5) // 最小缩放到 30%
                                             }
                                         })
                                         .frame(width: 160,height: 60)
@@ -686,6 +688,8 @@ struct HomeView: View {
                                                     .font(.caption2)
                                                     .foregroundColor(.gray)
                                             }
+                                            .lineLimit(2) // 限制为单行
+                                            .minimumScaleFactor(0.5) // 最小缩放到 30%
                                         })
                                         .frame(width: 160,height: 60)
                                         .background(color == .light ? Color(hex: "F8F8F8") : Color(hex: "333333"))
@@ -715,6 +719,8 @@ struct HomeView: View {
                                                         .font(.caption2)
                                                         .foregroundColor(.gray)
                                                 }
+                                                .lineLimit(2) // 限制为单行
+                                                .minimumScaleFactor(0.5) // 最小缩放到 30%
                                             }
                                             .frame(width: 160, height: 60)
                                             Spacer()
@@ -960,7 +966,7 @@ struct ContentView_Previews: PreviewProvider {
             HomeView()
                 .preferredColorScheme(.dark)
         }
-//        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
         .environmentObject(AppStorageManager.shared)
         .environmentObject(ExchangeRate.shared)
         .environmentObject(IAPManager.shared)

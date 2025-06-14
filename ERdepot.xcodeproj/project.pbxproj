@@ -16,7 +16,6 @@
 		1D0A4FED2DFBC6220058BCD5 /* StockIndexSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A4FEC2DFBC61B0058BCD5 /* StockIndexSelection.swift */; };
 		1D0FA6DB2D22513A00ABF5F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D0FA6D92D22513A00ABF5F6 /* InfoPlist.strings */; };
 		1D16EDA72DB618DB001B6A12 /* ExchangeRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D16EDA62DB618DB001B6A12 /* ExchangeRateChart.swift */; };
-		1D196C282DF7AC7600614D3A /* SingleStockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D196C272DF7AC7500614D3A /* SingleStockView.swift */; };
 		1D1AE4912DAE185F00642709 /* currencySymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1AE4902DAE185F00642709 /* currencySymbol.swift */; };
 		1D1BABA72CBF45C500FDA031 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1D1BABA62CBF45C500FDA031 /* Localizable.xcstrings */; };
 		1D1BABEC2CBF5EB000FDA031 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1BABEB2CBF5EB000FDA031 /* Color.swift */; };
@@ -104,7 +103,6 @@
 		1D0FA6DF2D22517800ABF5F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D0FA6E12D22517D00ABF5F6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1D16EDA62DB618DB001B6A12 /* ExchangeRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateChart.swift; sourceTree = "<group>"; };
-		1D196C272DF7AC7500614D3A /* SingleStockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStockView.swift; sourceTree = "<group>"; };
 		1D1AE4902DAE185F00642709 /* currencySymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = currencySymbol.swift; sourceTree = "<group>"; };
 		1D1BABA62CBF45C500FDA031 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1D1BABEB2CBF5EB000FDA031 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 				1DF60D402DD057D100CF5456 /* CryptocurrencyView.swift */,
 				1DF60D422DD058B400CF5456 /* DailyGoldPriceView.swift */,
 				1DF60D442DD0592800CF5456 /* StockIndexView.swift */,
-				1D196C272DF7AC7500614D3A /* SingleStockView.swift */,
 				1D5302192DF9BF9D000C1FA8 /* DataSourceView.swift */,
 				1D53021B2DF9C324000C1FA8 /* UpdateFrequencyView.swift */,
 				1D53021D2DF9C334000C1FA8 /* GoldPriceUnitView.swift */,
@@ -601,7 +598,6 @@
 				1D06A0532D9A2F5B00A7E6A0 /* BackgroundContext.swift in Sources */,
 				1D4535FA2DA2B4FD001BFD9A /* ExchangeRate.swift in Sources */,
 				1D7882892DA1F0DD0041AAF9 /* ConversionView.swift in Sources */,
-				1D196C282DF7AC7600614D3A /* SingleStockView.swift in Sources */,
 				1D06A05B2D9A47CA00A7E6A0 /* AppStorageManager.swift in Sources */,
 				1D927FB82DCC583100E96BA0 /* CryptoDTO.swift in Sources */,
 				1D78828D2DA1F26A0041AAF9 /* ChangeCurrencyView.swift in Sources */,

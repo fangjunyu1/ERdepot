@@ -354,7 +354,7 @@ struct DailyGoldPriceView: View {
                     Spacer()
                         .frame(height: 20)
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

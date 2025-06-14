@@ -312,7 +312,7 @@ struct StatisticsView: View {
                         }
                         .padding(.horizontal,20)
                     }
-                    .frame(width: width * 0.85)
+                    .frame(width: width * 0.9)
                     .background(color == .light ? Color(hex: "ECECEC") : Color(hex: "2f2f2f"))
                     .transition(.move(edge: .top).combined(with: .opacity))
                     .cornerRadius(10)
@@ -323,7 +323,7 @@ struct StatisticsView: View {
                     // 历史时间和历史高点
 //                    VStack(spacing: 0) g(10)
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

@@ -364,7 +364,7 @@ struct ProfitView: View {
                             .multilineTextAlignment(.center)
                     }
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }

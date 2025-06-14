@@ -83,7 +83,7 @@ struct StockIndexSelectionView: View {
                     
                     Spacer()
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .background(color == .light ? Color(hex: "F3F3F3") : .black)

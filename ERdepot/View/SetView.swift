@@ -71,6 +71,8 @@ struct SetView: View {
                                 Text("Settings")
                                     .font(.title)
                                     .fontWeight(.bold)
+                                    .lineLimit(1) // 限制为单行
+                                    .minimumScaleFactor(0.5) // 最小缩放到 50%
                                 Spacer().frame(height: 10)
                                 Text("Manage various configurations")
                                     .foregroundColor(.gray)
@@ -192,6 +194,8 @@ struct SetView: View {
                                     Text("Data sources")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Image(systemName:"chevron.right")
                                         .foregroundColor(.gray)
@@ -216,6 +220,8 @@ struct SetView: View {
                                     Text("Open Source")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text("GitHub")
                                         .foregroundColor(.gray)
@@ -252,6 +258,8 @@ struct SetView: View {
                                 Text("Minimalist mode")
                                     .fontWeight(.medium)
                                     .foregroundColor(color == .light ? .black : .white)
+                                    .lineLimit(2) // 限制为单行
+                                    .minimumScaleFactor(0.5) // 最小缩放到 50%
                                 Spacer()
                                 Toggle("", isOn: Binding(get: {
                                     appStorage.MinimalistMode
@@ -281,9 +289,13 @@ struct SetView: View {
                                     Text("Update frequency")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text(LocalizedStringKey(appStorage.updateFrequency.rawValue))
                                         .foregroundColor(.gray)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Image(systemName:"chevron.right")
                                         .foregroundColor(.gray)
                                 }
@@ -309,9 +321,13 @@ struct SetView: View {
                                     Text("Gold price unit")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text(LocalizedStringKey(appStorage.GoldPriceUnit.rawValue))
                                         .foregroundColor(.gray)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Image(systemName:"chevron.right")
                                         .foregroundColor(.gray)
                                 }
@@ -336,9 +352,13 @@ struct SetView: View {
                                     Text("Stock index")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text(LocalizedStringKey(appStorage.stockMarket.rawValue))
                                         .foregroundColor(.gray)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Image(systemName:"chevron.right")
                                         .foregroundColor(.gray)
                                 }
@@ -370,6 +390,8 @@ struct SetView: View {
                                     Text("Issue feedback")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text("E-mail")
                                         .foregroundColor(.gray)
@@ -396,6 +418,8 @@ struct SetView: View {
                                     Text("Terms of use")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text("Webpage")
                                         .foregroundColor(.gray)
@@ -422,6 +446,8 @@ struct SetView: View {
                                     Text("Privacy Policy")
                                         .fontWeight(.medium)
                                         .foregroundColor(color == .light ? .black : .white)
+                                        .lineLimit(2) // 限制为单行
+                                        .minimumScaleFactor(0.5) // 最小缩放到 50%
                                     Spacer()
                                     Text("Webpage")
                                         .foregroundColor(.gray)
@@ -445,7 +471,7 @@ struct SetView: View {
                         .font(.caption)
                         Spacer()
                     }
-                    .frame(width: width * 0.85)
+                    .frame(width: width * 0.9)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
@@ -491,12 +517,12 @@ struct SetView: View {
     SetView(isShowSet: .constant(true))
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
-    //        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+            .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
 }
 #Preview {
     SetView(isShowSet: .constant(true))
         .environmentObject(IAPManager.shared)
         .environmentObject(AppStorageManager.shared)
         .preferredColorScheme(.dark)
-    //        .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
+            .environment(\.locale, .init(identifier: "de")) // 设置为阿拉伯语
 }

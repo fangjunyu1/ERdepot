@@ -304,7 +304,7 @@ struct StockIndexView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .onAppear(perform: fetchData)
                 }
-                .frame(width: width * 0.85)
+                .frame(width: width * 0.9)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onAppear {
                     stockMarket = appStorage.stockMarket
