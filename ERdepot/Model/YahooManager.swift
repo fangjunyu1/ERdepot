@@ -74,7 +74,7 @@ class YahooManager: ObservableObject {
                     print("进入到URLSession方法的data响应数据，所在线程：\(Thread.current)")
                     if let htmlString = String(data: data, encoding: .utf8),
                        htmlString.contains("<html") {
-                        print("返回的是 HTML 页面，非 JSON：\n\(htmlString)")
+                        print("返回的是 HTML 页面，非 JSON。")
                         // print("返回的是 HTML 页面，非 JSON：\n\(htmlString)")
                         return
                     } else {

@@ -861,6 +861,7 @@ struct HomeView: View {
                                 .contentShape(Rectangle())
                             })
                         }
+
                         Spacer()
                     }
                     .frame(width: width)

@@ -79,7 +79,7 @@ struct UpdateFrequencyView: View {
                     
                     Spacer().frame(height:30)
                     
-                    Text("Since this application uses a free and open interface, a low update frequency may be judged as abnormal behavior, resulting in limited interface access. It is recommended to set the update frequency to once a minute or higher to maintain a stable connection.")
+                    Text("Since this application uses a free and open interface, a high update frequency may be considered abnormal behavior, resulting in limited interface access. It is recommended to set the update frequency to once a minute or less to maintain a stable connection.")
                         .font(.caption2)
                         .foregroundColor(.gray)
                     
